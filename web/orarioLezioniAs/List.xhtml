@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrarioLezioniAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOrarioLezioniAsEmpty}" rendered="#{orarioLezioniAsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{orarioLezioniAsController.items.rowCount > 0}">
+                    <h:outputText value="#{orarioLezioniAsController.pagination.pageFirstItem + 1}..#{orarioLezioniAsController.pagination.pageLastItem + 1}/#{orarioLezioniAsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{orarioLezioniAsController.previous}" value="#{bundle.Previous} #{orarioLezioniAsController.pagination.pageSize}" rendered="#{orarioLezioniAsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{orarioLezioniAsController.next}" value="#{bundle.Next} #{orarioLezioniAsController.pagination.pageSize}" rendered="#{orarioLezioniAsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{orarioLezioniAsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idOrarioLezioni}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idOrarioLezioni}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_materia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.materia}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_giorno}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.giorno}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_oraInizio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oraInizio}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_oraFine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oraFine}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_nomeAula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeAula}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_nomeClasse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeClasse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idAnnoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnnoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idAula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAula}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idClasse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idClasse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idMateria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMateria}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrarioLezioniAsTitle_idScansione}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idScansione}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{orarioLezioniAsController.prepareView}" value="#{bundle.ListOrarioLezioniAsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orarioLezioniAsController.prepareEdit}" value="#{bundle.ListOrarioLezioniAsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orarioLezioniAsController.destroy}" value="#{bundle.ListOrarioLezioniAsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{orarioLezioniAsController.prepareCreate}" value="#{bundle.ListOrarioLezioniAsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOrarioLezioniAsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

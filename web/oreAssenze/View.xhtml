@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOreAssenzeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_oreAssenzePK_numOra}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.oreAssenzePK.numOra}" title="#{bundle.ViewOreAssenzeTitle_oreAssenzePK_numOra}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_assenza}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.assenza}" title="#{bundle.ViewOreAssenzeTitle_assenza}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_giustificaAssenza}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.giustificaAssenza}" title="#{bundle.ViewOreAssenzeTitle_giustificaAssenza}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_ritardo}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.ritardo}" title="#{bundle.ViewOreAssenzeTitle_ritardo}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_giustificaRitardo}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.giustificaRitardo}" title="#{bundle.ViewOreAssenzeTitle_giustificaRitardo}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_motivoGiustifica}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.motivoGiustifica}" title="#{bundle.ViewOreAssenzeTitle_motivoGiustifica}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_lezioni}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.lezioni}" title="#{bundle.ViewOreAssenzeTitle_lezioni}"/>
+                    <h:outputText value="#{bundle.ViewOreAssenzeLabel_studenti}"/>
+                    <h:outputText value="#{oreAssenzeController.selected.studenti}" title="#{bundle.ViewOreAssenzeTitle_studenti}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{oreAssenzeController.destroyAndView}" value="#{bundle.ViewOreAssenzeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOreAssenzeEditLink}"/>
+                <br />
+                <h:commandLink action="#{oreAssenzeController.prepareCreate}" value="#{bundle.ViewOreAssenzeCreateLink}" />
+                <br />
+                <h:commandLink action="#{oreAssenzeController.prepareList}" value="#{bundle.ViewOreAssenzeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOreAssenzeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

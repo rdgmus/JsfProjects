@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateClassiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputText id="nomeClasse" value="#{classiController.selected.nomeClasse}" title="#{bundle.CreateClassiTitle_nomeClasse}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_nomeClasse}"/>
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_idClasse}" for="idClasse" />
+                    <h:inputText id="idClasse" value="#{classiController.selected.idClasse}" title="#{bundle.CreateClassiTitle_idClasse}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_idClasse}"/>
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{classiController.selected.annoScolastico}" title="#{bundle.CreateClassiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_specializzazione}" for="specializzazione" />
+                    <h:inputText id="specializzazione" value="#{classiController.selected.specializzazione}" title="#{bundle.CreateClassiTitle_specializzazione}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_specializzazione}"/>
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{classiController.selected.idAnnoScolastico}" title="#{bundle.CreateClassiTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateClassiLabel_idScuola}" for="idScuola" />
+                    <h:selectOneMenu id="idScuola" value="#{classiController.selected.idScuola}" title="#{bundle.CreateClassiTitle_idScuola}" required="true" requiredMessage="#{bundle.CreateClassiRequiredMessage_idScuola}">
+                        <f:selectItems value="#{scuoleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{classiController.create}" value="#{bundle.CreateClassiSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{classiController.prepareList}" value="#{bundle.CreateClassiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateClassiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUtentiScuolaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUtentiScuolaLabel_idUtente}" for="idUtente" />
+                    <h:inputText id="idUtente" value="#{utentiScuolaController.selected.idUtente}" title="#{bundle.CreateUtentiScuolaTitle_idUtente}" required="true" requiredMessage="#{bundle.CreateUtentiScuolaRequiredMessage_idUtente}"/>
+                    <h:outputLabel value="#{bundle.CreateUtentiScuolaLabel_cognome}" for="cognome" />
+                    <h:inputTextarea rows="4" cols="30" id="cognome" value="#{utentiScuolaController.selected.cognome}" title="#{bundle.CreateUtentiScuolaTitle_cognome}" />
+                    <h:outputLabel value="#{bundle.CreateUtentiScuolaLabel_nome}" for="nome" />
+                    <h:inputTextarea rows="4" cols="30" id="nome" value="#{utentiScuolaController.selected.nome}" title="#{bundle.CreateUtentiScuolaTitle_nome}" />
+                    <h:outputLabel value="#{bundle.CreateUtentiScuolaLabel_email}" for="email" />
+                    <h:inputTextarea rows="4" cols="30" id="email" value="#{utentiScuolaController.selected.email}" title="#{bundle.CreateUtentiScuolaTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateUtentiScuolaLabel_password}" for="password" />
+                    <h:inputTextarea rows="4" cols="30" id="password" value="#{utentiScuolaController.selected.password}" title="#{bundle.CreateUtentiScuolaTitle_password}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{utentiScuolaController.create}" value="#{bundle.CreateUtentiScuolaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{utentiScuolaController.prepareList}" value="#{bundle.CreateUtentiScuolaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUtentiScuolaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

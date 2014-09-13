@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateOrarioInsegnanteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateOrarioInsegnanteLabel_idOrario}" for="idOrario" />
+                    <h:inputText id="idOrario" value="#{orarioInsegnanteController.selected.idOrario}" title="#{bundle.CreateOrarioInsegnanteTitle_idOrario}" required="true" requiredMessage="#{bundle.CreateOrarioInsegnanteRequiredMessage_idOrario}"/>
+                    <h:outputLabel value="#{bundle.CreateOrarioInsegnanteLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{orarioInsegnanteController.selected.idAnnoScolastico}" title="#{bundle.CreateOrarioInsegnanteTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.CreateOrarioInsegnanteRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateOrarioInsegnanteLabel_idInsegnante}" for="idInsegnante" />
+                    <h:selectOneMenu id="idInsegnante" value="#{orarioInsegnanteController.selected.idInsegnante}" title="#{bundle.CreateOrarioInsegnanteTitle_idInsegnante}" required="true" requiredMessage="#{bundle.CreateOrarioInsegnanteRequiredMessage_idInsegnante}">
+                        <f:selectItems value="#{insegnantiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{orarioInsegnanteController.create}" value="#{bundle.CreateOrarioInsegnanteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{orarioInsegnanteController.prepareList}" value="#{bundle.CreateOrarioInsegnanteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateOrarioInsegnanteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewMaterieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewMaterieLabel_idMateria}"/>
+                    <h:outputText value="#{materieController.selected.idMateria}" title="#{bundle.ViewMaterieTitle_idMateria}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_materia}"/>
+                    <h:outputText value="#{materieController.selected.materia}" title="#{bundle.ViewMaterieTitle_materia}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_annoScolastico}"/>
+                    <h:outputText value="#{materieController.selected.annoScolastico}" title="#{bundle.ViewMaterieTitle_annoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_giudizio}"/>
+                    <h:outputText value="#{materieController.selected.giudizio}" title="#{bundle.ViewMaterieTitle_giudizio}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_scritto}"/>
+                    <h:outputText value="#{materieController.selected.scritto}" title="#{bundle.ViewMaterieTitle_scritto}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_orale}"/>
+                    <h:outputText value="#{materieController.selected.orale}" title="#{bundle.ViewMaterieTitle_orale}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_pratico}"/>
+                    <h:outputText value="#{materieController.selected.pratico}" title="#{bundle.ViewMaterieTitle_pratico}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{materieController.selected.idAnnoScolastico}" title="#{bundle.ViewMaterieTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_idClasse}"/>
+                    <h:outputText value="#{materieController.selected.idClasse}" title="#{bundle.ViewMaterieTitle_idClasse}"/>
+                    <h:outputText value="#{bundle.ViewMaterieLabel_idInsegnante}"/>
+                    <h:outputText value="#{materieController.selected.idInsegnante}" title="#{bundle.ViewMaterieTitle_idInsegnante}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{materieController.destroyAndView}" value="#{bundle.ViewMaterieDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewMaterieEditLink}"/>
+                <br />
+                <h:commandLink action="#{materieController.prepareCreate}" value="#{bundle.ViewMaterieCreateLink}" />
+                <br />
+                <h:commandLink action="#{materieController.prepareList}" value="#{bundle.ViewMaterieShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewMaterieIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAllieviRisultatiPeriodoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_idPeriodo}" for="idPeriodo" />
+                    <h:inputText id="idPeriodo" value="#{allieviRisultatiPeriodoController.selected.idPeriodo}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_idPeriodo}" required="true" requiredMessage="#{bundle.CreateAllieviRisultatiPeriodoRequiredMessage_idPeriodo}"/>
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{allieviRisultatiPeriodoController.selected.idMateria}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_idMateria}" required="true" requiredMessage="#{bundle.CreateAllieviRisultatiPeriodoRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_idStudente}" for="idStudente" />
+                    <h:inputText id="idStudente" value="#{allieviRisultatiPeriodoController.selected.idStudente}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_idStudente}" required="true" requiredMessage="#{bundle.CreateAllieviRisultatiPeriodoRequiredMessage_idStudente}"/>
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_numAssenze}" for="numAssenze" />
+                    <h:inputText id="numAssenze" value="#{allieviRisultatiPeriodoController.selected.numAssenze}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_numAssenze}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_totaleOrePeriodo}" for="totaleOrePeriodo" />
+                    <h:inputText id="totaleOrePeriodo" value="#{allieviRisultatiPeriodoController.selected.totaleOrePeriodo}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_totaleOrePeriodo}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_percentualeAssenzePeriodo}" for="percentualeAssenzePeriodo" />
+                    <h:inputText id="percentualeAssenzePeriodo" value="#{allieviRisultatiPeriodoController.selected.percentualeAssenzePeriodo}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_percentualeAssenzePeriodo}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_giudizio}" for="giudizio" />
+                    <h:inputText id="giudizio" value="#{allieviRisultatiPeriodoController.selected.giudizio}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_giudizio}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_scritto}" for="scritto" />
+                    <h:inputText id="scritto" value="#{allieviRisultatiPeriodoController.selected.scritto}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_scritto}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_orale}" for="orale" />
+                    <h:inputText id="orale" value="#{allieviRisultatiPeriodoController.selected.orale}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_orale}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_pratico}" for="pratico" />
+                    <h:inputText id="pratico" value="#{allieviRisultatiPeriodoController.selected.pratico}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_pratico}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_condotta}" for="condotta" />
+                    <h:inputText id="condotta" value="#{allieviRisultatiPeriodoController.selected.condotta}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_condotta}" />
+                    <h:outputLabel value="#{bundle.CreateAllieviRisultatiPeriodoLabel_idRisultato}" for="idRisultato" />
+                    <h:inputText id="idRisultato" value="#{allieviRisultatiPeriodoController.selected.idRisultato}" title="#{bundle.CreateAllieviRisultatiPeriodoTitle_idRisultato}" required="true" requiredMessage="#{bundle.CreateAllieviRisultatiPeriodoRequiredMessage_idRisultato}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{allieviRisultatiPeriodoController.create}" value="#{bundle.CreateAllieviRisultatiPeriodoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{allieviRisultatiPeriodoController.prepareList}" value="#{bundle.CreateAllieviRisultatiPeriodoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAllieviRisultatiPeriodoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

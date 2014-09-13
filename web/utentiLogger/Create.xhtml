@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUtentiLoggerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_idLog}" for="idLog" />
+                    <h:inputText id="idLog" value="#{utentiLoggerController.selected.idLog}" title="#{bundle.CreateUtentiLoggerTitle_idLog}" required="true" requiredMessage="#{bundle.CreateUtentiLoggerRequiredMessage_idLog}"/>
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_message}" for="message" />
+                    <h:inputTextarea rows="4" cols="30" id="message" value="#{utentiLoggerController.selected.message}" title="#{bundle.CreateUtentiLoggerTitle_message}" />
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_msgType}" for="msgType" />
+                    <h:inputTextarea rows="4" cols="30" id="msgType" value="#{utentiLoggerController.selected.msgType}" title="#{bundle.CreateUtentiLoggerTitle_msgType}" required="true" requiredMessage="#{bundle.CreateUtentiLoggerRequiredMessage_msgType}"/>
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_whenRegistered}" for="whenRegistered" />
+                    <h:inputText id="whenRegistered" value="#{utentiLoggerController.selected.whenRegistered}" title="#{bundle.CreateUtentiLoggerTitle_whenRegistered}" required="true" requiredMessage="#{bundle.CreateUtentiLoggerRequiredMessage_whenRegistered}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_msgToUtente}" for="msgToUtente" />
+                    <h:inputText id="msgToUtente" value="#{utentiLoggerController.selected.msgToUtente}" title="#{bundle.CreateUtentiLoggerTitle_msgToUtente}" required="true" requiredMessage="#{bundle.CreateUtentiLoggerRequiredMessage_msgToUtente}"/>
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_msgSentTime}" for="msgSentTime" />
+                    <h:inputText id="msgSentTime" value="#{utentiLoggerController.selected.msgSentTime}" title="#{bundle.CreateUtentiLoggerTitle_msgSentTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateUtentiLoggerLabel_idUtente}" for="idUtente" />
+                    <h:selectOneMenu id="idUtente" value="#{utentiLoggerController.selected.idUtente}" title="#{bundle.CreateUtentiLoggerTitle_idUtente}" required="true" requiredMessage="#{bundle.CreateUtentiLoggerRequiredMessage_idUtente}">
+                        <f:selectItems value="#{utentiScuolaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{utentiLoggerController.create}" value="#{bundle.CreateUtentiLoggerSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{utentiLoggerController.prepareList}" value="#{bundle.CreateUtentiLoggerShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUtentiLoggerIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

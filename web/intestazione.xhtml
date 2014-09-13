@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body> 
+        <h:panelGrid columns="1">
+            <h:column >
+                <h1 class="jsfcrud_h1" align="center">Registro Scolastico</h1>
+            </h:column>
+            <h:column>
+                <h:graphicImage library="images" name="RegistroScolastico2.0.png"
+                                alt="Key Orchestra" /> 
+            </h:column>
+            <h:column>
+                <h:form>
+                    <rich:panel>
+                        
+                        <h:commandButton id="registraUtenteButton" value="Registra Utente"
+                                         action="/authenticate/nuovoUtente" style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                        <h:commandButton id="loginButton" value="Login"
+                                         action="/authenticate/loginRegistro" style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                        <h:commandButton id="structureButton" value="Scuola Struttura" style="font: bold italic large Palatino, serif;color: #0033cc"
+                                         action="/index"/>
+                    </rich:panel>
+                </h:form>                
+
+            </h:column>
+        </h:panelGrid>
+
+        <rich:notifyMessages nonblocking="true"/>
+
+    </h:body>
+</html>

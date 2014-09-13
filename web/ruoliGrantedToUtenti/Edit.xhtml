@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRuoliGrantedToUtentiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRuoliGrantedToUtentiLabel_idRuoliGranted}" for="idRuoliGranted" />
+                    <h:inputText id="idRuoliGranted" value="#{ruoliGrantedToUtentiController.selected.idRuoliGranted}" title="#{bundle.EditRuoliGrantedToUtentiTitle_idRuoliGranted}" required="true" requiredMessage="#{bundle.EditRuoliGrantedToUtentiRequiredMessage_idRuoliGranted}"/>
+                    <h:outputLabel value="#{bundle.EditRuoliGrantedToUtentiLabel_ruolo}" for="ruolo" />
+                    <h:inputTextarea rows="4" cols="30" id="ruolo" value="#{ruoliGrantedToUtentiController.selected.ruolo}" title="#{bundle.EditRuoliGrantedToUtentiTitle_ruolo}" required="true" requiredMessage="#{bundle.EditRuoliGrantedToUtentiRequiredMessage_ruolo}"/>
+                    <h:outputLabel value="#{bundle.EditRuoliGrantedToUtentiLabel_idRuolo}" for="idRuolo" />
+                    <h:selectOneMenu id="idRuolo" value="#{ruoliGrantedToUtentiController.selected.idRuolo}" title="#{bundle.EditRuoliGrantedToUtentiTitle_idRuolo}" required="true" requiredMessage="#{bundle.EditRuoliGrantedToUtentiRequiredMessage_idRuolo}">
+                        <f:selectItems value="#{ruoliUtentiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRuoliGrantedToUtentiLabel_idUtente}" for="idUtente" />
+                    <h:selectOneMenu id="idUtente" value="#{ruoliGrantedToUtentiController.selected.idUtente}" title="#{bundle.EditRuoliGrantedToUtentiTitle_idUtente}" required="true" requiredMessage="#{bundle.EditRuoliGrantedToUtentiRequiredMessage_idUtente}">
+                        <f:selectItems value="#{utentiScuolaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{ruoliGrantedToUtentiController.update}" value="#{bundle.EditRuoliGrantedToUtentiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRuoliGrantedToUtentiViewLink}"/>
+                <br />
+                <h:commandLink action="#{ruoliGrantedToUtentiController.prepareList}" value="#{bundle.EditRuoliGrantedToUtentiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRuoliGrantedToUtentiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

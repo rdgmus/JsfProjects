@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditInsegnantiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_idInsegnante}" for="idInsegnante" />
+                    <h:inputText id="idInsegnante" value="#{insegnantiController.selected.idInsegnante}" title="#{bundle.EditInsegnantiTitle_idInsegnante}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_idInsegnante}"/>
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_cognome}" for="cognome" />
+                    <h:inputText id="cognome" value="#{insegnantiController.selected.cognome}" title="#{bundle.EditInsegnantiTitle_cognome}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_cognome}"/>
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{insegnantiController.selected.nome}" title="#{bundle.EditInsegnantiTitle_nome}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{insegnantiController.selected.annoScolastico}" title="#{bundle.EditInsegnantiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{insegnantiController.selected.idAnnoScolastico}" title="#{bundle.EditInsegnantiTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditInsegnantiLabel_idClasse}" for="idClasse" />
+                    <h:selectOneMenu id="idClasse" value="#{insegnantiController.selected.idClasse}" title="#{bundle.EditInsegnantiTitle_idClasse}" required="true" requiredMessage="#{bundle.EditInsegnantiRequiredMessage_idClasse}">
+                        <f:selectItems value="#{classiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{insegnantiController.update}" value="#{bundle.EditInsegnantiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditInsegnantiViewLink}"/>
+                <br />
+                <h:commandLink action="#{insegnantiController.prepareList}" value="#{bundle.EditInsegnantiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditInsegnantiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateParametriOrarioAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_idParamOrario}" for="idParamOrario" />
+                    <h:inputText id="idParamOrario" value="#{parametriOrarioAsController.selected.idParamOrario}" title="#{bundle.CreateParametriOrarioAsTitle_idParamOrario}" required="true" requiredMessage="#{bundle.CreateParametriOrarioAsRequiredMessage_idParamOrario}"/>
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_inizioLezioni}" for="inizioLezioni" />
+                    <h:inputText id="inizioLezioni" value="#{parametriOrarioAsController.selected.inizioLezioni}" title="#{bundle.CreateParametriOrarioAsTitle_inizioLezioni}" required="true" requiredMessage="#{bundle.CreateParametriOrarioAsRequiredMessage_inizioLezioni}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_durataOraMinuti}" for="durataOraMinuti" />
+                    <h:inputText id="durataOraMinuti" value="#{parametriOrarioAsController.selected.durataOraMinuti}" title="#{bundle.CreateParametriOrarioAsTitle_durataOraMinuti}" required="true" requiredMessage="#{bundle.CreateParametriOrarioAsRequiredMessage_durataOraMinuti}"/>
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_durataIntervalloMinuti}" for="durataIntervalloMinuti" />
+                    <h:inputText id="durataIntervalloMinuti" value="#{parametriOrarioAsController.selected.durataIntervalloMinuti}" title="#{bundle.CreateParametriOrarioAsTitle_durataIntervalloMinuti}" required="true" requiredMessage="#{bundle.CreateParametriOrarioAsRequiredMessage_durataIntervalloMinuti}"/>
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{parametriOrarioAsController.selected.idAnnoScolastico}" title="#{bundle.CreateParametriOrarioAsTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.CreateParametriOrarioAsRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{parametriOrarioAsController.create}" value="#{bundle.CreateParametriOrarioAsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{parametriOrarioAsController.prepareList}" value="#{bundle.CreateParametriOrarioAsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateParametriOrarioAsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

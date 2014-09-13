@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListScansioneOrarioAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListScansioneOrarioAsEmpty}" rendered="#{scansioneOrarioAsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{scansioneOrarioAsController.items.rowCount > 0}">
+                    <h:outputText value="#{scansioneOrarioAsController.pagination.pageFirstItem + 1}..#{scansioneOrarioAsController.pagination.pageLastItem + 1}/#{scansioneOrarioAsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{scansioneOrarioAsController.previous}" value="#{bundle.Previous} #{scansioneOrarioAsController.pagination.pageSize}" rendered="#{scansioneOrarioAsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{scansioneOrarioAsController.next}" value="#{bundle.Next} #{scansioneOrarioAsController.pagination.pageSize}" rendered="#{scansioneOrarioAsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{scansioneOrarioAsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_idScansione}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idScansione}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_giornoSettimana}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.giornoSettimana}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_numOraLezione}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numOraLezione}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_inizia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inizia}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_finisce}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.finisce}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_lezione}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lezione}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_intervallo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intervallo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScansioneOrarioAsTitle_idAnnoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnnoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{scansioneOrarioAsController.prepareView}" value="#{bundle.ListScansioneOrarioAsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scansioneOrarioAsController.prepareEdit}" value="#{bundle.ListScansioneOrarioAsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scansioneOrarioAsController.destroy}" value="#{bundle.ListScansioneOrarioAsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{scansioneOrarioAsController.prepareCreate}" value="#{bundle.ListScansioneOrarioAsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListScansioneOrarioAsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

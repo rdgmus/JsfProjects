@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOrarioInsegnanteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOrarioInsegnanteLabel_idOrario}"/>
+                    <h:outputText value="#{orarioInsegnanteController.selected.idOrario}" title="#{bundle.ViewOrarioInsegnanteTitle_idOrario}"/>
+                    <h:outputText value="#{bundle.ViewOrarioInsegnanteLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{orarioInsegnanteController.selected.idAnnoScolastico}" title="#{bundle.ViewOrarioInsegnanteTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewOrarioInsegnanteLabel_idInsegnante}"/>
+                    <h:outputText value="#{orarioInsegnanteController.selected.idInsegnante}" title="#{bundle.ViewOrarioInsegnanteTitle_idInsegnante}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{orarioInsegnanteController.destroyAndView}" value="#{bundle.ViewOrarioInsegnanteDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOrarioInsegnanteEditLink}"/>
+                <br />
+                <h:commandLink action="#{orarioInsegnanteController.prepareCreate}" value="#{bundle.ViewOrarioInsegnanteCreateLink}" />
+                <br />
+                <h:commandLink action="#{orarioInsegnanteController.prepareList}" value="#{bundle.ViewOrarioInsegnanteShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOrarioInsegnanteIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

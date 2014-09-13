@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLezioniMateriaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_dataLezione}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.dataLezione}" title="#{bundle.ViewLezioniMateriaTitle_dataLezione}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_oreLezione}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.oreLezione}" title="#{bundle.ViewLezioniMateriaTitle_oreLezione}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_argomento}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.argomento}" title="#{bundle.ViewLezioniMateriaTitle_argomento}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_freezeLezione}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.freezeLezione}" title="#{bundle.ViewLezioniMateriaTitle_freezeLezione}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idMateria}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idMateria}" title="#{bundle.ViewLezioniMateriaTitle_idMateria}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idLezione}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idLezione}" title="#{bundle.ViewLezioniMateriaTitle_idLezione}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idAnnoScolastico}" title="#{bundle.ViewLezioniMateriaTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_materia}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.materia}" title="#{bundle.ViewLezioniMateriaTitle_materia}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_annoScolastico}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.annoScolastico}" title="#{bundle.ViewLezioniMateriaTitle_annoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_startDate}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.startDate}" title="#{bundle.ViewLezioniMateriaTitle_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_endDate}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.endDate}" title="#{bundle.ViewLezioniMateriaTitle_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idInsegnante}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idInsegnante}" title="#{bundle.ViewLezioniMateriaTitle_idInsegnante}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_giudizio}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.giudizio}" title="#{bundle.ViewLezioniMateriaTitle_giudizio}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_scritto}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.scritto}" title="#{bundle.ViewLezioniMateriaTitle_scritto}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_orale}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.orale}" title="#{bundle.ViewLezioniMateriaTitle_orale}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_pratico}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.pratico}" title="#{bundle.ViewLezioniMateriaTitle_pratico}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_nomeClasse}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.nomeClasse}" title="#{bundle.ViewLezioniMateriaTitle_nomeClasse}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idClasse}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idClasse}" title="#{bundle.ViewLezioniMateriaTitle_idClasse}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_idScuola}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.idScuola}" title="#{bundle.ViewLezioniMateriaTitle_idScuola}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_nomeScuola}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.nomeScuola}" title="#{bundle.ViewLezioniMateriaTitle_nomeScuola}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_tipoScuolaAcronimo}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.tipoScuolaAcronimo}" title="#{bundle.ViewLezioniMateriaTitle_tipoScuolaAcronimo}"/>
+                    <h:outputText value="#{bundle.ViewLezioniMateriaLabel_id}"/>
+                    <h:outputText value="#{lezioniMateriaController.selected.id}" title="#{bundle.ViewLezioniMateriaTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lezioniMateriaController.destroyAndView}" value="#{bundle.ViewLezioniMateriaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLezioniMateriaEditLink}"/>
+                <br />
+                <h:commandLink action="#{lezioniMateriaController.prepareCreate}" value="#{bundle.ViewLezioniMateriaCreateLink}" />
+                <br />
+                <h:commandLink action="#{lezioniMateriaController.prepareList}" value="#{bundle.ViewLezioniMateriaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLezioniMateriaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

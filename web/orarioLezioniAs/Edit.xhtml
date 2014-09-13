@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOrarioLezioniAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idOrarioLezioni}" for="idOrarioLezioni" />
+                    <h:inputText id="idOrarioLezioni" value="#{orarioLezioniAsController.selected.idOrarioLezioni}" title="#{bundle.EditOrarioLezioniAsTitle_idOrarioLezioni}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idOrarioLezioni}"/>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_materia}" for="materia" />
+                    <h:inputTextarea rows="4" cols="30" id="materia" value="#{orarioLezioniAsController.selected.materia}" title="#{bundle.EditOrarioLezioniAsTitle_materia}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_materia}"/>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_giorno}" for="giorno" />
+                    <h:inputTextarea rows="4" cols="30" id="giorno" value="#{orarioLezioniAsController.selected.giorno}" title="#{bundle.EditOrarioLezioniAsTitle_giorno}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_giorno}"/>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_oraInizio}" for="oraInizio" />
+                    <h:inputText id="oraInizio" value="#{orarioLezioniAsController.selected.oraInizio}" title="#{bundle.EditOrarioLezioniAsTitle_oraInizio}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_oraInizio}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_oraFine}" for="oraFine" />
+                    <h:inputText id="oraFine" value="#{orarioLezioniAsController.selected.oraFine}" title="#{bundle.EditOrarioLezioniAsTitle_oraFine}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_oraFine}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_nomeAula}" for="nomeAula" />
+                    <h:inputTextarea rows="4" cols="30" id="nomeAula" value="#{orarioLezioniAsController.selected.nomeAula}" title="#{bundle.EditOrarioLezioniAsTitle_nomeAula}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_nomeAula}"/>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputTextarea rows="4" cols="30" id="nomeClasse" value="#{orarioLezioniAsController.selected.nomeClasse}" title="#{bundle.EditOrarioLezioniAsTitle_nomeClasse}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_nomeClasse}"/>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{orarioLezioniAsController.selected.idAnnoScolastico}" title="#{bundle.EditOrarioLezioniAsTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idAula}" for="idAula" />
+                    <h:selectOneMenu id="idAula" value="#{orarioLezioniAsController.selected.idAula}" title="#{bundle.EditOrarioLezioniAsTitle_idAula}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idAula}">
+                        <f:selectItems value="#{auleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idClasse}" for="idClasse" />
+                    <h:selectOneMenu id="idClasse" value="#{orarioLezioniAsController.selected.idClasse}" title="#{bundle.EditOrarioLezioniAsTitle_idClasse}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idClasse}">
+                        <f:selectItems value="#{classiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idMateria}" for="idMateria" />
+                    <h:selectOneMenu id="idMateria" value="#{orarioLezioniAsController.selected.idMateria}" title="#{bundle.EditOrarioLezioniAsTitle_idMateria}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idMateria}">
+                        <f:selectItems value="#{materieController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditOrarioLezioniAsLabel_idScansione}" for="idScansione" />
+                    <h:selectOneMenu id="idScansione" value="#{orarioLezioniAsController.selected.idScansione}" title="#{bundle.EditOrarioLezioniAsTitle_idScansione}" required="true" requiredMessage="#{bundle.EditOrarioLezioniAsRequiredMessage_idScansione}">
+                        <f:selectItems value="#{scansioneOrarioAsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{orarioLezioniAsController.update}" value="#{bundle.EditOrarioLezioniAsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditOrarioLezioniAsViewLink}"/>
+                <br />
+                <h:commandLink action="#{orarioLezioniAsController.prepareList}" value="#{bundle.EditOrarioLezioniAsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditOrarioLezioniAsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

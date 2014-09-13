@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMaterieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListMaterieEmpty}" rendered="#{materieController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{materieController.items.rowCount > 0}">
+                    <h:outputText value="#{materieController.pagination.pageFirstItem + 1}..#{materieController.pagination.pageLastItem + 1}/#{materieController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{materieController.previous}" value="#{bundle.Previous} #{materieController.pagination.pageSize}" rendered="#{materieController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{materieController.next}" value="#{bundle.Next} #{materieController.pagination.pageSize}" rendered="#{materieController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{materieController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_idMateria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMateria}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_materia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.materia}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_annoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_giudizio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.giudizio}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_scritto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.scritto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_orale}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orale}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_pratico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pratico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_idAnnoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnnoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_idClasse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idClasse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterieTitle_idInsegnante}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idInsegnante}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{materieController.prepareView}" value="#{bundle.ListMaterieViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{materieController.prepareEdit}" value="#{bundle.ListMaterieEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{materieController.destroy}" value="#{bundle.ListMaterieDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{materieController.prepareCreate}" value="#{bundle.ListMaterieCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListMaterieIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

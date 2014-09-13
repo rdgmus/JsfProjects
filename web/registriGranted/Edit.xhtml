@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRegistriGrantedTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_ruolo}" for="ruolo" />
+                    <h:inputTextarea rows="4" cols="30" id="ruolo" value="#{registriGrantedController.selected.ruolo}" title="#{bundle.EditRegistriGrantedTitle_ruolo}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_ruolo}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{registriGrantedController.selected.idMateria}" title="#{bundle.EditRegistriGrantedTitle_idMateria}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_idGrant}" for="idGrant" />
+                    <h:inputText id="idGrant" value="#{registriGrantedController.selected.idGrant}" title="#{bundle.EditRegistriGrantedTitle_idGrant}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_idGrant}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_readGranted}" for="readGranted" />
+                    <h:inputText id="readGranted" value="#{registriGrantedController.selected.readGranted}" title="#{bundle.EditRegistriGrantedTitle_readGranted}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_readGranted}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_writeGranted}" for="writeGranted" />
+                    <h:inputText id="writeGranted" value="#{registriGrantedController.selected.writeGranted}" title="#{bundle.EditRegistriGrantedTitle_writeGranted}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_writeGranted}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriGrantedLabel_idUtente}" for="idUtente" />
+                    <h:selectOneMenu id="idUtente" value="#{registriGrantedController.selected.idUtente}" title="#{bundle.EditRegistriGrantedTitle_idUtente}" required="true" requiredMessage="#{bundle.EditRegistriGrantedRequiredMessage_idUtente}">
+                        <f:selectItems value="#{utentiScuolaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{registriGrantedController.update}" value="#{bundle.EditRegistriGrantedSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRegistriGrantedViewLink}"/>
+                <br />
+                <h:commandLink action="#{registriGrantedController.prepareList}" value="#{bundle.EditRegistriGrantedShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRegistriGrantedIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
