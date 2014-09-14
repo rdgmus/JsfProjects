@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;

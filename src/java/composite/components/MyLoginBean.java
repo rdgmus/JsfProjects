@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import jpa.entities.UtentiLogger;
 import jpa.entities.UtentiScuola;
 import jpa.session.UtentiLoggerFacade;
@@ -111,7 +110,6 @@ public class MyLoginBean implements Serializable {
     public String logout() {
         registraLogoutEvent();
         sendEmail();
-        JsfUtil.invalidateSession();
         utente = null;
         JsfUtil.invalidateSession();
         return "/intestazione";
@@ -142,21 +140,21 @@ public class MyLoginBean implements Serializable {
     }
 
     private void registraLogoutEvent() {
-//        UtentiLogger entity = new UtentiLogger();
-//        utente = (UtentiScuola) JsfUtil.getSessionMapValue("utenteLoggedIn");
-//        entity.setIdUtente(utente);
-//        entity.setMsgType(ResourceBundle.getBundle("/resources/Registro").getString("LogoutTypeString"));
-//        entity.setMessage(ResourceBundle.getBundle("/resources/Registro").getString("LogoutMsgString"));
-//        try {
-////            Long nextId = getUtentiLoggerFacade().getNextId();
-////            entity.setIdLog(nextId);
-//            Timestamp date = getUtentiLoggerFacade().getCurrentTimeStamp();
-//            entity.setWhenRegistered(date);
-//
-//            getUtentiLoggerFacade().create(entity);
-//        } catch (Exception ex) {
-//            JsfUtil.addErrorMessage(ex, ex.getMessage());
-//        }
+        UtentiLogger entity = new UtentiLogger();
+        utente = (UtentiScuola) JsfUtil.getSessionMapValue("utenteLoggedIn");
+        entity.setIdUtente(utente);
+        entity.setMsgType(ResourceBundle.getBundle("/resources/Registro").getString("LogoutTypeString"));
+        entity.setMessage(ResourceBundle.getBundle("/resources/Registro").getString("LogoutMsgString"));
+        try {
+//            Long nextId = getUtentiLoggerFacade().getNextId();
+//            entity.setIdLog(nextId);
+            Timestamp date = getUtentiLoggerFacade().getCurrentTimeStamp();
+            entity.setWhenRegistered(date);
+
+            getUtentiLoggerFacade().create(entity);
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ex, ex.getMessage());
+        }
 
     }
 

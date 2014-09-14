@@ -1,5 +1,6 @@
 package jsf.util;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -7,6 +8,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import jpa.entities.UtentiLogger;
+import jpa.entities.UtentiScuola;
+import jpa.session.UtentiLoggerFacade;
 import org.apache.commons.codec.binary.Base64;
 
 public class JsfUtil {
@@ -79,7 +83,6 @@ public class JsfUtil {
     }
 
     // Getters -----------------------------------------------------------------------------------
-
     public static Object getSessionMapValue(String key) {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
@@ -101,5 +104,36 @@ public class JsfUtil {
         Map<String, Object> map = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 
         map.clear();
+    }
+
+    public static void registraEventoNelDatabase(
+            String msg,
+            String msgType,
+            UtentiLoggerFacade utentiLoggerFacade) {
+
+        UtentiLogger entity = new UtentiLogger();
+        UtentiScuola utente = (UtentiScuola) JsfUtil.getSessionMapValue("utenteLoggedIn");
+        if (utente == null) {
+            JsfUtil.addErrorMessage("Utente is null!");
+            return;
+        }
+        if (utentiLoggerFacade == null) {
+            JsfUtil.addErrorMessage("Non posso accedere alla tabella 'utenti_logger' del databse 'scuola'");
+            return;
+        }
+        entity.setIdUtente(utente);
+        entity.setMsgType(msgType);
+        entity.setMessage(msg);
+        try {
+//            Long nextId = utentiLoggerFacade.getNextId();
+//            entity.setIdLog(nextId);
+            Timestamp date = utentiLoggerFacade.getCurrentTimeStamp();
+            entity.setWhenRegistered(date);
+
+            utentiLoggerFacade.create(entity);
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ex, ex.getMessage());
+        }
+
     }
 }
