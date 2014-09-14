@@ -1,11 +1,13 @@
 package jsf.util;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import org.apache.commons.codec.binary.Base64;
 
 public class JsfUtil {
 
@@ -57,4 +59,47 @@ public class JsfUtil {
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
     }
 
+    public static String codificaBase64(String daCodificare) {
+        //encoding  byte array into base 64
+        byte[] encoded = Base64.encodeBase64(daCodificare.getBytes());
+        encoded = Base64.encodeBase64(encoded);
+
+//        JsfUtil.addSuccessMessage("Password Codificata!");
+        return new String(encoded);
+
+    }
+
+    public static String decodificaBase64(String codificata) {
+        //decoding byte array into base64 byte[] decoded =
+        byte[] decoded = Base64.decodeBase64(codificata);
+        decoded = Base64.decodeBase64(decoded);
+        return new String(decoded);
+
+//        JsfUtil.addSuccessMessage("Password Decodificata!");
+    }
+
+    // Getters -----------------------------------------------------------------------------------
+
+    public static Object getSessionMapValue(String key) {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+    }
+
+    public static Object getRequestMapValue(String key) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(key);
+    }
+    // Setters -----------------------------------------------------------------------------------
+
+    public static void setSessionMapValue(String key, Object value) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
+    }
+
+    public static void removeSessionMapValue(String key) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(key);
+    }
+
+    public static void invalidateSession() {
+        Map<String, Object> map = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+
+        map.clear();
+    }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="REGISTRO"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <h:panelGrid columns="4">
+                <f:facet name="header">
+                    <h:outputText value="#{cc.attrs.header} Scuola: #{registriInsegnanteBean.materiaSelezionata.idAnnoScolastico.idScuola.nomeScuola}
+                                  - Classe: #{registriInsegnanteBean.materiaSelezionata.idClasse.nomeClasse}
+                                  - Materia: #{registriInsegnanteBean.materiaSelezionata.materia}
+                                  - A.S.: #{registriInsegnanteBean.annoScolastico.annoScolastico}"
+                                  style="font: bold italic large Palatino, serif"/> 
+                </f:facet>
+                <h:form id="registroRiepilogoForm">
+                    <h:graphicImage library="images"  name="registro.png" alt="immagine" rendered="#{!registriInsegnanteBean.renderRegistro}" />
+                    <h:commandButton action="#{registriInsegnanteBean.setRenderRegistro(true)}"
+                                     disabled="#{registriInsegnanteBean.renderRegistro}"
+                                     rendered="#{!registriInsegnanteBean.renderRegistro}"
+                                     value="Registro Giornaliero" id="registroScolastico"/>
+                    <rich:tooltip id="tt10" styleClass="tooltip" layout="block" target="registroScolastico">
+                        <span style="white-space: nowrap"> Visualizza il Registro Scolastico della <br />
+                            Classe: <strong>#{registriInsegnanteBean.materiaSelezionata.idClasse.nomeClasse}</strong><br />
+                            Materia: <strong>#{registriInsegnanteBean.materiaSelezionata.materia}</strong><br />
+                            A.S.: <strong>#{registriInsegnanteBean.annoScolastico.annoScolastico}"</strong><br />
+                        </span>        
+                    </rich:tooltip>
+                    <h:graphicImage library="images"  name="trimestre32.png" alt="immagine" rendered="#{!registriInsegnanteBean.renderRiepilogo}"/>
+                    <h:commandButton action="#{registriInsegnanteBean.setRenderRiepilogo(true)}"
+                                     disabled="#{registriInsegnanteBean.renderRiepilogo}"
+                                     rendered="#{!registriInsegnanteBean.renderRiepilogo}"
+                                     value="Riepilogo Periodo" id="riepilogoPeriodi"/>
+                    <rich:tooltip id="tt11" styleClass="tooltip" layout="block" target="riepilogoPeriodi">
+                        <span style="white-space: nowrap"> Visualizza il Riepilogo per Periodo della <br />
+                            Classe: <strong>#{registriInsegnanteBean.materiaSelezionata.idClasse.nomeClasse}</strong><br />
+                            Materia: <strong>#{registriInsegnanteBean.materiaSelezionata.materia}</strong><br />
+                            A.S.: <strong>#{registriInsegnanteBean.annoScolastico.annoScolastico}"</strong><br />
+                        </span>        
+                    </rich:tooltip>
+                </h:form>
+                <h:outputLabel value="Insegnante: #{registriInsegnanteBean.insegnante.cognome}
+                               #{registriInsegnanteBean.insegnante.nome}" 
+                               style="color: gold; font: bold italic large Palatino, serif"/>
+                <h:outputLabel value="Studenti num.: #{registriInsegnanteBean.studentiItems.rowCount}" 
+                               style="color: gold; font: bold italic large Palatino, serif"/>
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

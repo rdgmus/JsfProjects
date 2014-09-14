@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head> 
+    <h:body>
+        <composite:interface>
+
+        </composite:interface>
+        <composite:implementation>
+            <ezcomp:RegistroIntestazionePanel/>
+            <ezcomp:PeriodiAsTabPanel/>
+            <ezcomp:MesiPeriodoTabPanel rendered="#{registriInsegnanteBean.renderRegistro}"/>
+            <ezcomp:LezioniMeseTabPanel rendered="#{registriInsegnanteBean.renderRegistro}"/>
+            <ezcomp:ElencoAllieviDataTablePanel rendered="#{registriInsegnanteBean.renderRegistro}"/>
+            <ezcomp:RiepilogoRegistroPanel rendered="#{registriInsegnanteBean.renderRiepilogo}"/>
+        </composite:implementation>
+    </h:body>
+</html>

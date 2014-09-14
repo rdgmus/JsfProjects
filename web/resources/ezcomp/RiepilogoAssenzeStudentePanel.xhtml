@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="backAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="annoScolasticoAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="materieAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="materiaPrompt" default="Materia"/>
+            <composite:attribute name="dataLezionePrompt" default="Data Lezione"/>
+            <composite:attribute name="oreLezioniPrompt" default="Ore:"/>
+            <composite:attribute name="assenzePrompt" default="Assenze"/>
+            <composite:attribute name="assenza1aOraPrompt" default="1a"/>
+            <composite:attribute name="assenza2aOraPrompt" default="2a"/>
+            <composite:attribute name="assenza3aOraPrompt" default="3a"/>
+            <composite:attribute name="ritardiPrompt" default="Ritardi"/>
+            <composite:attribute name="giustificaAssenzePrompt" default="G. Ass."/>
+            <composite:attribute name="giustificaRitardiPrompt" default="G. Rit."/>
+            <composite:attribute name="motivoGiustificaPrompt" default="Motivo Ass./Rit."/>
+
+        </composite:interface>
+        <composite:implementation>
+
+            <rich:panel style="background-color: bisque">
+                <h:panelGrid columns="2" border="0">
+                    <f:facet name="header">
+                        <h:outputText value="Studente" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </f:facet>
+                    <h:outputText value="Cognome Nome:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.cognome} 
+                                  #{schedaStudenteBean.selectedStudente.nome}" 
+                                  style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                    <h:outputText value="A.S.:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.annoScolastico}"
+                                  style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                    <h:outputText value="Classe:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.idClasse.nomeClasse}"
+                                  style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                </h:panelGrid>
+            </rich:panel>
+            <rich:panel style="background-color: bisque">
+
+                <h:panelGrid columns="6">
+
+                    <f:facet name="header">
+                        <h:outputText value="Periodo" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </f:facet>
+                    <h:form id="periodoAssenzeForm">
+                        <h:outputText value="Dal:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <rich:calendar value="#{schedaStudenteBean.assenzeDal}" id="assenzeDal"
+                                       locale="#{schedaStudenteBean.locale}"
+                                       popup="#{schedaStudenteBean.popup}"
+                                       datePattern="#{schedaStudenteBean.pattern}"
+                                       showApplyButton="#{schedaStudenteBean.showApply}"  
+                                       styleClass="rich-calendar-tool-btn" 
+                                       oninputblur="submit()" 
+                                       valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                        <h:outputText value="Al:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <rich:calendar value="#{schedaStudenteBean.assenzeAl}" id="assenzeAl"
+                                       locale="#{schedaStudenteBean.locale}"
+                                       popup="#{schedaStudenteBean.popup}"
+                                       datePattern="#{schedaStudenteBean.pattern}"
+                                       showApplyButton="#{schedaStudenteBean.showApply}"  
+                                       styleClass="rich-calendar-tool-btn" 
+                                       oninputblur="submit()" 
+                                       valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                    </h:form>
+                    <h:form id="materieForm">
+
+                        <h:outputText value="Materie" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:selectOneMenu id="selectedMateria" value="#{schedaStudenteBean.selectedMateria}" 
+                                         onchange="submit()" onclick="submit()"
+                                         valueChangeListener="#{schedaStudenteBean.processValueChange}">
+                            <f:selectItems value="#{schedaStudenteBean.listaMaterieStudente}" 
+                                           var="thisMateria" itemValue="#{thisMateria}"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </h:panelGrid>
+                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="selectedMateria">
+                    <span style="white-space: nowrap">Filtra assenze per materia<br/>
+                    </span>        
+                </rich:tooltip>
+                <h:form  id="commandsForm">
+                    <h:panelGrid columns="3">
+                        <h:commandButton id="resetAS" action="#{cc.attrs.annoScolasticoAction}" value="Tutto l'A.S." 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:commandButton id="resetMaterie" action="#{cc.attrs.materieAction}" value="Tutte le Materie" 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:commandButton id="backButton" action="#{cc.attrs.backAction}" value="Chiudi Riepilogo" 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </h:panelGrid>
+                    <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="resetAS">
+                        <span style="white-space: nowrap">Resetta le date del periodo a:<br/>
+                            <strong>tutto l'anno scolastico</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="resetMaterie">
+                        <span style="white-space: nowrap">Resetta le assenze in modo che compaiano<br/>
+                            <strong>tutte le materie</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="backButton">
+                        <span style="white-space: nowrap">Chiude il riepilogo delle assenze<br/>
+                        </span>        
+                    </rich:tooltip>
+                </h:form>
+            </rich:panel>
+            <rich:panel>
+                <h:form id="assenzeStudenteTableForm">
+                    <h:panelGrid>
+                        <f:facet name="header">
+                            <h:outputText value="Riepilogo delle Assenze e dei Ritardi" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        </f:facet>
+                        <rich:dataScroller for="assenzeStudenteTable" maxPages="20" />
+                        <rich:dataTable id="assenzeStudenteTable" value="#{schedaStudenteBean.recordsAssenze}" 
+                                        var="datiAssenze" rows="5"
+                                        rowClasses="jsfcrud_odd_row,jsfcrud_even_row"  style="border:solid 1px;width: 800px"
+                                        rendered="#{schedaStudenteBean.recordsAssenze.size() >0}" 
+                                        onrowmouseover="this.style.backgroundColor='#eeb056'"  
+                                        onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.materiaPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{datiAssenze.materia.materia}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.dataLezionePrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{datiAssenze.dataLezione}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                    <f:converter converterId="myDateConverter"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.oreLezioniPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{datiAssenze.oreLezione}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.assenza1aOraPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.assenza1aOra}" disabled="true"
+                                                 id="assenza1aOra" 
+                                                 style="#{datiAssenze.assenza1aOra ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 >
+                                    <f:selectItem itemLabel="A" itemValue="true" />
+                                    <f:selectItem itemLabel="P" itemValue="false" />
+                                </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header" rendered="#{datiAssenze.oreLezione > 1}">
+                                    <h:outputText value="#{cc.attrs.assenza2aOraPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.assenza2aOra}" disabled="true"
+                                                 id="assenza2aOra" rendered="#{datiAssenze.oreLezione > 1}"
+                                                 style="#{datiAssenze.assenza2aOra ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 >
+                                    <f:selectItem itemLabel="A" itemValue="true" />
+                                    <f:selectItem itemLabel="P" itemValue="false" />
+                                </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header" rendered="#{datiAssenze.oreLezione > 2}">
+                                    <h:outputText value="#{cc.attrs.assenza3aOraPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.assenza3aOra}" disabled="true"
+                                                 id="assenza3aOra" rendered="#{datiAssenze.oreLezione > 2}"
+                                                 style="#{datiAssenze.assenza3aOra ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 >
+                                    <f:selectItem itemLabel="A" itemValue="true" />
+                                    <f:selectItem itemLabel="P" itemValue="false" />
+                                </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.giustificaAssenzePrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.giustificaAssenza}"
+                                                 id="giustificaAssenze" onclick="submit()" onchange="submit()"
+                                                 style="#{datiAssenze.giustificaAssenza ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 valueChangeListener="#{schedaStudenteBean.processValueChange}">
+                                    <f:selectItem itemLabel="G" itemValue="true" />
+                                    <f:selectItem itemLabel="No" itemValue="false" />
+                                    <f:param name="idLezione" value="#{datiAssenze.idLezione}"/>
+                                    <f:param name="idStudente" value="#{datiAssenze.idStudente}"/>
+                                </h:selectOneMenu>
+                                <rich:tooltip id="tt6" styleClass="tooltip" layout="block" target="giustificaAssenze">
+                                    <span style="white-space: nowrap">Ha giustificato l'assenza del giorno?<br/>
+                                        Data:<strong>#{datiAssenze.dataLezione}</strong>
+                                    </span>        
+                                </rich:tooltip>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.ritardiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.ritardo}" disabled="true"
+                                                 id="ritardo" rendered="#{datiAssenze.assenza1aOra}"
+                                                 style="#{datiAssenze.ritardo ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 >
+                                    <f:selectItem itemLabel="R" itemValue="true" />
+                                    <f:selectItem itemLabel="No" itemValue="false" />
+                                </h:selectOneMenu>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.giustificaRitardiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:selectOneMenu value="#{datiAssenze.giustificaRitardo}" rendered="#{datiAssenze.ritardo}"
+                                                 id="giustificaRitardo" onclick="submit()" onchange="submit()"
+                                                 style="#{datiAssenze.giustificaRitardo ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                                 valueChangeListener="#{schedaStudenteBean.processValueChange}">
+                                    <f:selectItem itemLabel="G" itemValue="true" />
+                                    <f:selectItem itemLabel="No" itemValue="false" />
+                                    <f:param name="idLezione" value="#{datiAssenze.idLezione}"/>
+                                    <f:param name="idStudente" value="#{datiAssenze.idStudente}"/>
+                                </h:selectOneMenu>
+                                <rich:tooltip id="tt7" styleClass="tooltip" layout="block" target="giustificaRitardo">
+                                    <span style="white-space: nowrap">Ha giustificato il ritardo?<br/>
+                                    </span>        
+                                </rich:tooltip>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.motivoGiustificaPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:inputTextarea value="#{datiAssenze.motivoGiustifica}" onblur="submit()" id="motivoGiustifica"
+                                                 onchange="submit()"
+                                                 valueChangeListener="#{schedaStudenteBean.processValueChange}">
+                                    <f:param name="idLezione" value="#{datiAssenze.idLezione}"/>
+                                    <f:param name="idStudente" value="#{datiAssenze.idStudente}"/>
+                                </h:inputTextarea>
+                                <rich:tooltip id="tt8" styleClass="tooltip" layout="block" target="motivoGiustifica">
+                                    <span style="white-space: nowrap">Motivazione del ritardo o dell'assenza<br/>
+                                    </span>        
+                                </rich:tooltip>
+                            </rich:column>
+                        </rich:dataTable>
+                    </h:panelGrid>
+                </h:form>
+            </rich:panel>
+        </composite:implementation>
+    </h:body>
+</html>

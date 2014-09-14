@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="materiaPrompt" default="Materia:"/>
+            <composite:attribute name="classePrompt" default="Classe:"/>
+            <composite:attribute name="asPrompt" default="A.S.:"/>
+            <composite:attribute name="insegnantePrompt" default="Insegnante:"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <rich:panel header="Gestisci Voti" rendered="#{allievoLezioneBean.renderGestioneVoti}">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{cc.attrs.asPrompt}" />
+                    <h:outputText value="#{registriInsegnanteBean.annoScolastico.annoScolastico}" style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                    <h:outputLabel value="#{cc.attrs.classePrompt}" />
+                    <h:outputText value="#{registriInsegnanteBean.materiaSelezionata.idClasse.nomeClasse}" style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                    <h:outputLabel value="#{cc.attrs.materiaPrompt}" />
+                    <h:outputText value="#{registriInsegnanteBean.materiaSelezionata.materia}" style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                    <h:outputLabel value="#{cc.attrs.insegnantePrompt}" />
+                    <h:outputText value="#{registriInsegnanteBean.materiaSelezionata.idInsegnante.cognome} 
+                                  #{registriInsegnanteBean.materiaSelezionata.idInsegnante.nome}" style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                </h:panelGrid>
+                <h:form id="tipoVotoForm">
+                    <rich:collapsiblePanel header="Gestione Voti Allievo" expanded="true">
+                        <h:panelGrid columns="2">
+                            <f:facet name="header">
+                                <h:outputText value="Gestione Voti Allievo"/>
+                            </f:facet>
+                            <h:outputLabel value="Data Lezione:" style="font-size: 18;font-weight: bold"/>
+                            <h:outputText value="#{lezioniMateriaBean.lezioneSelected}" 
+                                          style="font: bold italic medium Palatino, serif;color: #0033cc"
+                                          rendered="#{lezioniMateriaBean.countLezioni>0}">
+                                <f:converter converterId="myLezioniMateriaConverter"/>
+                            </h:outputText>
+                            <h:outputLabel value="Studente:" style="font-size: 18;font-weight: bold"/>
+                            <h:outputText value="#{allievoLezioneBean.studenteAttivo.cognome} #{allievoLezioneBean.studenteAttivo.nome}" 
+                                          style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                            <h:outputLabel value="Tipo Voto" style="font-size: 18;font-weight: bold"/>
+                            <h:selectOneRadio id="tipoVoto" value="#{allievoLezioneBean.tipoVoto}"
+                                              onchange="submit()" valueChangeListener="#{allievoLezioneBean.processValueChange}">
+                                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="tipoVoto">
+                                    <span style="white-space: nowrap">Tipo Voto:<br/>
+                                        <strong>'S' = SCRITTO #{allievoLezioneBean.tipVotoScrittoEnabled ? 'ABILITATO' : 'DISABILITATO'}</strong><br/>                                                                             
+                                        <strong>'O' = ORALE #{allievoLezioneBean.tipVotoOraleEnabled ? 'ABILITATO' : 'DISABILITATO'}</strong><br/>                                                                             
+                                        <strong>'P' = PRATICO #{allievoLezioneBean.tipVotoPraticoEnabled ? 'ABILITATO' : 'DISABILITATO'}</strong><br/>                                                                             
+                                        <strong>'G' = GIUDIZIO #{allievoLezioneBean.tipVotoGiudizioEnabled ? 'ABILITATO' : 'DISABILITATO'}</strong><br/>                                                                             
+                                    </span>        
+                                </rich:tooltip>
+
+                                <f:selectItem id="item1" itemLabel="S" itemValue="S" rendered="false"
+                                              itemDisabled="#{!allievoLezioneBean.tipVotoScrittoEnabled}"/>
+                                <f:selectItem id="item2" itemLabel="O" itemValue="O" 
+                                              itemDisabled="#{!allievoLezioneBean.tipVotoOraleEnabled}"/>
+                                <f:selectItem id="item3" itemLabel="P" itemValue="P" 
+                                              itemDisabled="#{!allievoLezioneBean.tipVotoPraticoEnabled}"/>
+                                <f:selectItem id="item4" itemLabel="G" itemValue="G" 
+                                              itemDisabled="#{!allievoLezioneBean.tipVotoGiudizioEnabled}"/>
+                            </h:selectOneRadio>
+                            <h:outputLabel value="Voti studente" style="font-size: 18;font-weight: bold"/>
+                            <h:selectOneMenu id="selectVotoDaRemove"
+                                             onclick="submit()" valueChangeListener="#{allievoLezioneBean.processValueChange}"
+                                             value="#{allievoLezioneBean.votoDaRemove}">
+                                <f:selectItems value="#{allievoLezioneBean.votiStudenteAttivo}" 
+                                               var="voto" itemValue="#{voto}" 
+                                               itemLabel="#{voto.votoString} #{voto.votoNum} (#{voto.tipoVoto})"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel />
+                            <h:commandButton value="Cancella Voto" 
+                                             action="#{allievoLezioneBean.cancellaVoto()}"
+                                             disabled="#{!allievoLezioneBean.someTipoVotoEnabled}"/>
+
+                            <h:outputLabel value="Nuovo Voto" style="font-size: 18;font-weight: bold"
+                                           rendered="#{!allievoLezioneBean.tipoVotoGiudizio}"/>
+                            <rich:inputNumberSpinner value="#{allievoLezioneBean.nuovoVotoValue}" step="0.1" minValue="0" maxValue="10"
+                                                     ondownclick="submit()" onupclick="submit()" id="votoStudente" 
+                                                     valueChangeListener="#{allievoLezioneBean.processValueChange}"
+                                                     rendered="#{!allievoLezioneBean.tipoVotoGiudizio}">
+                                <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="votoStudente">
+                                    <span style="white-space: nowrap">Inserimento Voto:<br/>
+                                        <strong>Passo di incremento o decremento = 0.1</strong><br/>                                                                             
+                                        <strong>Se il voto viene inserito manualmente</strong><br/>                                                                             
+                                        <strong>verrà aggiornato cliccando</strong><br/>                                                                             
+                                        <strong>fuori dall'oggetto</strong><br/>                                                                             
+                                    </span>        
+                                </rich:tooltip>
+
+                            </rich:inputNumberSpinner>
+                            <h:outputLabel value="Nuovo Giudizio" style="font-size: 18;font-weight: bold" 
+                                           rendered="#{allievoLezioneBean.tipoVotoGiudizio}"/>
+                            <h:selectOneMenu id="selectGiudizio" 
+                                             rendered="#{allievoLezioneBean.tipoVotoGiudizio}"
+                                             onclick="submit()" valueChangeListener="#{allievoLezioneBean.processValueChange}"
+                                             value="#{allievoLezioneBean.giudizioSelezionato}">
+                                <f:selectItems value="#{allievoLezioneBean.tipologiaGiudizi}" 
+                                               var="giudizio" itemValue="#{giudizio}" 
+                                               itemLabel="#{giudizio.giudizio} (#{giudizio.valueGiudizio})"/>
+                            </h:selectOneMenu>
+
+                            <h:commandButton value="Termina Inserimento" action="#{allievoLezioneBean.terminaGestisciVoti()}"
+                                             style="color: red"/>
+                            <h:commandButton value="Inserisci Nuovo Voto o Giudizio" 
+                                             action="#{allievoLezioneBean.inserisciVoto()}" 
+                                             disabled="#{!allievoLezioneBean.someTipoVotoEnabled}"/>
+                        </h:panelGrid>
+                    </rich:collapsiblePanel>
+                </h:form>
+            </rich:panel>
+        </composite:implementation>
+    </h:body>
+</html>

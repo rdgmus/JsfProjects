@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="header" default="CRUD"/>
+            <composite:attribute name="tabella" required="true"/>
+            <composite:attribute name="createAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="modificaAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="cancellaAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="commitAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="rollbackAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+
+            <composite:attribute name="disableCommitRollback" required="true"/>
+            <composite:attribute name="disableCreateModifyDelete" required="true"/>
+            <composite:attribute name="azioneInCorso" required="true"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="crudForm">
+                <h:panelGrid columns="3" bgcolor="#009999">
+                    <h:commandButton value="Crea" action="#{cc.attrs.createAction}" id="createButton"  disabled="#{cc.attrs.disableCreateModifyDelete}"
+                                     style="font: bold italic large Palatino, serif"/>
+                    <h:commandButton value="Modifica" action="#{cc.attrs.modificaAction}" id="modifyButton" disabled="#{cc.attrs.disableCreateModifyDelete}"
+                                     style="font: bold italic large Palatino, serif"/>
+                    <h:commandButton value="Cancella" action="#{cc.attrs.cancellaAction}" id="deleteButton" disabled="#{cc.attrs.disableCreateModifyDelete}"
+                                     style="font: bold italic large Palatino, serif"/>
+                    <h:commandButton value="Commit" action="#{cc.attrs.commitAction}" id="commitButton" disabled="#{cc.attrs.disableCommitRollback}"/>
+                    <h:commandButton value="Rollback" action="#{cc.attrs.rollbackAction}" id="rollbackButton" disabled="#{cc.attrs.disableCommitRollback}"/>
+                    <h:outputLabel value="#{cc.attrs.azioneInCorso}" style="color: red; background-color: white"/>
+                </h:panelGrid>
+                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="createButton">
+                    <span style="white-space: nowrap">Crea record <br/>
+                        <strong>"#{cc.attrs.tabella}"</strong><br/>                                
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="modifyButton">
+                    <span style="white-space: nowrap">Modifica record <br/>
+                        <strong>"#{cc.attrs.tabella}"</strong><br/>                                
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="deleteButton">
+                    <span style="white-space: nowrap">Cancella record <br/>
+                        <strong>"#{cc.attrs.tabella}"</strong><br/>                                
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="commitButton">
+                    <span style="white-space: nowrap">Finalizza le operazioni CANCELLA, MODIFICA, CREA nella tabella <br/>
+                        <strong>"#{cc.attrs.tabella}"</strong><br/>                                
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="rollbackButton">
+                    <span style="white-space: nowrap">Esce senza finalizzare le operazioni CANCELLA, MODIFICA, CREA nella tabella <br/>
+                        <strong>"#{cc.attrs.tabella}"</strong><br/>                                
+                    </span>        
+                </rich:tooltip>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="lezioneSelected" required="false"/>
+            <composite:attribute name="studentiPrompt" default="Studenti"/>
+            <composite:attribute name="indexStudentiPrompt" default="Num."/>
+            <composite:attribute name="assenzePrompt" default="Assenze"/>
+            <composite:attribute name="ritardoPrompt" default="Ritardo"/>
+            <composite:attribute name="votiPrompt" default="Voti"/>
+            <composite:attribute name="notePrompt" default="Note"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <rich:panel>
+                <h:form>
+                    <h:panelGrid columns="4" border="0">
+                        <f:facet name="header">
+                            <h:outputText value="Pagina Studenti:"/>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:commandButton value="Prec." disabled="#{!allievoLezioneBean.hasPreviousPage}" id="prec"
+                                             action="#{allievoLezioneBean.previousPage()}"/>
+                            <h:outputText value="[#{allievoLezioneBean.row+1}-#{allievoLezioneBean.row+allievoLezioneBean.pageSize}]"
+                                          style="color: darkkhaki"/>
+                            <h:commandButton value="Succ." disabled="#{!allievoLezioneBean.hasNextPage}" id="succ"
+                                             action="#{allievoLezioneBean.nextPage()}"/>
+                            <rich:inputNumberSpinner value="#{allievoLezioneBean.pageSize}" inputSize="4" id="numeroStudentiPerPage"
+                                                     step="1" minValue="1" maxValue="15" ondownclick="submit()" onupclick="submit()"
+                                                     valueChangeListener="#{allievoLezioneBean.processValueChange}"/>
+                            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="prec">
+                                <span style="white-space: nowrap"><strong>Pagina precedente degli studenti</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="succ">
+                                <span style="white-space: nowrap"><strong>Pagina successiva degli studenti</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="numeroStudentiPerPage">
+                                <span style="white-space: nowrap"><strong>Numero studenti visibili nella pagina</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:outputText value="#{lezioniMateriaBean.lezioneSelected}" 
+                                          style="font: bold italic medium Palatino, serif;color: #0033cc"
+                                          rendered="#{lezioniMateriaBean.countLezioni>0}">
+                                <f:converter converterId="myLezioniMateriaConverter"/>
+                            </h:outputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:commandButton value="Expand Panels" action="#{lezioniMateriaBean.setExpandAllPanels(true)}"
+                                             id="expandPanels"
+                                             disabled="#{lezioniMateriaBean.expandAllPanels}"/>
+                            <h:commandButton value="Collapse Panels" action="#{lezioniMateriaBean.setExpandAllPanels(false)}"
+                                             id="collapsePanels"
+                                             disabled="#{!lezioniMateriaBean.expandAllPanels}"/>
+                            <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="expandPanels">
+                                <span style="white-space: nowrap"><strong>Visualizza i pannelli Periodo/Mesi/Lezioni</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="collapsePanels">
+                                <span style="white-space: nowrap"><strong>Nasconde i pannelli Periodo/Mesi/Lezioni</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Argomento: " style="font: bold italic medium Palatino, serif;color: darkkhaki" rendered="#{lezioniMateriaBean.argomentoLezione.length() > 0}"/>
+                                <h:outputText value="#{lezioniMateriaBean.argomentoLezione}" rendered="#{lezioniMateriaBean.countLezioni>0}"
+                                              id="argomentoLezione" style="font: bold italic medium Palatino, serif">
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </rich:panel>
+            <rich:dataTable id="registroClasse" value="#{allievoLezioneBean.records}" 
+                            var="datiLezione" 
+                            rowClasses="jsfcrud_odd_row,jsfcrud_even_row"  style="border:solid 1px;width: 800px"
+                            rendered="#{lezioniMateriaBean.countLezioni>0}" rows="#{allievoLezioneBean.pageSize}"
+                            onrowmouseover="this.style.backgroundColor='#eeb056'"  first="#{allievoLezioneBean.row}"
+                            onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                <f:facet name="header">
+                    <h:outputText value="Registro Scolastico" style="font: bold italic medium Palatino, serif"/>
+                </f:facet>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.indexStudentiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiLezione.registroIndex}" 
+                                  style="font: bold italic medium Palatino, serif;color: #0033cc">
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.studentiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiLezione.cognome} #{datiLezione.nome}" id="cognomeNome"
+                                  style="font: bold italic medium Palatino, serif;
+                                  color: #{datiLezione.ritiratoData != null ? 'red': datiLezione.dataEntrata == null ? '#0033c' : 'blue'}"/>
+                    <rich:tooltip id="tt8" styleClass="tooltip" layout="block" target="cognomeNome" rendered="#{datiLezione.dataEntrata != null}">
+                        <span style="white-space: nowrap">
+                            Studente:<strong>#{datiLezione.cognome} #{datiLezione.nome}</strong><br/>                                                                            
+                            Iscritto dal:<strong>#{datiLezione.dataEntrata}</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt9" styleClass="tooltip" layout="block" target="cognomeNome" rendered="#{datiLezione.ritiratoData != null}">
+                        <span style="white-space: nowrap">
+                            Studente:<strong>#{datiLezione.cognome} #{datiLezione.nome}</strong><br/>                                                                             
+                            Ritirato dal:<strong>#{datiLezione.ritiratoData}</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.assenzePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:form id="assenze">
+                        <ui:repeat var="c" value="#{datiLezione.oreAssenze}" id="displayOreAssenze">
+                            <h:outputText value="#{c.ora}a " style="font: bold"/> 
+                            <h:selectOneMenu value="#{c.assenza}" onchange="submit()" onclick="submit()"
+                                             id="selectOreAssenze" 
+                                             style="#{c.assenza ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                             valueChangeListener="#{allievoLezioneBean.processValueChange}" >
+                                <f:selectItem itemLabel="A" itemValue="true" />
+                                <f:selectItem itemLabel="P" itemValue="false" />
+                                <f:param name="idLezione" value="#{datiLezione.idLezione}"/>
+                                <f:param name="idStudente" value="#{datiLezione.idStudente}"/>
+                                <f:param name="idOra" value="#{c.ora}"/>
+                            </h:selectOneMenu>
+                        </ui:repeat>
+                    </h:form>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.ritardoPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:form id="ritardo">
+                        <h:selectOneMenu value="#{datiLezione.ritardo}" onchange="submit()" onclick="submit()"
+                                         id="selectRitardo" 
+                                         style="#{datiLezione.ritardo ? 'border-color: red':'border-color: green'};border-width: medium" 
+                                         valueChangeListener="#{allievoLezioneBean.processValueChange}" 
+                                         rendered="#{datiLezione.ora1Assenza}">
+                            <f:selectItem itemLabel="R" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                            <f:param name="idLezione" value="#{datiLezione.idLezione}"/>
+                            <f:param name="idStudente" value="#{datiLezione.idStudente}"/>
+                            <f:param name="idOra" value="1"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </rich:column>
+                <rich:column colspan="3">
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.votiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:form id="inserisciVotoForm">
+                        <h:commandButton value="Voti" action="#{allievoLezioneBean.gestisciVotiStudente(datiLezione.idLezione,datiLezione.idStudente)}"
+                                         id="votiStudente">
+                            <rich:tooltip id="tt6" styleClass="tooltip" layout="block" target="votiStudente">
+                                <span style="white-space: nowrap">Gestisci i voti dello studente<br/>
+                                    <strong>#{datiLezione.cognome} #{datiLezione.nome}</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+
+                        </h:commandButton>
+                        <h:selectOneMenu rendered="#{datiLezione.voti.size()>0}">
+                            <f:selectItems value="#{datiLezione.voti}" var="voto" itemValue="#{voto.votoNum}" 
+                                           itemLabel="#{voto.votoString} #{voto.votoNum} (#{voto.tipoVoto})"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.notePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:form id="noteStudente">
+                        <h:inputTextarea value="#{datiLezione.nota}" onblur="submit()" rows="1" id="notaStudente"
+                                         valueChangeListener="#{allievoLezioneBean.processValueChange}">
+                            <f:param name="idLezione" value="#{datiLezione.idLezione}"/>
+                            <f:param name="idStudente" value="#{datiLezione.idStudente}"/>
+                        </h:inputTextarea>
+                        <rich:tooltip id="tt7" styleClass="tooltip" layout="block" target="notaStudente">
+                            <span style="white-space: nowrap">Gestisci nota per lo studente<br/>
+                                <strong>#{datiLezione.cognome} #{datiLezione.nome}</strong>                                                                             
+                            </span>        
+                        </rich:tooltip>
+
+                    </h:form>
+                </rich:column>
+            </rich:dataTable>
+        </composite:implementation>
+    </h:body>
+</html>

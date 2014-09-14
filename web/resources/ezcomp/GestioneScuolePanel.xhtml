@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="header" default="AMMINISTRAZIONE"/>
+
+            <composite:attribute name="scansioneOrarioAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="coloriMaterieAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="scuolaWizardAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="permessiWizardAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="gestioneScuoleForm">
+                <h:panelGrid columns="1">
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.header}"  style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <h:panelGroup>
+                        <h:commandButton value="Scansione Orario" action="#{cc.attrs.scansioneOrarioAction}"
+                                         style="font: bold italic large Palatino, serif;color: darkred"
+                                         id="scansioneOrarioButton"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:commandButton value="Colori Materie" action="#{cc.attrs.coloriMaterieAction}"
+                                         style="font: bold italic large Palatino, serif;color: darkred"
+                                         id="coloriMaterieButton"/>
+                    </h:panelGroup>                    
+                    <h:panelGroup>
+                        <h:commandButton value="Scuola Wizard" action="#{cc.attrs.scuolaWizardAction}"
+                                         style="font: bold italic large Palatino, serif;color: darkred"
+                                         id="scuolaWizardButton"/>
+                    </h:panelGroup>                    
+                    <h:panelGroup>
+                        <h:commandButton value="Permessi Wizard" action="#{cc.attrs.permessiWizardAction}"
+                                         style="font: bold italic large Palatino, serif;color: darkred"
+                                         id="permessiWizardButton"/>
+                    </h:panelGroup>                    
+                </h:panelGrid>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="scansioneOrarioButton">
+                <span style="white-space: nowrap">
+                    <strong>Scansione oraria delle lezioni per l'Anno Scolastico</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="coloriMaterieButton">
+                <span style="white-space: nowrap">
+                    <strong>Imposta i colori delle lezioni per l'Anno Scolastico</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="scuolaWizardButton">
+                <span style="white-space: nowrap">
+                    <strong>Apre il wizard per la creazione di tutta la struttura scolastica</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="permessiWizardButton">
+                <span style="white-space: nowrap">
+                    <strong>Apre il wizard per la gestione dei permessi di lettura e scrittura sui registri</strong><br/>                                
+                    <strong>agli utenti</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body > 
+        <composite:interface>
+        </composite:interface>
+        <composite:implementation>
+            <h:panelGrid columns="6" bgcolor="#009999">
+                <f:facet name="header">
+                    <h:outputText value="Scansione Orario Settimanale - [Scuola:
+                                  #{orarioScolasticoBean.selectedScuola.tipoScuolaAcronimo} #{orarioScolasticoBean.selectedScuola.nomeScuola}]
+                                  - [A.S.: #{orarioScolasticoBean.selectedAS.annoScolastico}]" style="font: bold italic large Palatino, serif"/>
+                </f:facet>
+
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Lunedì" recordsList="#{orarioScolasticoBean.righeOrarioLunedi}" 
+                                                        edit="#{orarioScolasticoBean.editLun}" renderEdit="#{orarioScolasticoBean.renderEditLun}"/>
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Martedì" recordsList="#{orarioScolasticoBean.righeOrarioMartedi}" 
+                                                        edit="#{orarioScolasticoBean.editMar}" renderEdit="#{orarioScolasticoBean.renderEditMar}"/>
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Mercoledì" recordsList="#{orarioScolasticoBean.righeOrarioMercoledi}" 
+                                                        edit="#{orarioScolasticoBean.editMer}" renderEdit="#{orarioScolasticoBean.renderEditMer}"/>
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Giovedì" recordsList="#{orarioScolasticoBean.righeOrarioGiovedi}" 
+                                                        edit="#{orarioScolasticoBean.editGio}" renderEdit="#{orarioScolasticoBean.renderEditGio}"/>
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Venerdì" recordsList="#{orarioScolasticoBean.righeOrarioVenerdi}" 
+                                                        edit="#{orarioScolasticoBean.editVen}" renderEdit="#{orarioScolasticoBean.renderEditVen}"/>
+                <ezcomp:ScansioneOrarioGiornalieroPanel giorno="Sabato" recordsList="#{orarioScolasticoBean.righeOrarioSabato}" 
+                                                        edit="#{orarioScolasticoBean.editSab}" renderEdit="#{orarioScolasticoBean.renderEditSab}"/>
+
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

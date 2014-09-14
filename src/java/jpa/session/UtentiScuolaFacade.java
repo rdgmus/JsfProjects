@@ -6,9 +6,11 @@
 
 package jpa.session;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import jpa.entities.UtentiScuola;
 
 /**
@@ -27,6 +29,40 @@ public class UtentiScuolaFacade extends AbstractFacade<UtentiScuola> {
 
     public UtentiScuolaFacade() {
         super(UtentiScuola.class);
+    }
+
+    public UtentiScuola FindByEmailPassword(String email, String password) {
+        UtentiScuola utente = null;
+        Query query = em.createNamedQuery("UtentiScuola.findAll");
+        List<UtentiScuola> listUtenti = query.getResultList();
+        for (UtentiScuola c : listUtenti) {
+            if (c.getEmail().equals(email) && c.getPassword().equals(password)) {
+                utente = c;
+                break;
+            }
+        }
+        return utente;
+    }
+
+    public Long getNextId() {
+        Long maxId = null;
+        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.utenti_seq')");
+        maxId = (Long) query.getSingleResult();
+        return maxId;
+    }
+
+    public boolean existsUserEmail(String email) {
+        Query query = getEntityManager().createNamedQuery("UtentiScuola.findByEmail");
+        query.setParameter("email", email);
+        List listWithEmail = query.getResultList();
+        return listWithEmail.size() > 0;
+    }
+
+    public boolean existsUserPassword(String password) {
+        Query query = getEntityManager().createNamedQuery("UtentiScuola.findByPassword");
+        query.setParameter("password", password);
+        List listWithPassword = query.getResultList();
+        return listWithPassword.size() > 0;
     }
     
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="backAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="annoScolasticoAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="materieAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="materiaPrompt" default="Materia"/>
+            <composite:attribute name="dataLezionePrompt" default="Data Lezione"/>
+            <composite:attribute name="giudizioPrompt" default="Giudizio?"/>
+            <composite:attribute name="votoNumPrompt" default="Voto num."/>
+            <composite:attribute name="votoStringPrompt" default="Voto Str."/>
+            <composite:attribute name="tipoVotoPrompt" default="Tipo voto"/>
+            <composite:attribute name="argLezionePrompt" default="Argomento Lezione"/>
+
+        </composite:interface>
+        <composite:implementation>
+
+            <rich:panel style="background-color: bisque">
+                <h:panelGrid columns="2" border="0">
+                    <f:facet name="header">
+                        <h:outputText value="Studente" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </f:facet>
+                    <h:outputText value="Cognome Nome:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.cognome} 
+                                  #{schedaStudenteBean.selectedStudente.nome}" 
+                                  style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                    <h:outputText value="A.S.:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.annoScolastico}"
+                                  style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                    <h:outputText value="Classe:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    <h:outputText value="#{schedaStudenteBean.selectedStudente.idClasse.nomeClasse}"
+                                  style="font: bold italic medium Palatino, serif;color: #0033cc"/>
+                </h:panelGrid>
+            </rich:panel>
+            <rich:panel style="background-color: bisque">
+
+                <h:panelGrid columns="6">
+
+                    <f:facet name="header">
+                        <h:outputText value="Periodo" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </f:facet>
+                    <h:form id="periodoAssenzeForm">
+                        <h:outputText value="Dal:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <rich:calendar value="#{schedaStudenteBean.assenzeDal}" id="assenzeDal"
+                                       locale="#{schedaStudenteBean.locale}"
+                                       popup="#{schedaStudenteBean.popup}"
+                                       datePattern="#{schedaStudenteBean.pattern}"
+                                       showApplyButton="#{schedaStudenteBean.showApply}"  
+                                       styleClass="rich-calendar-tool-btn" 
+                                       oninputblur="submit()" 
+                                       valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                        <h:outputText value="Al:" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <rich:calendar value="#{schedaStudenteBean.assenzeAl}" id="assenzeAl"
+                                       locale="#{schedaStudenteBean.locale}"
+                                       popup="#{schedaStudenteBean.popup}"
+                                       datePattern="#{schedaStudenteBean.pattern}"
+                                       showApplyButton="#{schedaStudenteBean.showApply}"  
+                                       styleClass="rich-calendar-tool-btn" 
+                                       oninputblur="submit()" 
+                                       valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                    </h:form>
+                    <h:form id="materieForm">
+
+                        <h:outputText value="Materie" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:selectOneMenu id="selectedMateria" value="#{schedaStudenteBean.selectedMateria}" 
+                                         onchange="submit()" onclick="submit()"
+                                         valueChangeListener="#{schedaStudenteBean.processValueChange}">
+                            <f:selectItems value="#{schedaStudenteBean.listaMaterieStudente}" 
+                                           var="thisMateria" itemValue="#{thisMateria}"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </h:panelGrid>
+                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="selectedMateria">
+                    <span style="white-space: nowrap">Filtra voti per materia<br/>
+                    </span>        
+                </rich:tooltip>
+                <h:form  id="commandsForm">
+                    <h:panelGrid columns="3">
+                        <h:commandButton id="resetAS" action="#{cc.attrs.annoScolasticoAction}" value="Tutto l'A.S." 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:commandButton id="resetMaterie" action="#{cc.attrs.materieAction}" value="Tutte le Materie" 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        <h:commandButton id="backButton" action="#{cc.attrs.backAction}" value="Chiudi Riepilogo" 
+                                         style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                    </h:panelGrid>
+                    <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="resetAS">
+                        <span style="white-space: nowrap">Resetta le date del periodo a:<br/>
+                            <strong>tutto l'anno scolastico</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="resetMaterie">
+                        <span style="white-space: nowrap">Resetta i voti in modo che compaiano<br/>
+                            <strong>tutte le materie</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="backButton">
+                        <span style="white-space: nowrap">Chiude il riepilogo di voti<br/>
+                        </span>        
+                    </rich:tooltip>
+                </h:form>
+            </rich:panel>
+            <rich:panel>
+                <h:form id="votiStudenteTableForm">
+                    <h:panelGrid>
+                        <f:facet name="header">
+                            <h:outputText value="Riepilogo dei Voti conseguiti" style="font: bold italic medium Palatino, serif;color: darkmagenta"/>
+                        </f:facet>
+                        <rich:dataScroller for="votiStudenteTable" maxPages="20" />
+                        <rich:dataTable id="votiStudenteTable" value="#{schedaStudenteBean.recordsVotiStudente}" 
+                                        var="votiStudente" rows="5"
+                                        rowClasses="jsfcrud_odd_row,jsfcrud_even_row"  style="border:solid 1px;width: 800px"
+                                        rendered="#{schedaStudenteBean.recordsVotiStudente.size() >0}" 
+                                        onrowmouseover="this.style.backgroundColor='#eeb056'"  
+                                        onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.materiaPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.materia.materia}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.dataLezionePrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.dataLezione}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                    <f:converter converterId="myDateConverter"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.giudizioPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.giudizio}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.votoNumPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.votoNum}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.votoStringPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.votoString}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.tipoVotoPrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.tipoVoto}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.argLezionePrompt}" style="font: bold italic medium Palatino, serif"/>
+                                </f:facet>
+                                <h:outputText value="#{votiStudente.argLezione}" 
+                                              style="font: bold italic medium Palatino, serif;color: #0033cc">
+                                </h:outputText>
+                            </rich:column>
+                        </rich:dataTable>
+                    </h:panelGrid>
+                </h:form>
+            </rich:panel>
+        </composite:implementation>
+    </h:body>
+</html>

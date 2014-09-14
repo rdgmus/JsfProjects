@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"      
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="lezioniMeseForm">
+                <rich:collapsiblePanel header="Lezioni del Mese" expanded="#{lezioniMateriaBean.expandAllPanels}" switchType="client">
+                    <rich:tabPanel switchType="client" id="lezioniMese" activeItem="#{lezioniMateriaBean.lezioneSelected}"
+                                   onclick="submit()" onitemchange="submit()" 
+                                   itemChangeListener="#{lezioniMateriaBean.processItemChange}"
+                                   rendered="#{lezioniMateriaBean.countLezioni > 0}">
+                        <a4j:repeat value="#{lezioniMateriaBean.lezioniMateriaMese}" var="lezione">
+                            <rich:tab header="#{lezione}" name="#{lezione}" >
+                                <f:facet  name="header">
+                                    <h:outputText value="#{lezione.dataLezione}" style="font: bold italic large Palatino, serif; color: #0033cc">
+                                        <f:converter converterId="myLessonDateConverter"/>
+                                    </h:outputText>
+                                </f:facet>
+                                <h:outputText value="Lezione: " style="font: bold italic normal Palatino, serif"/>
+                                <h:outputText value="#{lezioniMateriaBean.lezioneSelected}" 
+                                              style="font: bold italic large Palatino, serif; color: darkmagenta;background: cornsilk">
+                                    <f:converter converterId="mySelectedLessonDateConverter"/>
+                                </h:outputText>
+                                <h:outputText value=" Ore: " style="font: bold italic normal Palatino, serif"/>
+                                <h:outputText value="#{lezioniMateriaBean.lezioneSelected}" 
+                                              style="font: bold italic large Palatino, serif; color: darkmagenta;background: cornsilk">
+                                    <f:converter converterId="mySelectedLessonOreConverter"/>
+                                </h:outputText>
+                            </rich:tab>
+                        </a4j:repeat>
+                    </rich:tabPanel>
+                </rich:collapsiblePanel>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

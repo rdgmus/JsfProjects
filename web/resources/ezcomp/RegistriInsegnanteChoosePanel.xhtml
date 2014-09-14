@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="REGISTRI INSEGNANTE"/>
+
+            <composite:attribute name="actionsPrompt" default="Azioni"/>
+            <composite:attribute name="tipoScuolaPrompt" default="Tipo Scuola"/>
+            <composite:attribute name="scuolaPrompt" default="Scuola"/>
+            <composite:attribute name="annoScolasticoPrompt" default="A.S."/>
+            <composite:attribute name="classePrompt" default="Classe"/>
+            <composite:attribute name="insegnantePrompt" default="Ins."/>
+            <composite:attribute name="cognomePrompt" default="Cognome"/>
+            <composite:attribute name="nomePrompt" default="Nome"/>
+            <composite:attribute name="materiaPrompt" default="Materia"/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="registriTitle" default="Registri Insegnante"/>
+            <composite:attribute name="openRegistro" default="Apri Registro"/>
+
+            <composite:attribute name="registriInsegnanteBean"/>
+        </composite:interface>
+
+        <composite:implementation>
+            <rich:panel style="background-color: #009999" rendered="#{scuolaStructureBean.selectedInsegnante != null}">
+                <h:form id="registriForm">
+                    <h:panelGrid columns="1">
+                        <f:facet name="header">
+                            <h:graphicImage library="images"  name="registri80.jpg" alt="immagine" />
+                            <h:outputText value="#{cc.attrs.header} (#{registriInsegnanteBean.itemsCount})" style="font: bold italic large Palatino, serif"/>
+                        </f:facet>
+                        <h:outputText value="#{cc.attrs.insegnantePrompt}:#{registriInsegnanteBean.insegnante.cognome} #{registriInsegnanteBean.insegnante.nome}
+                                      #{cc.attrs.annoScolasticoPrompt}:#{registriInsegnanteBean.annoScolastico.annoScolastico}" style="color: gold"/>
+                    </h:panelGrid>
+                    <h:panelGroup rendered="#{registriInsegnanteBean.itemsCount>0}">
+                        <rich:dataTable id="RegistriInsegnanteTable" value="#{registriInsegnanteBean.registriInsegnanteItems}" var="item"
+                                        rowClasses="jsfcrud_odd_row,jsfcrud_even_row"  style="border:solid 1px"
+                                        onrowmouseover="this.style.backgroundColor='#eeb056'" 
+                                        onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.tipoScuolaPrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tipoScuolaAcronimo}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.scuolaPrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeScuola}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.annoScolasticoPrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.annoScolastico}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.classePrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeClasse}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.cognomePrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cognome}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.nomePrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.materiaPrompt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.materia}"/>
+                            </rich:column>>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{cc.attrs.actionsPrompt}"/>
+                                </f:facet>
+                                <h:commandButton action="#{registriInsegnanteBean.openRegistro(item)}" value="#{cc.attrs.openRegistro}"
+                                                 id="openRegistro"/>
+                                <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="openRegistro">
+                                    <span style="white-space: nowrap">Visualizza REGISTRO SCOLASTICO:<br/>
+                                        Scuola:<strong>#{item.tipoScuolaAcronimo} #{item.nomeScuola}</strong><br/>                                                                             
+                                        A.S.:<strong>#{item.annoScolastico}</strong><br/>                                                                             
+                                        Classe:<strong>#{item.nomeClasse}</strong><br/>                                                                             
+                                        Insegnante:<strong>#{item.cognome} #{item.nome}</strong><br/>                                                                             
+                                        Materia:<strong>#{item.materia}</strong><br/>                                                                             
+                                    </span>        
+                                </rich:tooltip>
+
+                            </rich:column>
+                        </rich:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </rich:panel>
+        </composite:implementation>
+    </h:body>
+</html>
