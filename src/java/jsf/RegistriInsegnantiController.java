@@ -220,7 +220,7 @@ public class RegistriInsegnantiController implements Serializable {
             }
             if (object instanceof RegistriInsegnanti) {
                 RegistriInsegnanti o = (RegistriInsegnanti) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getIdMateria());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + RegistriInsegnanti.class.getName());
             }

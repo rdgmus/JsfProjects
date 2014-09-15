@@ -6,6 +6,7 @@ package composite.components;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -24,15 +25,17 @@ import jsf.util.JsfUtil;
 @SessionScoped
 public class MyLoginBean implements Serializable {
 
-    @EJB
-    IntestazioneBean intestazioneBean;
+   
 
-    public IntestazioneBean getIntestazioneBean() {
-        return intestazioneBean;
-    }
+//    @EJB
+//    IntestazioneBean intestazioneBean;
+//
+//    public IntestazioneBean getIntestazioneBean() {
+//        return intestazioneBean;
+//    }
 
     private void sendEmail() {
-        getIntestazioneBean().sendEmail();
+//         getIntestazioneBean().sendEmail();
     }
 
     private enum logEventsTypes {

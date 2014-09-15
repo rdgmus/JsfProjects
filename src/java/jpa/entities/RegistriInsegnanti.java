@@ -44,6 +44,7 @@ public class RegistriInsegnanti implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_materia", nullable = false)
+    @Id
     private long idMateria;
     @Basic(optional = false)
     @NotNull
@@ -96,8 +97,8 @@ public class RegistriInsegnanti implements Serializable {
     @NotNull
     @Column(name = "id_classe", nullable = false)
     private long idClasse;
-    @Id
-    private Long id;
+//    @Id
+//    private Long id;
 
     public RegistriInsegnanti() {
     }
@@ -198,12 +199,5 @@ public class RegistriInsegnanti implements Serializable {
         this.idClasse = idClasse;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
 }

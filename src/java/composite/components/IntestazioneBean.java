@@ -11,7 +11,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Local;
+import javax.ejb.Stateful;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -33,9 +36,8 @@ import jsf.util.JsfUtil;
  *
  * @author rdgmus
  */
-//@ManagedBean(name = "intestazioneBean")
-//@SessionScoped
-@Stateless
+@ManagedBean(name = "intestazioneBean")
+@SessionScoped
 public class IntestazioneBean implements Serializable {
 
     private UtentiScuola utente;
@@ -251,4 +253,5 @@ public class IntestazioneBean implements Serializable {
     public void setCountMyLogs(int countMyLogs) {
         this.countMyLogs = countMyLogs;
     }
+    
 }

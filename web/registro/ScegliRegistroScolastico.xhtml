@@ -4,9 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
-      xmlns:rich="http://richfaces.org/rich"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:rich="http://richfaces.org/rich">
     <ui:composition template="/RegistroTemplate.xhtml">
         <ui:define name="topLeft">            
             <ezcomp:LogoRegistroScolasticoPanel intestazioneBean="#{intestazioneBean}" 
@@ -28,7 +26,8 @@
                                         permessiWizardAction="#{orarioScolasticoBean.grantWizard()}"/>
         </ui:define>
         <ui:define name="topCenter">
-            <ezcomp:ScuolaStructurePanel scuolaStructureBean="#{scuolaStructureBean}"/>   
+            <ezcomp:ScuolaStructurePanel scuolaStructureBean="#{scuolaStructureBean}"/> 
+            <ezcomp:RegistriInsegnanteChoosePanel registriInsegnanteBean="#{registriInsegnanteBean}"/>
         </ui:define>
         <ui:define name="topRight">
             <ezcomp:SchedaStudentePanel rendered="#{scuolaStructureBean.selectedStudente != null}"
