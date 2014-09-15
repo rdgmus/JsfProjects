@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpa.session;
 
 import java.sql.Timestamp;
@@ -21,6 +20,7 @@ import jpa.entities.UtentiScuola;
  */
 @Stateless
 public class UtentiLoggerFacade extends AbstractFacade<UtentiLogger> {
+
     @PersistenceContext(unitName = "RegistroWebApp3.0PU")
     private EntityManager em;
 
@@ -39,11 +39,12 @@ public class UtentiLoggerFacade extends AbstractFacade<UtentiLogger> {
         now = (Timestamp) query.getSingleResult();
         return now;
     }
+
     public List<UtentiLogger> findUtenteLogs(UtentiScuola idUtente, Boolean state) {
         Query query = getEntityManager().createQuery("SELECT u FROM UtentiLogger u WHERE u.idUtente = :idUtente"
                 + " AND u.msgToUtente = :msgToUtente");
         query.setParameter("idUtente", idUtente);
-        query.setParameter("msgToUtente",(short) (state?1:0));
+        query.setParameter("msgToUtente", (short) (state ? 1 : 0));
         return query.getResultList();
     }
 
@@ -55,7 +56,7 @@ public class UtentiLoggerFacade extends AbstractFacade<UtentiLogger> {
                     + " u.msgSentTime = :msgSentTime"
                     + " WHERE u.idLog = :idLog");
             query.setParameter("idLog", u.getIdLog());
-            query.setParameter("msgToUtente", (short)1);
+            query.setParameter("msgToUtente", (short) 1);
             query.setParameter("msgSentTime", getCurrentTimeStamp());
 
             query.executeUpdate();

@@ -182,7 +182,7 @@ public class RegistriInsegnanteBean implements ValueChangeListener, Serializable
     }
 
     public String prepareView() {
-        List<RegistriInsegnanti> list = getRegistriInsegnantiFacade().findAll();
+//        List<RegistriInsegnanti> list = getRegistriInsegnantiFacade().findAll();
         registriInsegnanteItems = new ListDataModel(getRegistriInsegnantiFacade().findByInsegnanteAnnoScolastico(annoScolastico, insegnante));
         setItemsCount(registriInsegnanteItems.getRowCount());
         return "/registro/ScegliRegistroScolastico";

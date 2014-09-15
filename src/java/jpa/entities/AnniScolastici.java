@@ -232,7 +232,8 @@ public class AnniScolastici implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.AnniScolastici[ idAnnoScolastico=" + idAnnoScolastico + " ]";
+//        return "jpa.entities.AnniScolastici[ idAnnoScolastico=" + idAnnoScolastico + " ]";
+        return annoScolastico;
     }
     
 }

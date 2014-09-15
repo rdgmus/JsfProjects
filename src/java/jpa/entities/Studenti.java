@@ -218,7 +218,8 @@ public class Studenti implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Studenti[ idStudente=" + idStudente + " ]";
+//        return "jpa.entities.Studenti[ idStudente=" + idStudente + " ]";
+        return cognome+" "+nome;
     }
     
 }

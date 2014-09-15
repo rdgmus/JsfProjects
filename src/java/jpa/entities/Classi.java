@@ -200,7 +200,8 @@ public class Classi implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Classi[ idClasse=" + idClasse + " ]";
+//        return "jpa.entities.Classi[ idClasse=" + idClasse + " ]";
+        return nomeClasse;
     }
     
 }

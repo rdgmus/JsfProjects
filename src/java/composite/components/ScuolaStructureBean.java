@@ -150,13 +150,6 @@ public class ScuolaStructureBean implements ValueChangeListener, Serializable {
         setInsegnanteForRegistri();
     }
 
-    @EJB
-    RegistriInsegnanteBean registriInsegnanteBean;
-
-    public RegistriInsegnanteBean getRegistriInsegnanteBean() {
-        return registriInsegnanteBean;
-    }
-
     public void setInsegnanteForRegistri() {
         RegistriInsegnanteBean controller = (RegistriInsegnanteBean) FacesContext.getCurrentInstance().getExternalContext()
                 .getSessionMap().get("registriInsegnanteBean");
@@ -358,7 +351,7 @@ public class ScuolaStructureBean implements ValueChangeListener, Serializable {
      */
     public List<Materie> retrieveMaterie() {
         try {
-            setMaterie( getMaterieFacade().retrieveMaterieInsegnanteOrderedList(
+            setMaterie(getMaterieFacade().retrieveMaterieInsegnanteOrderedList(
                     selectedAS, selectedClasse, selectedInsegnante));
         } catch (Exception ejbex) {
             JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista MATERIE:"

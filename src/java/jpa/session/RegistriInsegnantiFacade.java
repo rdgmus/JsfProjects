@@ -48,4 +48,12 @@ public class RegistriInsegnantiFacade extends AbstractFacade<RegistriInsegnanti>
 
         return query.getResultList();
     }
+
+//    @Override
+//    public List<RegistriInsegnanti> findAll() {
+////        return super.findAll(); //To change body of generated methods, choose Tools | Templates.
+//        Query query = em.createQuery("SELECT r FROM RegistriInsegnanti r ");
+//        return query.getResultList();
+//    }
+
 }

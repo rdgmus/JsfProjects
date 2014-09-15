@@ -3,10 +3,11 @@ root {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lucida Bright',Verdana,Arial,Helvetica,sans-serif;
     color: #3a4f54;
-    background-color: #dfecf1;
-    font-size: small;
+    background-color: #009999;
+    font-size: medium;
+    background-attachment: scroll;
 }
 
 a {
@@ -18,8 +19,8 @@ table {
 }
 
 form.jsfcrud_list_form th, td th {
-    font-size: x-small;
-    color: #4e6a71;
+    font-size: 10px;
+    color: #3333ff;
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -65,7 +66,7 @@ form.jsfcrud_list_form td, td td {
 }
 
 tr.jsfcrud_odd_row {
-    background-color: #fefeff;
+    background-color: #ccffff;
     color: #4e6a71;
 }
 
@@ -80,8 +81,56 @@ tr.jsfcrud_even_row {
     left: 50%;
     top: 50%;
 }
+h2.jsfcrud_h2{
 
-.jsfcrud_h1 {
-    background-color: #eff5fa;
-    color: #4e6a71;
+    color: navy;
+    font-family: 'Lucida Bright',Verdana,Arial,Helvetica,sans-serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: bold;
+    font-variant: normal;
 }
+h1.jsfcrud_h1{
+
+    color: navy;
+    font-family: 'Lucida Bright',Verdana,Arial,Helvetica,sans-serif;
+    font-size: 36px;
+    font-style: italic;
+    font-weight: bold;
+    font-variant: normal;
+}
+output.h_outputText{
+
+    font-style: italic;
+    font-weight: bold;
+    font-family: serif;
+    font-size: large;
+    color: #0033cc;
+}
+link.h_link{
+
+    color: #ffff33;
+    font-weight: bold;
+}
+li.assenzeMenu optgroup{
+    color: red;
+    font-size: 18px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+.rich-calendar-tool-btn{
+    font-family: Arial, Verdana;
+    font-size: 18px;
+} 
+.rich-progress-bar-uploaded-dig{
+    color: navy;
+    font-family: 'Lucida Bright',Verdana,Arial,Helvetica,sans-serif;
+    font-size: 36px;
+    font-style: italic;
+    font-weight: bold;
+    font-variant: normal;
+    border: 1;
+}
+.rf-pb-rmng { 
+    width: 50px !important;
+}  

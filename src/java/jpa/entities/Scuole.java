@@ -255,7 +255,8 @@ public class Scuole implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Scuole[ idScuola=" + idScuola + " ]";
+//        return "jpa.entities.Scuole[ idScuola=" + idScuola + " ]";
+        return tipoScuolaAcronimo + " " + nomeScuola;
     }
     
 }

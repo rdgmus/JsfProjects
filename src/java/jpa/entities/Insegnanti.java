@@ -176,7 +176,8 @@ public class Insegnanti implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Insegnanti[ idInsegnante=" + idInsegnante + " ]";
+//        return "jpa.entities.Insegnanti[ idInsegnante=" + idInsegnante + " ]";
+        return cognome+" "+nome;
     }
     
 }

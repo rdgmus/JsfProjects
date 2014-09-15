@@ -201,6 +201,11 @@ public class IntestazioneBean implements Serializable {
         getUtentiLoggerFacade().setUtenteLogsEmailed(utente);
     }
 
+    /**
+     * CANCELLA DALLA TABELLA UtentiLogger I RECORDS PER I QUALI
+     * E' STATA INVIATA LA NOTIFICA ALL'UTENTE DEL LOG
+     * 
+     */
     public void cancellaMyLogRicevuti() {
         if (utente == null) {
             return;

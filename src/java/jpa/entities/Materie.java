@@ -228,7 +228,8 @@ public class Materie implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.Materie[ idMateria=" + idMateria + " ]";
+//        return "jpa.entities.Materie[ idMateria=" + idMateria + " ]";
+        return materia;
     }
     
 }
