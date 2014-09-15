@@ -7,7 +7,6 @@ package composite.components;
 import composite.components.records.AssenzePerOra;
 import composite.components.records.RigaStudenteRecord;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -56,7 +55,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
     @EJB
     OreAssenzeFacade oreAssenzeFacade;
     private DataModel recordsModel;
-    private BigInteger idLezione;
+    private Long idLezione;
     private Long idStudente;
     private int idOra;
     StudentiFacade studentiFacade;
@@ -296,7 +295,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
             //Carica le assenze dello studente
 
             List<OreAssenze> oreAssenze = getOreAssenzeFacade().findAssenzeStudenteLezione(
-                    getLezioneSelected().getIdLezione().longValue(),
+                    getLezioneSelected().getIdLezione(),
                     studente.getIdStudente());
 
             RigaStudenteRecord rec;
@@ -311,7 +310,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
             rec.setNome(studente.getNome());
             rec.setNota("");
             rec.setOreAssenze(buildAssenzePerOra(oreAssenze));
-            rec.setVoti(buildListaVoti(getLezioneSelected().getIdLezione().longValue(), studente.getIdStudente()));
+            rec.setVoti(buildListaVoti(getLezioneSelected().getIdLezione(), studente.getIdStudente()));
             //Aggiunto il 17/04/2013
             rec.setRitardo(existsRitardoInOra(oreAssenze, 1));
 //            rec.setRenderRitardo(existsAssenzaSoloPrimaOra(oreAssenze));
@@ -365,7 +364,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         boolean exists = false;
         for (OreAssenze oa : oreAssenze) {
             if (oa.getOreAssenzePK().getNumOra() == n) {
-                exists = oa.getAssenza();
+                exists = oa.getAssenza() != 0;
                 break;
             }
         }
@@ -397,7 +396,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
                         String name = p.getName();
                         Object value = p.getValue();
                         if (name.equals("idLezione")) {
-                            BigInteger bi = (BigInteger) value;
+                            Long bi = (Long) value;
                             setIdLezione(bi);
                         }
                         if (name.equals("idStudente")) {
@@ -421,7 +420,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
                         String name = p.getName();
                         Object value = p.getValue();
                         if (name.equals("idLezione")) {
-                            BigInteger bi = (BigInteger) value;
+                            Long bi = (Long) value;
                             setIdLezione(bi);
                         }
                         if (name.equals("idStudente")) {
@@ -451,7 +450,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
                     String name = p.getName();
                     Object value = p.getValue();
                     if (name.equals("idLezione")) {
-                        BigInteger bi = (BigInteger) value;
+                        Long bi = (Long) value;
                         setIdLezione(bi);
                     }
                     if (name.equals("idStudente")) {
@@ -466,10 +465,10 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         if (source instanceof HtmlInputNumberSpinner) {//UPDATE NUMBER STUDENTS PAGE SIZE 
             HtmlInputNumberSpinner cb = (HtmlInputNumberSpinner) source;
             if (cb.getId().equals("numeroStudentiPerPage")) {//AFGGIUSTAMENTO NUMERO STUDENTI PER PAGINA
-                setPageSize(Integer.valueOf(String.valueOf(event.getNewValue())).intValue());
+                setPageSize(Integer.parseInt(String.valueOf(event.getNewValue())));
             }
             if (cb.getId().equals("votoStudente")) {//INIZIALIZZA VOTO DA INFLIGGERE ALLO STUDENTE
-                setNuovoVotoValue(Double.valueOf(String.valueOf(event.getNewValue())).doubleValue());
+                setNuovoVotoValue(Double.parseDouble(String.valueOf(event.getNewValue())));
             }
         }
         if (source instanceof HtmlSelectOneRadio) {//UPDATE TIPO VOTO
@@ -480,11 +479,11 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         }
     }
 
-    public BigInteger getIdLezione() {
+    public Long getIdLezione() {
         return idLezione;
     }
 
-    public void setIdLezione(BigInteger idLezione) {
+    public void setIdLezione(Long idLezione) {
         this.idLezione = idLezione;
     }
 
@@ -517,10 +516,10 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
             getStudentiFacade();
         }
         OreAssenze entity;
-        entity = new OreAssenze(idLezione.longValue(), idOra, idStudente);
+        entity = new OreAssenze(idLezione, idOra, idStudente);
         if (newValue) {
             try {
-                entity.setAssenza(newValue);
+                entity.setAssenza(newValue ? (short) 1 : (short) 0);
                 oreAssenzeFacade.create(entity);
                 Studenti studente = studentiFacade.find(idStudente);
                 LezioniMateria lezione = lezioniMateriaFacade.find(idLezione);
@@ -601,17 +600,17 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
     public void inserisciVoto() {
         try {
             Long nextIdVoto = getVotiLezioniStudenteFacade().getNextIdVoto(
-                    new Long(idLezione.longValue()), idStudente);
+                    idLezione, idStudente);
             VotiLezioniStudente nuovoVoto = new VotiLezioniStudente(idLezione.longValue(), nextIdVoto, idStudente);
             nuovoVoto.setTipoVoto(tipoVoto);
             switch (tipoVoto) {
                 case 'G':
-                    nuovoVoto.setGiudizio(true);
+                    nuovoVoto.setGiudizio((short) 1);
                     nuovoVoto.setVotoString(getGiudizioSelezionato().getGiudizio());
                     nuovoVoto.setVotoNum(getGiudizioSelezionato().getValueGiudizio());
                     break;
                 default:
-                    nuovoVoto.setGiudizio(false);
+                    nuovoVoto.setGiudizio((short) 0);
                     nuovoVoto.setVotoNum(nuovoVotoValue);
                     break;
             }
@@ -685,7 +684,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         this.votoDaRemove = votoDaRemove;
     }
 
-    public void gestisciVotiStudente(BigInteger idLezione, Long idStudente) {
+    public void gestisciVotiStudente(Long idLezione, Long idStudente) {
         setIdLezione(idLezione);
         setIdStudente(idStudente);
         setRenderGestioneLezioni(false);
@@ -751,7 +750,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
     private Boolean ritardoInOreAssenza(List<OreAssenze> oreAssenze) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         for (OreAssenze ora : oreAssenze) {
-            if (ora.getRitardo()) {
+            if (ora.getRitardo() != 0) {
                 return true;
             }
         }
@@ -762,7 +761,7 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         boolean exists = false;
         for (OreAssenze oa : oreAssenze) {
             if (oa.getOreAssenzePK().getNumOra() == n) {
-                exists = oa.getRitardo();
+                exists = oa.getRitardo() != 0;
                 break;
             }
         }
@@ -781,10 +780,10 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         }
 
         OreAssenze entity;
-        entity = new OreAssenze(idLezione.longValue(), idOra, idStudente);
+        entity = new OreAssenze(idLezione, idOra, idStudente);
 
         try {
-            entity.setRitardo(newValue);
+            entity.setRitardo(newValue ? (short) 1 : (short) 0);
             oreAssenzeFacade.updateRitardo(entity);
 
             Studenti studente = studentiFacade.find(idStudente);
@@ -825,20 +824,20 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
         }
         switch (getOreLezione()) {
             case 1:
-                if (oreAssenze.get(0).getAssenza()) {
+                if (oreAssenze.get(0).getAssenza() != 0) {
                     return true;
                 }
                 break;
             case 2:
-                if (oreAssenze.get(0).getAssenza()
-                        && !oreAssenze.get(1).getAssenza()) {
+                if (oreAssenze.get(0).getAssenza() == (short) 1
+                        && oreAssenze.get(1).getAssenza() == (short) 0) {
                     return true;
                 }
                 break;
             case 3:
-                if (oreAssenze.get(0).getAssenza()
-                        && !oreAssenze.get(1).getAssenza()
-                        && !oreAssenze.get(2).getAssenza()) {
+                if (oreAssenze.get(0).getAssenza()== (short) 1
+                        && oreAssenze.get(1).getAssenza()== (short) 0
+                        && oreAssenze.get(2).getAssenza()== (short) 0) {
                     return true;
                 }
                 break;

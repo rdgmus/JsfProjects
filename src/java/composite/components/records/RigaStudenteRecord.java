@@ -21,7 +21,7 @@ public class RigaStudenteRecord {
     private ArrayList<AssenzePerOra> oreAssenze;
     private List<VotiLezioniStudente> voti;
     private String nota;
-    private BigInteger idLezione;
+    private Long idLezione;
     private Long idStudente;
     private int registroIndex;
     private Boolean ora1Assenza;
@@ -114,11 +114,11 @@ public class RigaStudenteRecord {
         this.nota = nota;
     }
 
-    public BigInteger getIdLezione() {
+    public Long getIdLezione() {
         return idLezione;
     }
 
-    public void setIdLezione(BigInteger idLezione) {
+    public void setIdLezione(Long idLezione) {
         this.idLezione = idLezione;
     }
 

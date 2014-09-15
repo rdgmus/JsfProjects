@@ -202,7 +202,7 @@ public class MaterieFacade extends AbstractFacade<Materie> {
 
     }
 
-    public boolean isTipoVotoEnabled(BigInteger idMateria, String tipoVoto) {
+    public boolean isTipoVotoEnabled(Long idMateria, String tipoVoto) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query;
         query = getEntityManager().createQuery(
@@ -222,7 +222,7 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         }
     }
 
-    public Character getFirstTipoVotoEnabled(BigInteger idMateria) {
+    public Character getFirstTipoVotoEnabled(Long idMateria) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query;
         query = getEntityManager().createQuery(

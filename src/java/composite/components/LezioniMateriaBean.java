@@ -515,7 +515,7 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
     public String getArgomentoLezione() {
         if (getLezioniFacade() != null && getLezioneSelected() != null) {
             LezioniMateria l = (LezioniMateria) getLezioneSelected();
-            Lezioni lez = getLezioniFacade().find(l.getIdLezione().longValue());
+            Lezioni lez = getLezioniFacade().find(l.getIdLezione());
             if (lez != null) {
                 argomentoLezione = lez.getArgomento();
             }

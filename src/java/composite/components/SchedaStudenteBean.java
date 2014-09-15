@@ -4,8 +4,8 @@
  */
 package composite.components;
 
-import compositecomponents.records.AssenzeStudenteRecord;
-import compositecomponents.records.VotiStudenteRecord;
+import composite.components.records.AssenzeStudenteRecord;
+import composite.components.records.VotiStudenteRecord;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -353,7 +353,7 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
     public void insertNewStudent() {
         selectedStudente.setAnnoScolastico(oldSelectedStudente.getAnnoScolastico());
         selectedStudente.setIdAnnoScolastico(oldSelectedStudente.getIdAnnoScolastico());
-        selectedStudente.setAttivo(true);
+        selectedStudente.setAttivo((short)1);
         Calendar cal = Calendar.getInstance();
         selectedStudente.setDataEntrata(cal.getTime());
         selectedStudente.setIdClasse(oldSelectedStudente.getIdClasse());
@@ -372,7 +372,7 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
             setId(selectedStudente.getIdStudente());
             setCognome(selectedStudente.getCognome());
             setNome(selectedStudente.getNome());
-            setAttivo(selectedStudente.getAttivo());
+            setAttivo(selectedStudente.getAttivo()!=0);
             setDataEntrata(selectedStudente.getDataEntrata());
             setRitiratoData(selectedStudente.getRitiratoData());
             setAssenzeDal(null);
@@ -563,15 +563,15 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
             List<Lezioni> listaLezioniPrecEntrata = getLezioniFacade().findLezioniMateriaPrecData(m, dataEntrata);
             for (Lezioni l : listaLezioniPrecEntrata) {
                 Long idLezione = l.getIdLezione();
-                int ore = l.getOreLezione().intValue();
-                if (selectedStudente.getAttivo() == true
+                int ore = l.getOreLezione();
+                if (selectedStudente.getAttivo() == (short)1
                         && l.getDataLezione().before(selectedStudente.getDataEntrata())) {
                     Long idStudente = selectedStudente.getIdStudente();
 
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
-                        entity.setAssenza(true);
+                        entity.setAssenza((short)1);
                         if (!getOreAssenzeFacade().existsEntity(entity)) {
                             getOreAssenzeFacade().create(entity);
                             messageCreataAssenza(i, selectedStudente, l, classe, m);
@@ -593,15 +593,15 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
             List<Lezioni> listaLezioniSuccRitirato = getLezioniFacade().findLezioniMateriaSuccData(m, ritiratoData);
             for (Lezioni l : listaLezioniSuccRitirato) {
                 Long idLezione = l.getIdLezione();
-                int ore = l.getOreLezione().intValue();
-                if (selectedStudente.getAttivo() == false
+                int ore = l.getOreLezione();
+                if (selectedStudente.getAttivo() == (short)0
                         && l.getDataLezione().after(selectedStudente.getRitiratoData())) {
                     Long idStudente = selectedStudente.getIdStudente();
 
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
-                        entity.setAssenza(true);
+                        entity.setAssenza((short)1);
                         if (!getOreAssenzeFacade().existsEntity(entity)) {
                             getOreAssenzeFacade().create(entity);
                             messageCreataAssenza(i, selectedStudente, l, classe, m);
@@ -868,19 +868,19 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
                 for (OreAssenze ora : oreAssenze) {
                     switch (ora.getOreAssenzePK().getNumOra()) {
                         case 1:
-                            rec.setAssenza1aOra(ora.getAssenza());
-                            rec.setRitardo(ora.getRitardo());
+                            rec.setAssenza1aOra(ora.getAssenza()!=0);
+                            rec.setRitardo(ora.getRitardo()!=0);
                             break;
                         case 2:
-                            rec.setAssenza2aOra(ora.getAssenza());
+                            rec.setAssenza2aOra(ora.getAssenza()!=0);
                             if (!rec.isRitardo()) {
-                                rec.setRitardo(ora.getRitardo());
+                                rec.setRitardo(ora.getRitardo()!=0);
                             }
                             break;
                         case 3:
-                            rec.setAssenza3aOra(ora.getAssenza());
+                            rec.setAssenza3aOra(ora.getAssenza()!=0);
                             if (!rec.isRitardo()) {
-                                rec.setRitardo(ora.getRitardo());
+                                rec.setRitardo(ora.getRitardo()!=0);
                             }
                             break;
                     }
