@@ -33,6 +33,7 @@
             <ezcomp:SchedaStudentePanel rendered="#{scuolaStructureBean.selectedStudente != null}"
                                         riepilogoAssenzeAction="#{schedaStudenteBean.riepilogoAssenzeStudente()}"
                                         riepilogoVotiAction="#{schedaStudenteBean.riepilogoVotiStudente()}"/>
+            <ezcomp:SchedaInsegnantePanel rendered="#{scuolaStructureBean.selectedInsegnante != null}"/>   
 
         </ui:define>
         <ui:define name="content">

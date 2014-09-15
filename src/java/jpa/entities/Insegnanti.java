@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -69,9 +70,9 @@ public class Insegnanti implements Serializable {
     @JoinColumn(name = "id_classe", referencedColumnName = "id_classe", nullable = false)
     @ManyToOne(optional = false)
     private Classi idClasse;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInsegnante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInsegnante", fetch = FetchType.LAZY)
     private Collection<OrarioInsegnante> orarioInsegnanteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInsegnante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInsegnante", fetch = FetchType.EAGER)
     private Collection<Materie> materieCollection;
 
     public Insegnanti() {
