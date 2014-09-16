@@ -164,7 +164,8 @@ public class UtentiScuola implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.UtentiScuola[ idUtente=" + idUtente + " ]";
+//        return "jpa.entities.UtentiScuola[ idUtente=" + idUtente + " ]";
+        return cognome+" "+nome+" ["+email+"]";
     }
     
 }

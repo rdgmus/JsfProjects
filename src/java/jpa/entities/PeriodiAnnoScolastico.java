@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpa.entities;
 
 import java.io.Serializable;
@@ -39,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PeriodiAnnoScolastico.findByStartDate", query = "SELECT p FROM PeriodiAnnoScolastico p WHERE p.startDate = :startDate"),
     @NamedQuery(name = "PeriodiAnnoScolastico.findByEndDate", query = "SELECT p FROM PeriodiAnnoScolastico p WHERE p.endDate = :endDate")})
 public class PeriodiAnnoScolastico implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PeriodiAnnoScolasticoPK periodiAnnoScolasticoPK;
@@ -152,7 +152,8 @@ public class PeriodiAnnoScolastico implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.PeriodiAnnoScolastico[ periodiAnnoScolasticoPK=" + periodiAnnoScolasticoPK + " ]";
+//        return "jpa.entities.PeriodiAnnoScolastico[ periodiAnnoScolasticoPK=" + periodiAnnoScolasticoPK + " ]";
+        return periodo;
     }
-    
+
 }

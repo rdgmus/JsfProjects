@@ -6,11 +6,11 @@ package composite.components;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import jpa.entities.UtentiLogger;
 import jpa.entities.UtentiScuola;
 import jpa.session.UtentiLoggerFacade;
@@ -161,20 +161,20 @@ public class MyLoginBean implements Serializable {
     }
 
     public String backToScegliRegistro() {
-//        AllievoLezioneBean allievoLezioneBeanController = (AllievoLezioneBean) FacesContext.getCurrentInstance().getExternalContext()
-//                .getSessionMap().get("allievoLezioneBean");
-//
-//        // This only works if myBean2 is request scoped and already created.
-//        if (allievoLezioneBeanController != null) {
-//            allievoLezioneBeanController.setTipoVoto('N');
-//        }
-//        RegistriInsegnanteBean controller = (RegistriInsegnanteBean) FacesContext.getCurrentInstance().getExternalContext()
-//                .getSessionMap().get("registriInsegnanteBean");
-//
-//        // This only works if myBean2 is request scoped and already created.
-//        if (controller != null) {
-//            controller.closeRegistro();
-//        }
+        AllievoLezioneBean allievoLezioneBeanController = (AllievoLezioneBean) FacesContext.getCurrentInstance().getExternalContext()
+                .getSessionMap().get("allievoLezioneBean");
+
+        // This only works if myBean2 is request scoped and already created.
+        if (allievoLezioneBeanController != null) {
+            allievoLezioneBeanController.setTipoVoto('N');
+        }
+        RegistriInsegnanteBean controller = (RegistriInsegnanteBean) FacesContext.getCurrentInstance().getExternalContext()
+                .getSessionMap().get("registriInsegnanteBean");
+
+        // This only works if myBean2 is request scoped and already created.
+        if (controller != null) {
+            controller.closeRegistro();
+        }
         return "/registro/ScegliRegistroScolastico";
     }
 

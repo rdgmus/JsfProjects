@@ -110,7 +110,8 @@ public class RuoliUtenti implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.RuoliUtenti[ idRuolo=" + idRuolo + " ]";
+//        return "jpa.entities.RuoliUtenti[ idRuolo=" + idRuolo + " ]";
+        return ruolo;
     }
     
 }

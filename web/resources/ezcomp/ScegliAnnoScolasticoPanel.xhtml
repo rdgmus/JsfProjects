@@ -29,7 +29,7 @@
                                    value="#{cc.attrs.scuolePrompt}" style="color: gold"/>
                     <rich:column  >
                         <h:selectOneMenu id="selectedScuola" value="#{orarioScolasticoBean.selectedScuola}" 
-                                         onchange="submit()" onclick="submit()"
+                                         onchange="submit()" 
                                          valueChangeListener="#{orarioScolasticoBean.processValueChange}">
                             <f:selectItems value="#{orarioScolasticoBean.retrieveScuole()}" 
                                            var="thisScuola" itemValue="#{thisScuola}" />
@@ -39,9 +39,9 @@
                                    value="#{cc.attrs.anniscolasticiPrompt}" style="color: gold"/>
                     <rich:column >
                         <h:selectOneMenu id="selectedAS" value="#{orarioScolasticoBean.selectedAS}" 
-                                         onchange="submit()" onclick="submit()"
+                                         onchange="submit()" 
                                          valueChangeListener="#{orarioScolasticoBean.processValueChange}">
-                            <f:selectItems value="#{orarioScolasticoBean.retrieveAS()}" 
+                            <f:selectItems value="#{orarioScolasticoBean.as}" 
                                            var="thisAS" itemValue="#{thisAS}"  />
                         </h:selectOneMenu>
                     </rich:column>

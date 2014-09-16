@@ -180,8 +180,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
         if (source instanceof HtmlSelectBooleanCheckbox) {
             HtmlSelectBooleanCheckbox cb = (HtmlSelectBooleanCheckbox) source;
             if (cb.getId().equals("Lunedì")) {
-                setEditLun(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditLun(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.parseBoolean(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -190,8 +190,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
                 }
             }
             if (cb.getId().equals("Martedì")) {
-                setEditMar(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditMar(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.valueOf(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -200,8 +200,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
                 }
             }
             if (cb.getId().equals("Mercoledì")) {
-                setEditMer(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditMer(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.valueOf(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -210,8 +210,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
                 }
             }
             if (cb.getId().equals("Giovedì")) {
-                setEditGio(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditGio(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.valueOf(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -220,8 +220,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
                 }
             }
             if (cb.getId().equals("Venerdì")) {
-                setEditVen(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditVen(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.valueOf(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -230,8 +230,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
                 }
             }
             if (cb.getId().equals("Sabato")) {
-                setEditSab(Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue());
-                if (!Boolean.valueOf(String.valueOf(event.getNewValue())).booleanValue()) {
+                setEditSab(Boolean.valueOf(String.valueOf(event.getNewValue())));
+                if (!Boolean.valueOf(String.valueOf(event.getNewValue()))) {
                     initRecordsOrario();
                     setSelectedOrario(null);
                     renderOtherEdit();
@@ -276,8 +276,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
 
     public AnniScolastici getSelectedAS() {
         if (selectedAS == null) {
-            as = retrieveAS();
-            if (as.size() > 0) {
+            
+            if (getAs().size() > 0) {
                 setSelectedAS(as.get(0));
             }
         } else if (selectedAnnoScolasticoNotIn(as)) {
@@ -315,13 +315,26 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
         return scuole.size();
     }
 
-    /*
-     * ANNI SCOLASTICI
-     */
-    public List<AnniScolastici> retrieveAS() {
+    public List<Scuole> getScuole() {
+        return scuole;
+    }
+
+    public void setScuole(List<Scuole> scuole) {
+        this.scuole = scuole;
+    }
+
+    public List<AnniScolastici> getAs() {
         as = getAsFacade().retrieveAnniScolasticiScuolaOrderedList(selectedScuola);
         return as;
     }
+
+    public void setAs(List<AnniScolastici> as) {
+        this.as = as;
+    }
+
+    
+    
+    
 
     private boolean selectedScuolaNotIn(List<Scuole> scuole) {
 //        throw new UnsupportedOperationException("Not yet implemented");
