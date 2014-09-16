@@ -55,7 +55,7 @@
 
                         </rich:columnGroup>
                     </f:facet>
-                    <rich:column id="ora" style="#{records.intervallo ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                    <rich:column id="ora" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
                         <h:outputText value="#{records.numOraLezione}" 
                                       style="#{cc.attrs.edit ? 'font: bold italic small Palatino, serif':'font: bold italic large Palatino, serif'}" 
                                       rendered="#{records.numOraLezione != null}"/>
@@ -63,7 +63,7 @@
                                       style="#{cc.attrs.edit ? 'font: bold italic small Palatino, serif':'font: bold italic large Palatino, serif'}"
                                       rendered="#{records.numOraLezione == null}"/>
                     </rich:column>
-                    <rich:column id="da" colspan="2" style="#{records.intervallo ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                    <rich:column id="da" colspan="2" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
                         <h:outputText value="#{records.inizia}" style="font: bold italic large Palatino, serif" 
                                       rendered="#{!cc.attrs.edit}">
                             <f:converter converterId="myTimeConverter" for="da"/>
@@ -75,7 +75,7 @@
                             <f:param value="#{records.idScansione}" name="idScansione"/>
                         </h:inputText>
                     </rich:column>
-                    <rich:column id="a" colspan="2" style="#{records.intervallo ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                    <rich:column id="a" colspan="2" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
                         <h:outputText value="#{records.finisce}" style="font: bold italic large Palatino, serif"
                                       rendered="#{!cc.attrs.edit}">
                             <f:converter converterId="myTimeConverter" for="a"/>
@@ -87,12 +87,12 @@
                             <f:param value="#{records.idScansione}" name="idScansione"/>
                         </h:inputText>
                     </rich:column>
-                    <rich:column id="attivita" style="#{records.intervallo ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}" >
-                        <h:outputText value="#{records.lezione ? 'Lez.':''}#{records.intervallo ?'Int.':''}" 
+                    <rich:column id="attivita" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}" >
+                        <h:outputText value="#{records.lezione!=0 ? 'Lez.':''}#{records.intervallo!=0 ?'Int.':''}" 
                                       style="font: bold italic large Palatino, serif" rendered="#{!cc.attrs.edit}"/>
-                        <h:outputLabel for="selectAttivita" value="#{records.lezione ? 'Lez.':'Int.'}" style="font: bold italic small Palatino, serif" 
+                        <h:outputLabel for="selectAttivita" value="#{records.lezione!=0 ? 'Lez.':'Int.'}" style="font: bold italic small Palatino, serif" 
                                        rendered="#{cc.attrs.edit}"/>
-                        <h:selectBooleanCheckbox id="selectAttivita" value="#{records.lezione}" onchange="submit()"
+                        <h:selectBooleanCheckbox id="selectAttivita" value="#{records.lezione!=0}" onchange="submit()"
                                                  valueChangeListener="#{orarioScolasticoBean.processValueChange}" rendered="#{cc.attrs.edit}" >
                             <f:param name="rigaOrario" value="#{records.idScansione}"/>
                         </h:selectBooleanCheckbox>

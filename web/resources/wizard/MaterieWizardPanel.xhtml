@@ -56,16 +56,16 @@
                                      readonly="true"
                                      style="font: bold italic large Palatino, serif"/>
                     <h:outputLabel value="Giudizio" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
-                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.giudizio}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.giudizio!=0}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
                                              id="page8_giudizio" onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
                     <h:outputLabel value="Scritto" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
-                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.scritto}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.scritto!=0}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
                                              id="page8_scritto"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
                     <h:outputLabel value="Orale" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
-                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.orale}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.orale!=0}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
                                              id="page8_orale"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
                     <h:outputLabel value="Pratico" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
-                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.pratico}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.pratico!=0}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
                                              id="page8_pratico"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
 
                 </h:panelGrid>
