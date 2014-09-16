@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:wizard="http://java.sun.com/jsf/composite/wizard"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WizardTemplate.xhtml">
+
+        <ui:define name="topLeft">  
+            <h:panelGrid columns="2" bgcolor="white">
+                <ezcomp:CrudPanel cancellaAction="#{permessiRegistriWizardBean.cancellaAction()}" 
+                                  createAction="#{permessiRegistriWizardBean.createAction()}" 
+                                  modificaAction="#{permessiRegistriWizardBean.modificaAction()}"
+                                  commitAction="#{permessiRegistriWizardBean.commitAction()}" 
+                                  rollbackAction="#{permessiRegistriWizardBean.rollbackAction()}" 
+                                  tabella="#{permessiRegistriWizardBean.tabella}"
+                                  disableCommitRollback="#{permessiRegistriWizardBean.disableCommitRollback}"
+                                  disableCreateModifyDelete="#{permessiRegistriWizardBean.disableCreateModifyDelete}"
+                                  azioneInCorso="#{permessiRegistriWizardBean.azioneInCorso}"/>
+                <h:graphicImage library="images"  name="registri80.jpg" alt="immagine"/>
+            </h:panelGrid>
+            <h1 class="jsfcrud_h1">Registri</h1><br/>
+        </ui:define>
+        <ui:define name="topRight">  
+            <h1 class="jsfcrud_h1">Wizard (#{permessiRegistriWizardBean.tabella})</h1><br/>
+            <h2 class="jsfcrud_h2">Gestione dei permessi di accesso...</h2><br/>
+            <wizard:UtentiGrantWizardPanel/>
+        </ui:define>
+        <ui:define name="content">
+            <wizard:RegistriGrantWizardPanel/>
+            <h1 class="jsfcrud_h1">pag. #{permessiRegistriWizardBean.page}</h1>
+        </ui:define>
+        <ui:define name="contentRight">
+        </ui:define>
+        <ui:define name="bottom">
+            <h:form id="esciForm">
+                <h:commandButton value="Esci" action="#{permessiRegistriWizardBean.backToScegliRegistro()}" id="TerminaWizard"
+                                 style="font: bold italic large Palatino, serif" disabled="#{permessiRegistriWizardBean.disableCreateModifyDelete}"/>
+                <h:commandButton value="Read" action="#{permessiRegistriWizardBean.grantReadPermission()}" id="grantReadPermission"
+                                 style="font: bold italic large Palatino, serif" rendered="#{permessiRegistriWizardBean.listaMaterie.size()>0}"/>
+                <h:commandButton value="Write" action="#{permessiRegistriWizardBean.grantWritePermission()}" id="grantWritePermission"
+                                 style="font: bold italic large Palatino, serif" rendered="#{permessiRegistriWizardBean.listaMaterie.size()>0}"/>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="TerminaWizard">
+                <span style="white-space: nowrap">
+                    <strong>"Termina Wizard"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="grantReadPermission">
+                <span style="white-space: nowrap">
+                    <strong>"Abilita permessi di lettura per il registro della materia selezionata"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="grantWritePermission">
+                <span style="white-space: nowrap">
+                    <strong>"Abilita permessi di scrittura sul registro della materia selezionata"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:notifyMessages nonblocking="true"/>
+        </ui:define>
+    </ui:composition>
+</html>

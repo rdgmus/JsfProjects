@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpa.entities;
 
 import java.io.Serializable;
@@ -52,6 +51,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LezioniMateria.findByNomeScuola", query = "SELECT l FROM LezioniMateria l WHERE l.nomeScuola = :nomeScuola"),
     @NamedQuery(name = "LezioniMateria.findByTipoScuolaAcronimo", query = "SELECT l FROM LezioniMateria l WHERE l.tipoScuolaAcronimo = :tipoScuolaAcronimo")})
 public class LezioniMateria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Column(name = "data_lezione")
     @Temporal(TemporalType.DATE)
@@ -70,6 +70,7 @@ public class LezioniMateria implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_lezione", nullable = false)
+    @Id
     private long idLezione;
     @Basic(optional = false)
     @NotNull
@@ -138,8 +139,6 @@ public class LezioniMateria implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "tipo_scuola_acronimo", nullable = false, length = 10)
     private String tipoScuolaAcronimo;
-    @Id
-    private Long id;
 
     public LezioniMateria() {
     }
@@ -312,12 +311,4 @@ public class LezioniMateria implements Serializable {
         this.tipoScuolaAcronimo = tipoScuolaAcronimo;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
 }

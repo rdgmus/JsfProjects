@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:wizard="http://java.sun.com/jsf/composite/wizard">
+    <ui:composition template="/WizardTemplate.xhtml">
+
+        <ui:define name="topLeft">  
+            <h:panelGrid columns="2" bgcolor="white">
+                <ezcomp:CrudPanel cancellaAction="#{gestioneScuolaWizardBean.cancellaAction()}" 
+                                  createAction="#{gestioneScuolaWizardBean.createAction()}" 
+                                  modificaAction="#{gestioneScuolaWizardBean.modificaAction()}"
+                                  commitAction="#{gestioneScuolaWizardBean.commitAction()}" 
+                                  rollbackAction="#{gestioneScuolaWizardBean.rollbackAction()}" 
+                                  tabella="#{gestioneScuolaWizardBean.tabella}"
+                                  disableCommitRollback="#{gestioneScuolaWizardBean.disableCommitRollback}"
+                                  disableCreateModifyDelete="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"
+                                  azioneInCorso="#{gestioneScuolaWizardBean.azioneInCorso}"/>
+                <h:graphicImage library="images"  name="Scuola.png" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==1}"/>
+                <h:graphicImage library="images"  name="anno-scolastico80.jpg" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==2}"/>
+                <h:graphicImage library="images"  name="trimestre.png" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==3}"/>
+                <h:graphicImage library="images"  name="orario-lezioni.jpg" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==4}"/>
+                <h:graphicImage library="images"  name="classi.gif" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==5}"/>
+                <h:graphicImage library="images"  name="prove-invalsi.gif" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==6}"/>
+                <h:graphicImage library="images"  name="insegnanti.jpg" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==7}"/>
+                <h:graphicImage library="images"  name="registri80.jpg" alt="immagine" 
+                                rendered="#{gestioneScuolaWizardBean.page==8}"/>
+            </h:panelGrid>
+        </ui:define>
+        <ui:define name="topRight">  
+            <h1 class="jsfcrud_h1">Wizard (#{gestioneScuolaWizardBean.tabella})</h1>
+        </ui:define>
+        <ui:define name="content">
+            <wizard:ScuoleWizardPanel rendered="#{gestioneScuolaWizardBean.page==1}"/>
+            <wizard:AnniScolasticiWizardPanel rendered="#{gestioneScuolaWizardBean.page==2}"/>
+            <wizard:PeriodiASWizardPanel rendered="#{gestioneScuolaWizardBean.page==3}"/>
+            <wizard:ParametriOrarioAsWizardPanel rendered="#{gestioneScuolaWizardBean.page==4}"/>
+            <wizard:ClassiWizardPanel rendered="#{gestioneScuolaWizardBean.page==5}"/>
+            <wizard:StudentiWizardPanel rendered="#{gestioneScuolaWizardBean.page==6}"/>
+            <wizard:InsegnantiWizardPanel rendered="#{gestioneScuolaWizardBean.page==7}"/>
+            <wizard:MaterieWizardPanel rendered="#{gestioneScuolaWizardBean.page==8}"/>
+            <h1 class="jsfcrud_h1">pag. #{gestioneScuolaWizardBean.page}</h1>
+        </ui:define>
+        <ui:define name="contentRight">
+            <wizard:SelectionsWizardPanel/>
+        </ui:define>
+        <ui:define name="bottom">
+            <h:form id="esciForm">
+                <h:commandButton value="Esci" action="#{gestioneScuolaWizardBean.backToScegliRegistro()}" id="TerminaWizard"
+                                 style="font: bold italic large Palatino, serif" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
+                <h:commandButton value="Rewind" action="#{gestioneScuolaWizardBean.decrementaPagina()}" id="PaginaPrecWizard"
+                                 style="font: bold italic large Palatino, serif" 
+                                 rendered="#{gestioneScuolaWizardBean.rewind}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
+                <h:commandButton value="Forward" action="#{gestioneScuolaWizardBean.incrementaPagina()}" id="PaginaSuccWizard"
+                                 style="font: bold italic large Palatino, serif"
+                                 rendered="#{gestioneScuolaWizardBean.forward}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="TerminaWizard">
+                <span style="white-space: nowrap">
+                    <strong>"Termina Wizard"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="PaginaPrecWizard">
+                <span style="white-space: nowrap">
+                    <strong>"Pagina precedente Wizard"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="PaginaSuccWizard">
+                <span style="white-space: nowrap">
+                    <strong>"Pagina successiva Wizard"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:notifyMessages nonblocking="true"/>
+        </ui:define>
+    </ui:composition>
+</html>

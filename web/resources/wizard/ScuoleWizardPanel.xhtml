@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="scuoleForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedScuola"
+                                   value="#{cc.attrs.scuolePrompt} num. [#{gestioneScuolaWizardBean.listaScuole.size()}]" style="font: bold italic large Palatino, serif"/>
+                    <h:selectOneMenu id="selectedScuola" value="#{gestioneScuolaWizardBean.selectedScuola}" 
+                                     onchange="submit()" onclick="submit()" style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"
+                                     readonly="#{gestioneScuolaWizardBean.crudAction}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaScuole}" 
+                                       var="thisScuola" itemValue="#{thisScuola}" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="scuoleFormFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_idScuola}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.idScuola}" readonly="true" style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_tipoScuolaAcronimo}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.tipoScuolaAcronimo}"  readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_tipoScuolaAcronimo"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_nomeScuola}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.nomeScuola}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_nomeScuola"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_indirizzo}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.indirizzo}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_indirizzo"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_cap}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.cap}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_cap"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_città}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.città}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_città"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_provincia}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.provincia}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_provincia"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_telefono}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.telefono}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_telefono"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_fax}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.fax}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_fax"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_email}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.email}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_email"
+                                 onchange="submit()" 
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListScuoleTitle_web}" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.web}" readonly="#{!gestioneScuolaWizardBean.modifyAction}" 
+                                 style="font: bold italic large Palatino, serif" id="page1_web"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

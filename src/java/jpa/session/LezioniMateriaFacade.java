@@ -5,7 +5,6 @@
  */
 package jpa.session;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -43,8 +42,8 @@ public class LezioniMateriaFacade extends AbstractFacade<LezioniMateria> {
                 + "AND l.dataLezione >=  :startDataLezione "
                 + "AND l.dataLezione <=  :endDataLezione "
                 + "ORDER BY l.dataLezione ASC");
-        query.setParameter("idAnnoScolastico", BigInteger.valueOf(annoScolasticoSelected.getIdAnnoScolastico().longValue()));
-        query.setParameter("idMateria", BigInteger.valueOf(materiaSelected.getIdMateria().longValue()));
+        query.setParameter("idAnnoScolastico", annoScolasticoSelected.getIdAnnoScolastico());
+        query.setParameter("idMateria", materiaSelected.getIdMateria());
         query.setParameter("startDataLezione", startDate);
         query.setParameter("endDataLezione", endDate);
 

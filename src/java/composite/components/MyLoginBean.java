@@ -27,15 +27,10 @@ public class MyLoginBean implements Serializable {
 
    
 
-//    @EJB
-//    IntestazioneBean intestazioneBean;
-//
-//    public IntestazioneBean getIntestazioneBean() {
-//        return intestazioneBean;
-//    }
+    
 
     private void sendEmail() {
-//         getIntestazioneBean().sendEmail();
+        JsfUtil.sendEmail(utente, getUtentiLoggerFacade());
     }
 
     private enum logEventsTypes {

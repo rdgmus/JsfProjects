@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuola: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anno Scolastico: "/>
+            <composite:attribute name="periodiASPrompt" default="Periodi Anno Scolastico: "/>
+            <composite:attribute name="classiPrompt" default="Classe: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+            <composite:attribute name="parametriOrarioAsPrompt" default="Parametri Orario A.S. : "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:panelGrid columns="2" bgcolor="white" rendered="#{gestioneScuolaWizardBean.page>1}" >
+                <f:facet name="header">
+                    <h:outputLabel value="Ricapitolazione delle selezioni effettuate:"/>
+                </f:facet>
+
+                <h:outputLabel value="#{cc.attrs.scuolePrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>1}"/>
+                <h:inputText value="#{gestioneScuolaWizardBean.selectedScuola.tipoScuolaAcronimo} #{gestioneScuolaWizardBean.selectedScuola.nomeScuola}" 
+                             readonly="true" rendered="#{gestioneScuolaWizardBean.page>1}"
+                             style="font: bold italic large Palatino, serif"/>
+                <h:outputLabel value="#{cc.attrs.anniscolasticiPrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>2}"/>
+                <h:inputText value="#{gestioneScuolaWizardBean.selectedAS.annoScolastico}"
+                             readonly="true" rendered="#{gestioneScuolaWizardBean.page>2}"
+                             style="font: bold italic large Palatino, serif"/>
+                <h:outputLabel value="Inizio A.S.:" style="font: bold italic large Palatino, serif" rendered="#{gestioneScuolaWizardBean.page>2}"/>
+                <rich:calendar value="#{gestioneScuolaWizardBean.selectedAS.startDate}" id="selection_AS_startDate" inputStyle="font: bold italic large Palatino, serif"
+                               locale="#{gestioneScuolaWizardBean.locale}" 
+                               popup="#{gestioneScuolaWizardBean.popup}"
+                               datePattern="#{gestioneScuolaWizardBean.pattern}"
+                               showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                               styleClass="rich-calendar-tool-btn" readonly="true"
+                               rendered="#{gestioneScuolaWizardBean.page>2}"/>
+                <h:outputLabel value="Fine A.S.:" style="font: bold italic large Palatino, serif" rendered="#{gestioneScuolaWizardBean.page>2}"/>
+                <rich:calendar value="#{gestioneScuolaWizardBean.selectedAS.endDate}" id="selection_AS_endDate" inputStyle="font: bold italic large Palatino, serif"
+                               locale="#{gestioneScuolaWizardBean.locale}" 
+                               popup="#{gestioneScuolaWizardBean.popup}"
+                               datePattern="#{gestioneScuolaWizardBean.pattern}"
+                               showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                               styleClass="rich-calendar-tool-btn" readonly="true"
+                               rendered="#{gestioneScuolaWizardBean.page>2}"/>
+
+                <h:outputLabel value="#{cc.attrs.periodiASPrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>3}"/>
+                <h:selectOneMenu id="selectedPeriod" value="#{gestioneScuolaWizardBean.selectedPeriod}" 
+                                 style="font: bold italic large Palatino, serif"                                 
+                                 rendered="#{gestioneScuolaWizardBean.page>3}" readonly="true">
+                    <f:selectItems value="#{gestioneScuolaWizardBean.listaPeriodiAS}" 
+                                   var="thisPeriod" itemValue="#{thisPeriod}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="#{cc.attrs.parametriOrarioAsPrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>4}"/>
+                <h:inputText value="#{gestioneScuolaWizardBean.findInizioLezioni()},#{gestioneScuolaWizardBean.findDurataOra()},#{gestioneScuolaWizardBean.findDurataIntervallo()}"
+                             readonly="true" rendered="#{gestioneScuolaWizardBean.page>4}"
+                             style="font: bold italic large Palatino, serif"/>
+
+                <h:outputLabel value="#{cc.attrs.classiPrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>5}"/>
+                <h:inputText value="#{gestioneScuolaWizardBean.selectedClasse.nomeClasse}"
+                             readonly="true" rendered="#{gestioneScuolaWizardBean.page>5}"
+                             style="font: bold italic large Palatino, serif"/>
+                <h:outputLabel for="selectedClasse" style="font: bold italic large Palatino, serif"
+                               value="#{cc.attrs.studentiPrompt}" rendered="#{gestioneScuolaWizardBean.page>6}"/>
+                <h:selectOneMenu id="selectedStudente" value="#{gestioneScuolaWizardBean.selectedStudente}" 
+                                 style="font: bold italic large Palatino, serif"
+                                 rendered="#{gestioneScuolaWizardBean.page>6}" readonly="true">
+                    <f:selectItems value="#{gestioneScuolaWizardBean.listaStudenti}" 
+                                   var="thisStudente" itemValue="#{thisStudente}"  />
+                </h:selectOneMenu>           
+                <h:outputLabel value="#{cc.attrs.insegnantiPrompt}" style="font: bold italic large Palatino, serif"
+                               rendered="#{gestioneScuolaWizardBean.page>7}"/>
+                <h:inputTextarea value="#{gestioneScuolaWizardBean.selectedInsegnante.cognome} #{gestioneScuolaWizardBean.selectedInsegnante.nome}"
+                                 readonly="true" rendered="#{gestioneScuolaWizardBean.page>7}"
+                                 style="font: bold italic large Palatino, serif"/>
+                <h:outputLabel value="#{cc.attrs.materiePrompt}" 
+                               style="font: bold italic large Palatino, serif" 
+                               rendered="#{gestioneScuolaWizardBean.page>8}"/>
+                <h:selectOneMenu id="selectedMateria" value="#{gestioneScuolaWizardBean.selectedMateria}" 
+                                 readonly="true"
+                                 style="font: bold italic large Palatino, serif"
+                                 rendered="#{gestioneScuolaWizardBean.page>8}">
+                    <f:selectItems value="#{gestioneScuolaWizardBean.listaMaterie}"                                       
+                                   var="thisMateria" itemValue="#{thisMateria}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

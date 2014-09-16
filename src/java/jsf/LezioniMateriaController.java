@@ -220,7 +220,7 @@ public class LezioniMateriaController implements Serializable {
             }
             if (object instanceof LezioniMateria) {
                 LezioniMateria o = (LezioniMateria) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getIdLezione());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + LezioniMateria.class.getName());
             }

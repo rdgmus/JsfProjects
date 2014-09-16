@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="periodiASPrompt" default="Periodi Anno Scolastico: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+            <composite:attribute name="parametriOrarioAsPrompt" default="Parametri Orario A.S. : "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="paramsOrarioAsFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel for="selectedAS"
+                                   value="#{cc.attrs.parametriOrarioAsPrompt}" style="font: bold italic large Palatino, serif"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedAS.annoScolastico}" 
+                                 readonly="true" style="font: bold italic large Palatino, serif"/>
+
+                    <h:outputLabel value="#{bundle.CreateParametriOrarioAsLabel_idParamOrario}" style="color: blue;font-weight: bold"/>
+                    <h:outputText value="#{gestioneScuolaWizardBean.parametriOrarioAs.idParamOrario}" style="font: bold italic large Palatino, serif"
+                                  />
+
+                    <h:outputLabel value="Ora inizio lezioni:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.parametriOrarioAs.inizioLezioni}" style="font: bold italic large Palatino, serif"
+                                 readonly="#{!gestioneScuolaWizardBean.modifyAction}" id="page4_oraInizioLezioni"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:converter converterId="myTimeConverter" for="page4_oraInizioLezioni"/>
+                    </h:inputText>
+
+                    <h:outputLabel value="Durata delle lezioni [minuti]:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.parametriOrarioAs.durataOraMinuti}" style="font: bold italic large Palatino, serif"
+                                 readonly="#{!gestioneScuolaWizardBean.modifyAction}" id="page4_durataOraMinuti"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Durata intervallo [minuti]:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.parametriOrarioAs.durataIntervalloMinuti}" style="font: bold italic large Palatino, serif"
+                                 readonly="#{!gestioneScuolaWizardBean.modifyAction}" id="page4_durataIntervalloMinuti"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

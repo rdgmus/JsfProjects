@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateful;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.mail.BodyPart;
@@ -79,129 +77,131 @@ public class IntestazioneBean implements Serializable {
     public UtentiLoggerFacade getUtentiLoggerFacade() {
         return utentiLoggerFacade;
     }
-
+    public void sendEmail(){
+        JsfUtil.sendEmail(getUtente(), getUtentiLoggerFacade());
+    }
     /**
      * Invia Email con i messaggi di log all'utente del Registro Scolastico
      */
-    public void sendEmail() {
-        if (getUtente() == null) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Registro").getString("InvioEmailFallitoPerUtenteNull"));
-            return;
-        }
-        String email = utente.getEmail();
-        String cognome = utente.getCognome();
-        String nome = utente.getNome();
-
-        buildEmailMessageWithLog();
-
-        try {
-            InitialContext ctx = new InitialContext();
-            Session session
-                    = (Session) ctx.lookup("java:jboss/mail/gmail");
-            // Or by injection.  
-            //@Resource(name = "mail/<name>")  
-            //private Session session;  
-
-            // Create email and headers.  
-            Message msg = new MimeMessage(session);
-            msg.setSubject("LOG del Registro Scolastico di " + cognome + " " + nome);
-            msg.setRecipient(Message.RecipientType.TO,
-                    new InternetAddress(
-                            email,
-                            cognome + " " + nome));
-//        msg.setRecipient(Message.RecipientType.CC,
-//                new InternetAddress(
-//                "rdgmus@hotmail.com",
-//                "hotmail"));
-            msg.setFrom(new InternetAddress(
-                    "rdgmus@gmail.com",
-                    "Amministratore del Registro Scolastico"));
-
-            // Body text.  
-            BodyPart messageBodyPart = new MimeBodyPart();
-            if (getEmailMessage() == null) {
-                messageBodyPart.setText("Ciao! " + cognome + " " + nome);
-            } else {
-                messageBodyPart.setText(getEmailMessage());
-            }
-
-            // Multipart message.  
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-
-            // Attachment file from string.  
-//        messageBodyPart = new MimeBodyPart();
-//        messageBodyPart.setFileName("README1.txt");
-//        messageBodyPart.setContent(new String(
-//                "file 1 content"),
-//                "text/plain");
-//        multipart.addBodyPart(messageBodyPart);
+//    public void sendEmail() {
+//        if (getUtente() == null) {
+//            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Registro").getString("InvioEmailFallitoPerUtenteNull"));
+//            return;
+//        }
+//        String email = utente.getEmail();
+//        String cognome = utente.getCognome();
+//        String nome = utente.getNome();
 //
-//        // Attachment file from file.  
-//        messageBodyPart = new MimeBodyPart();
-//        messageBodyPart.setFileName("README2.txt");
-//        DataSource src = new FileDataSource("file.txt");
-//        messageBodyPart.setDataHandler(new DataHandler(src));
-//        multipart.addBodyPart(messageBodyPart);
+//        buildEmailMessageWithLog();
 //
-//        // Attachment file from byte array.  
-//        messageBodyPart = new MimeBodyPart();
-//        messageBodyPart.setFileName("README3.txt");
-//        src = new ByteArrayDataSource(
-//                "file 3 content".getBytes(),
-//                "text/plain");
-//        messageBodyPart.setDataHandler(new DataHandler(src));
-//        multipart.addBodyPart(messageBodyPart);
-            // Add multipart message to email.  
-            msg.setContent(multipart);
-
-            // Send email.  
-            Transport.send(msg);
-        } catch (MessagingException me) {
-            // manage exception
-            JsfUtil.addErrorMessage(me, "MessagingException:" + me.getMessage());
-            return;
-        } catch (UnsupportedEncodingException uee) {
-            // manage exception
-            JsfUtil.addErrorMessage(uee, "UnsupportedEncodingException:" + uee.getMessage());
-            return;
-        } catch (NamingException ne) {
-            JsfUtil.addErrorMessage(ne, "NamingException:" + ne.getMessage());
-            return;
-        }
-        Calendar cal = Calendar.getInstance();
-
-        JsfUtil.addSuccessMessage("Messaggio inviato a:" + cognome + " " + nome + " Email:" + email
-                + " in Data:" + cal.getTime());
-
-        setLogEmailSent();
-    }
-
-    private void buildEmailMessageWithLog() {
-        List<UtentiLogger> utenteLogs = getUtentiLoggerFacade().findUtenteLogs(utente, false);
-        StringBuilder buff = new StringBuilder();
-        for (UtentiLogger u : utenteLogs) {
-            String msg = u.getMessage();
-            String type = u.getMsgType();
-            Date date = u.getWhenRegistered();
-
-            buff.append("EVENTO:").append(type);
-            buff.append("\n");
-            buff.append(msg);
-            buff.append("\n");
-            buff.append("Registrato il:").append(date.toString());
-            buff.append("\n******************************************************************\n");
-        }
-        setEmailMessage(buff.toString());
-        setEmailMsgType("INFO");
-    }
-
-    private void setLogEmailSent() {
-        if (utente == null) {
-            return;
-        }
-        getUtentiLoggerFacade().setUtenteLogsEmailed(utente);
-    }
+//        try {
+//            InitialContext ctx = new InitialContext();
+//            Session session
+//                    = (Session) ctx.lookup("java:jboss/mail/gmail");
+//            // Or by injection.  
+//            //@Resource(name = "mail/<name>")  
+//            //private Session session;  
+//
+//            // Create email and headers.  
+//            Message msg = new MimeMessage(session);
+//            msg.setSubject("LOG del Registro Scolastico di " + cognome + " " + nome);
+//            msg.setRecipient(Message.RecipientType.TO,
+//                    new InternetAddress(
+//                            email,
+//                            cognome + " " + nome));
+////        msg.setRecipient(Message.RecipientType.CC,
+////                new InternetAddress(
+////                "rdgmus@hotmail.com",
+////                "hotmail"));
+//            msg.setFrom(new InternetAddress(
+//                    "rdgmus@gmail.com",
+//                    "Amministratore del Registro Scolastico"));
+//
+//            // Body text.  
+//            BodyPart messageBodyPart = new MimeBodyPart();
+//            if (getEmailMessage() == null) {
+//                messageBodyPart.setText("Ciao! " + cognome + " " + nome);
+//            } else {
+//                messageBodyPart.setText(getEmailMessage());
+//            }
+//
+//            // Multipart message.  
+//            Multipart multipart = new MimeMultipart();
+//            multipart.addBodyPart(messageBodyPart);
+//
+//            // Attachment file from string.  
+////        messageBodyPart = new MimeBodyPart();
+////        messageBodyPart.setFileName("README1.txt");
+////        messageBodyPart.setContent(new String(
+////                "file 1 content"),
+////                "text/plain");
+////        multipart.addBodyPart(messageBodyPart);
+////
+////        // Attachment file from file.  
+////        messageBodyPart = new MimeBodyPart();
+////        messageBodyPart.setFileName("README2.txt");
+////        DataSource src = new FileDataSource("file.txt");
+////        messageBodyPart.setDataHandler(new DataHandler(src));
+////        multipart.addBodyPart(messageBodyPart);
+////
+////        // Attachment file from byte array.  
+////        messageBodyPart = new MimeBodyPart();
+////        messageBodyPart.setFileName("README3.txt");
+////        src = new ByteArrayDataSource(
+////                "file 3 content".getBytes(),
+////                "text/plain");
+////        messageBodyPart.setDataHandler(new DataHandler(src));
+////        multipart.addBodyPart(messageBodyPart);
+//            // Add multipart message to email.  
+//            msg.setContent(multipart);
+//
+//            // Send email.  
+//            Transport.send(msg);
+//        } catch (MessagingException me) {
+//            // manage exception
+//            JsfUtil.addErrorMessage(me, "MessagingException:" + me.getMessage());
+//            return;
+//        } catch (UnsupportedEncodingException uee) {
+//            // manage exception
+//            JsfUtil.addErrorMessage(uee, "UnsupportedEncodingException:" + uee.getMessage());
+//            return;
+//        } catch (NamingException ne) {
+//            JsfUtil.addErrorMessage(ne, "NamingException:" + ne.getMessage());
+//            return;
+//        }
+//        Calendar cal = Calendar.getInstance();
+//
+//        JsfUtil.addSuccessMessage("Messaggio inviato a:" + cognome + " " + nome + " Email:" + email
+//                + " in Data:" + cal.getTime());
+//
+//        setLogEmailSent();
+//    }
+//
+//    private void buildEmailMessageWithLog() {
+//        List<UtentiLogger> utenteLogs = getUtentiLoggerFacade().findUtenteLogs(utente, false);
+//        StringBuilder buff = new StringBuilder();
+//        for (UtentiLogger u : utenteLogs) {
+//            String msg = u.getMessage();
+//            String type = u.getMsgType();
+//            Date date = u.getWhenRegistered();
+//
+//            buff.append("EVENTO:").append(type);
+//            buff.append("\n");
+//            buff.append(msg);
+//            buff.append("\n");
+//            buff.append("Registrato il:").append(date.toString());
+//            buff.append("\n******************************************************************\n");
+//        }
+//        setEmailMessage(buff.toString());
+//        setEmailMsgType("INFO");
+//    }
+//
+//    private void setLogEmailSent() {
+//        if (utente == null) {
+//            return;
+//        }
+//        getUtentiLoggerFacade().setUtenteLogsEmailed(utente);
+//    }
 
     /**
      * CANCELLA DALLA TABELLA UtentiLogger I RECORDS PER I QUALI
