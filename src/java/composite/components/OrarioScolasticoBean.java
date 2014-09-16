@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -276,8 +277,8 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
 
     public AnniScolastici getSelectedAS() {
         if (selectedAS == null) {
-            
-            if (getAs().size() > 0) {
+            as = retrieveAS();
+            if (as.size() > 0) {
                 setSelectedAS(as.get(0));
             }
         } else if (selectedAnnoScolasticoNotIn(as)) {
@@ -316,6 +317,9 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
     }
 
     public List<Scuole> getScuole() {
+        if (scuole == null) {
+            retrieveScuole();
+        }
         return scuole;
     }
 
@@ -323,18 +327,32 @@ public class OrarioScolasticoBean implements Serializable, ValueChangeListener, 
         this.scuole = scuole;
     }
 
-    public List<AnniScolastici> getAs() {
+//    @EJB 
+//    ScuolaStructureBean scuolaStructureBean;
+//    @Resource(name = "scuolaStructureBean")
+//    private ScuolaStructureBean scuolaStructureBean;
+
+//    public ScuolaStructureBean getScuolaStructureBean() {
+//
+//        return (ScuolaStructureBean)JsfUtil.getSessionMapValue("scuolaStructureBean");
+//    }
+
+    public List<AnniScolastici> retrieveAS() {
         as = getAsFacade().retrieveAnniScolasticiScuolaOrderedList(selectedScuola);
+//        as = getScuolaStructureBean().getAs();
+        return as;
+    }
+
+    public List<AnniScolastici> getAs() {
+        if (as == null) {
+            retrieveAS();
+        }
         return as;
     }
 
     public void setAs(List<AnniScolastici> as) {
         this.as = as;
     }
-
-    
-    
-    
 
     private boolean selectedScuolaNotIn(List<Scuole> scuole) {
 //        throw new UnsupportedOperationException("Not yet implemented");

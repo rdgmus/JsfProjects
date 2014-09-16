@@ -53,7 +53,7 @@ public class ScansioneOrarioAsFacade extends AbstractFacade<ScansioneOrarioAs> {
                     + " WHERE s.idAnnoScolastico = :idAnnoScolastico"
                     + " AND s.giornoSettimana = :giornoSettimana"
                     + " ORDER BY s.inizia ASC");
-            query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+            query.setParameter("idAnnoScolastico", selectedAS);
             query.setParameter("giornoSettimana", giornoSettimana);
             return query.getResultList();
         }
@@ -72,7 +72,7 @@ public class ScansioneOrarioAsFacade extends AbstractFacade<ScansioneOrarioAs> {
                 + " WHERE s.idAnnoScolastico = :idAnnoScolastico"
                 + " AND s.giornoSettimana = :giornoSettimana"
                 + " AND s.numOraLezione != null");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         query.setParameter("giornoSettimana", giornoSettimana);
         num = ((Integer) query.getSingleResult()).intValue();
 
@@ -88,7 +88,7 @@ public class ScansioneOrarioAsFacade extends AbstractFacade<ScansioneOrarioAs> {
     public List<String> giorniOrario(AnniScolastici selectedAS) {
         Query query = getEntityManager().createQuery("SELECT DISTINCT s.giornoSettimana FROM ScansioneOrarioAs s "
                 + " WHERE s.idAnnoScolastico = :idAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         return query.getResultList();
     }
 

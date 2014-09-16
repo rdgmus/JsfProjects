@@ -31,7 +31,7 @@
                         <h:selectOneMenu id="selectedScuola" value="#{orarioScolasticoBean.selectedScuola}" 
                                          onchange="submit()" 
                                          valueChangeListener="#{orarioScolasticoBean.processValueChange}">
-                            <f:selectItems value="#{orarioScolasticoBean.retrieveScuole()}" 
+                            <f:selectItems value="#{orarioScolasticoBean.scuole}" 
                                            var="thisScuola" itemValue="#{thisScuola}" />
                         </h:selectOneMenu>
                     </rich:column>

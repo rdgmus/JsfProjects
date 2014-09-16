@@ -96,6 +96,7 @@ public class ScuolaStructureBean implements ValueChangeListener, Serializable {
     private Materie selectedMateria;
 
     public ScuolaStructureBean() {
+//        JsfUtil.setSessionMapValue("scuolaStructureBean", this);
     }
 
     public Materie getSelectedMateria() {

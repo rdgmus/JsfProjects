@@ -43,7 +43,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
     public Integer findDurataOra(AnniScolastici selectedAS) {
         Integer value = null;
         Query query = getEntityManager().createQuery("SELECT p.durataOraMinuti FROM ParametriOrarioAs p WHERE p.idAnnoScolastico = :idAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         value = Integer.valueOf(String.valueOf(query.getSingleResult()));
 
         return value;
@@ -58,7 +58,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
     public Integer findDurataIntervallo(AnniScolastici selectedAS) {
         Integer value = null;
         Query query = getEntityManager().createQuery("SELECT p.durataIntervalloMinuti FROM ParametriOrarioAs p WHERE p.idAnnoScolastico = :idAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         value = Integer.valueOf(String.valueOf(query.getSingleResult()));
 
         return value;
@@ -74,7 +74,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
         Time inizio = null;
         Date inizioDate = null;
         Query query = getEntityManager().createQuery("SELECT p.inizioLezioni FROM ParametriOrarioAs p WHERE p.idAnnoScolastico = :idAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         inizioDate = (Date) query.getSingleResult();
 
         String string = null;
@@ -89,7 +89,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
     public Long findIdParamOrario(AnniScolastici selectedAS) {
         Long value = null;
         Query query = getEntityManager().createQuery("SELECT p.idParamOrario FROM ParametriOrarioAs p WHERE p.idAnnoScolastico = :idAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         value = Long.valueOf(String.valueOf(query.getSingleResult()));
 
         return value;
@@ -99,7 +99,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
 //        throw new UnsupportedOperationException("Not yet implemented");
         ParametriOrarioAs params = null;
         Query query = getEntityManager().createNamedQuery("ParametriOrarioAs.findByIdAnnoScolastico");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
 
         params = (ParametriOrarioAs) query.getSingleResult();
         return params;

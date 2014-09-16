@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @UniqueConstraint(columnNames = {"id_anno_scolastico"})})
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ParametriOrarioAs.findByIdAnnoScolastico", query = "SELECT p FROM ParametriOrarioAs p WHERE p.idAnnoScolastico = :idAnnoScolastico"),
     @NamedQuery(name = "ParametriOrarioAs.findAll", query = "SELECT p FROM ParametriOrarioAs p"),
     @NamedQuery(name = "ParametriOrarioAs.findByIdParamOrario", query = "SELECT p FROM ParametriOrarioAs p WHERE p.idParamOrario = :idParamOrario"),
     @NamedQuery(name = "ParametriOrarioAs.findByInizioLezioni", query = "SELECT p FROM ParametriOrarioAs p WHERE p.inizioLezioni = :inizioLezioni"),
