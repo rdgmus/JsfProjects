@@ -12,11 +12,15 @@
 
     <h:body>
         <h2 class="jsfcrud_h2">Registrazione nuovo Utente del</h2> <h1 class="jsfcrud_h1">Registro Scolastico</h1>
-        <h:graphicImage library="images" name="Cbasso1.png"
-                        alt="Key Orchestra"/> 
-        <h:form> 
-            <h:commandButton id="submit" value="Indietro"
-                             action="/intestazione" style="font: bold italic large Palatino, serif;color: deeppink"/>
+        <h:form>
+            <ezcomp:LogoRegistroScolasticoPanel intestazioneBean="#{intestazioneBean}"
+                                                loginBean="#{myLoginBean}" 
+                                                renderBackButton="true"
+                                                backButtonAction="#{myLoginBean.backToIntestazione()}"
+                                                renderHeader="false"
+                                                renderUser="false"
+                                                renderLogoutButton="false"
+                                                backButtonText="Indietro"/>
         </h:form>
         <div id="compositecomponent">
             <ezcomp:NuovoUtentePanel myNuovoUtenteBean="#{myNuovoUtenteBean}"

@@ -174,14 +174,7 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         return true;
     }
 
-    public Long getNextId() {
-//        throw new UnsupportedOperationException("Not yet implemented");
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.materie_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-
-    }
+    
 
     public void updateMateria(Materie selectedMateria) {
 //        throw new UnsupportedOperationException("Not yet implemented");

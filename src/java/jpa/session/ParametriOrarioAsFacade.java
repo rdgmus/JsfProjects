@@ -105,12 +105,7 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
         return params;
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.param_orario_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+    
 
     public void updateParamsOrario(ParametriOrarioAs parametriOrarioAs) {
 //        throw new UnsupportedOperationException("Not yet implemented");

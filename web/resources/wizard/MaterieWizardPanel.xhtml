@@ -24,7 +24,7 @@
                                    value="#{cc.attrs.materiePrompt} num. [#{gestioneScuolaWizardBean.listaMaterie.size()}]" 
                                    style="font: bold italic large Palatino, serif"/>
                     <h:selectOneMenu id="selectedMateria" value="#{gestioneScuolaWizardBean.selectedMateria}" 
-                                     onchange="submit()" onclick="submit()" readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
                                      style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaMaterie}"                                       
@@ -103,7 +103,7 @@
                              rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
                     <h:outputLabel value="Scegli tra le #{cc.attrs.materiePrompt} esistenti:" style="color: blue;font-weight: bold"/>
                     <h:selectOneMenu id="selectedExistingMateria" value="#{gestioneScuolaWizardBean.selectedExistingMateria}" 
-                                     onchange="submit()" onclick="submit()" 
+                                     onchange="submit()"  
                                      style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaAllMaterie}"                                       

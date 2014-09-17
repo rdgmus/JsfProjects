@@ -32,18 +32,13 @@ public class RuoliGrantedToUtentiFacade extends AbstractFacade<RuoliGrantedToUte
         super(RuoliGrantedToUtenti.class);
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.ruoli_granted_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+   
 
     public List<RuoliGrantedToUtenti> findByUtente(UtentiScuola selectedUtente) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("SELECT r FROM RuoliGrantedToUtenti r "
                 + "WHERE r.idUtente = :idUtente ");
-        query.setParameter("idUtente", selectedUtente.getIdUtente());
+        query.setParameter("idUtente", selectedUtente);
 
         return query.getResultList();
     }

@@ -23,7 +23,7 @@
                     <h:outputLabel for="selectedInsegnante"
                                    value="#{cc.attrs.insegnantiPrompt} num. [#{gestioneScuolaWizardBean.listaInsegnanti.size()}]" style="font: bold italic large Palatino, serif"/>
                     <h:selectOneMenu id="selectedInsegnante" value="#{gestioneScuolaWizardBean.selectedInsegnante}" 
-                                     onchange="submit()" onclick="submit()" readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
                                      style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaInsegnanti}"                                       
@@ -63,7 +63,7 @@
                              rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
                     <h:outputLabel value="Scegli tra gli #{cc.attrs.insegnantiPrompt} esistenti:" style="color: blue;font-weight: bold"/>
                     <h:selectOneMenu id="selectedExistingInsegnante" value="#{gestioneScuolaWizardBean.selectedExistingInsegnante}" 
-                                     onchange="submit()" onclick="submit()" 
+                                     onchange="submit()"  
                                      style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaAllInsegnanti}"                                       

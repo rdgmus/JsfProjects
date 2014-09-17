@@ -118,12 +118,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
         return query.getResultList();
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.lezioni_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+    
 
     public List<Lezioni> findLezioniMateriaPrecData(Materie m, Date dataEntrata) {
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"

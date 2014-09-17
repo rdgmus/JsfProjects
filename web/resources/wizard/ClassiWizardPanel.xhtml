@@ -23,7 +23,7 @@
                     <h:outputLabel for="selectedClasse"
                                    value="#{cc.attrs.classiPrompt} num. [#{gestioneScuolaWizardBean.listaClassi.size()}]" style="font: bold italic large Palatino, serif"/>
                     <h:selectOneMenu id="selectedClasse" value="#{gestioneScuolaWizardBean.selectedClasse}" 
-                                     onchange="submit()" onclick="submit()" style="font: bold italic large Palatino, serif"
+                                     onchange="submit()"  style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"
                                      readonly="#{gestioneScuolaWizardBean.crudAction}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaClassi}" 

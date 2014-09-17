@@ -139,12 +139,7 @@ public class InsegnantiFacade extends AbstractFacade<Insegnanti> {
         return maxId;
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.insegnanti_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+    
 
     private boolean insegnanteNotIn(Insegnanti altroInsegnante, List<Insegnanti> listaInsegnanti) {
 //        throw new UnsupportedOperationException("Not yet implemented");

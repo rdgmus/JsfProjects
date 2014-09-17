@@ -165,9 +165,9 @@ public class SchedaInsegnanteBean implements Serializable, ValueChangeListener {
         if (insertingNew) {
             setEditable(true);
             Insegnanti newInsegnante = new Insegnanti();
-            Long nextId = getInsegnantiFacade().getNextId();
+//            Long nextId = getInsegnantiFacade().getNextId();
 //            Long nextId = new Long(String.valueOf(maxId.intValue() + 1));
-            newInsegnante.setIdInsegnante(nextId);
+//            newInsegnante.setIdInsegnante(nextId);
             newInsegnante.setCognome("[cognome]");
             newInsegnante.setNome("[nome]");
             newInsegnante.setIdClasse(selectedInsegnante.getIdClasse());

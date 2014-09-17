@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpa.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ScansioneOrarioAs.findByLezione", query = "SELECT s FROM ScansioneOrarioAs s WHERE s.lezione = :lezione"),
     @NamedQuery(name = "ScansioneOrarioAs.findByIntervallo", query = "SELECT s FROM ScansioneOrarioAs s WHERE s.intervallo = :intervallo")})
 public class ScansioneOrarioAs implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -195,7 +196,24 @@ public class ScansioneOrarioAs implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entities.ScansioneOrarioAs[ idScansione=" + idScansione + " ]";
+//        return "jpa.entities.ScansioneOrarioAs[ idScansione=" + idScansione + " ]";
+        String stringInizia = null;
+        String stringFinisce = null;
+        Date i = (Date) inizia;
+        Date f = (Date) finisce;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+        stringInizia = sdf.format(i);
+        stringFinisce = sdf.format(f);
+
+        return numOraLezione == null ? "[X]"
+                + " - " + stringInizia
+                + " - " + stringFinisce
+                + " - Int."
+                : "[" + numOraLezione + "a]"
+                + " - " + stringInizia
+                + " - " + stringFinisce
+                + " - Lez.";
     }
-    
+
 }

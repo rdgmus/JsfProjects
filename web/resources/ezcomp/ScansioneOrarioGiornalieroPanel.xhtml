@@ -114,7 +114,7 @@
                     </rich:column>
                     <rich:column>
                         <h:selectOneMenu id="selectedOrario" value="#{orarioScolasticoBean.selectedOrario}" 
-                                         onchange="submit()" onclick="submit()" rendered="#{cc.attrs.recordsList.size() > 0}"
+                                         onchange="submit()"  rendered="#{cc.attrs.recordsList.size() > 0}"
                                          valueChangeListener="#{orarioScolasticoBean.processValueChange}" 
                                          style="font: bold italic small Palatino, serif">
                             <f:selectItems value="#{cc.attrs.recordsList}" 
@@ -135,7 +135,7 @@
                     </rich:column>
                     <rich:column>
                         <h:selectOneMenu id="giorniOrario" value="#{orarioScolasticoBean.selectedOrarioDelGiorno}" 
-                                         onchange="submit()" onclick="submit()" 
+                                         onchange="submit()"  
                                          valueChangeListener="#{orarioScolasticoBean.processValueChange}" 
                                          style="font: bold italic small Palatino, serif"
                                          rendered="#{orarioScolasticoBean.giorniOrario.size() > 0}">

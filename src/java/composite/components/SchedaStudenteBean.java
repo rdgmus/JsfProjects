@@ -120,9 +120,9 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
         if (insertingNew) {
             setEditable(true);
             Studenti newStudent = new Studenti();
-            Long nextId = getStudentiFacade().getNextId();
+//            Long nextId = getStudentiFacade().getNextId();
 //            Long nextId = new Long(String.valueOf(maxId.intValue() + 1));
-            newStudent.setIdStudente(nextId);
+//            newStudent.setIdStudente(nextId);
             newStudent.setCognome("[cognome]");
             newStudent.setNome("[nome]");
             newStudent.setIdClasse(selectedStudente.getIdClasse());

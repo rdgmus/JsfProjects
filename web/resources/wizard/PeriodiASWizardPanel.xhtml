@@ -24,7 +24,7 @@
                     <h:outputLabel for="selectedAS"
                                    value="#{cc.attrs.periodiASPrompt} num. [#{gestioneScuolaWizardBean.listaPeriodiAS.size()}]" style="font: bold italic large Palatino, serif"/>
                     <h:selectOneMenu id="selectedPeriod" value="#{gestioneScuolaWizardBean.selectedPeriod}" 
-                                     onchange="submit()" onclick="submit()" style="font: bold italic large Palatino, serif"
+                                     onchange="submit()"  style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"
                                      readonly="#{gestioneScuolaWizardBean.crudAction}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaPeriodiAS}" 
@@ -41,7 +41,7 @@
                     <h:outputText value="#{gestioneScuolaWizardBean.selectedPeriod.periodo}" style="font: bold italic large Palatino, serif"
                                   rendered="#{!gestioneScuolaWizardBean.modifyAction}" />
                     
-                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.selectedPeriod.periodo}" onchange="submit()" onclick="submit()"
+                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.selectedPeriod.periodo}" onchange="submit()" 
                                      id="selectedPeriod" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}" 
                                      rendered="#{gestioneScuolaWizardBean.modifyAction}">
                         <f:selectItem itemLabel="BIMESTRE" itemValue="BIMESTRE" />
@@ -89,7 +89,7 @@
                              rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}">
                     <h:outputLabel value="Scegli nuovo periodo scolastico:" style="color: #e33b06;font-weight: bold" 
                                    rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}"/>
-                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.periodType}" onchange="submit()" onclick="submit()"
+                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.periodType}" onchange="submit()" 
                                      id="selectPeriodType" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}" 
                                      rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}">
                         <f:selectItem itemLabel="BIMESTRE" itemValue="BIMESTRE" />

@@ -23,7 +23,7 @@
                     <h:outputLabel for="selectedStudente"
                                    value="#{cc.attrs.studentiPrompt} num. [#{gestioneScuolaWizardBean.countStudenti}]" style="font: bold italic large Palatino, serif"/>
                     <h:selectOneMenu id="selectedStudente" value="#{gestioneScuolaWizardBean.selectedStudente}" 
-                                     onchange="submit()" onclick="submit()" readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
                                      style="font: bold italic large Palatino, serif;
                                      color: #{gestioneScuolaWizardBean.selectedStudente.ritiratoData != null ? 'red': gestioneScuolaWizardBean.selectedStudente.dataEntrata == null ? '#0033c' : 'brown'}"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
@@ -93,7 +93,7 @@
                              rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
                     <h:outputLabel value="Scegli tra gli #{cc.attrs.studentiPrompt} esistenti:" style="color: blue;font-weight: bold"/>
                     <h:selectOneMenu id="selectedExistingStudente" value="#{gestioneScuolaWizardBean.selectedExistingStudente}" 
-                                     onchange="submit()" onclick="submit()" 
+                                     onchange="submit()"  
                                      style="font: bold italic large Palatino, serif"
                                      valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
                         <f:selectItems value="#{gestioneScuolaWizardBean.listaAllStudenti}"                                       

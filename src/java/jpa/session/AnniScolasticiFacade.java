@@ -79,10 +79,14 @@ public class AnniScolasticiFacade extends AbstractFacade<AnniScolastici> {
         return annoScolasticoStr;
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.anni_scolastici_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
+    @Override
+    public void remove(AnniScolastici entity) {
+//        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEntityManager().createQuery("DELETE FROM AnniScolastici a "
+                + " WHERE a.idAnnoScolastico = :idAnnoScolastico");
+        query.setParameter("idAnnoScolastico", entity.getIdAnnoScolastico());
+
+        query.executeUpdate();
     }
+
 }

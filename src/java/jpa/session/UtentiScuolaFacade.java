@@ -44,12 +44,7 @@ public class UtentiScuolaFacade extends AbstractFacade<UtentiScuola> {
         return utente;
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.utenti_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+    
 
     public boolean existsUserEmail(String email) {
         Query query = getEntityManager().createNamedQuery("UtentiScuola.findByEmail");

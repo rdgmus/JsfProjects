@@ -42,12 +42,7 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
         return query.getResultList();
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.studenti_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+    
 
     public Long getMaxIdStudente() {
         Long maxId = null;

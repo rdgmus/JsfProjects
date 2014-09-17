@@ -52,13 +52,6 @@ public class PeriodiAnnoScolasticoFacade extends AbstractFacade<PeriodiAnnoScola
 
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.periodi_as_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
-
     public void updatePeriodoAnnoScolastico(PeriodiAnnoScolastico selectedPeriod) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("UPDATE PeriodiAnnoScolastico p SET "

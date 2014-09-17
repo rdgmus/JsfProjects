@@ -39,12 +39,7 @@ public class ClassiFacade extends AbstractFacade<Classi> {
         return query.getResultList();
     }
 
-    public Long getNextId() {
-        Long maxId = null;
-        Query query = getEntityManager().createNativeQuery("SELECT nextval('scuola.classi_seq')");
-        maxId = (Long) query.getSingleResult();
-        return maxId;
-    }
+   
 
     public void updateDenominazioneClasse(Classi selectedClasse) {
 //        throw new UnsupportedOperationException("Not yet implemented");

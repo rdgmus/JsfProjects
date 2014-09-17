@@ -48,7 +48,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     private Object locale;
     private boolean popup = true;
     private String pattern = "dd MMM yyyy";
-    private boolean showApply = true;
+    private final boolean showApply = true;
     private Long lezioneDaRimuovere;
     private boolean confermaRimozione = false;
     private boolean confermaCreazione = false;
@@ -153,8 +153,8 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
             nuovaLezione.setArgomento(argomentoLezione);
             nuovaLezione.setFreezeLezione((short)0);
             try {
-                Long nextId = getLezioniFacade().getNextId();
-                nuovaLezione.setIdLezione(nextId);
+//                Long nextId = getLezioniFacade().getNextId();
+//                nuovaLezione.setIdLezione(nextId);
                 getLezioniFacade().create(nuovaLezione);
 
                 impostaAssenzeRitirati(nuovaLezione);
