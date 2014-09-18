@@ -859,6 +859,16 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
     }
 
+    private PeriodiAnnoScolastico oldPeriod;
+
+    public PeriodiAnnoScolastico getOldPeriod() {
+        return oldPeriod;
+    }
+
+    public void setOldPeriod(PeriodiAnnoScolastico oldPeriod) {
+        this.oldPeriod = oldPeriod;
+    }
+
     /**
      * Modifica record selezionato
      */
@@ -884,6 +894,8 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 JsfUtil.addSuccessMessage("ATTENZIONE verrà sempre modificata la sola data finale dell'ultimo periodo disponibile"
                         + " oppure la sua denominazione. Altrimenti procedere con cancella e ricrea!");
                 int size = getListaPeriodiAS().size();
+
+                setOldPeriod(getListaPeriodiAS().get(size - 1));
 
                 setSelectedPeriod(getListaPeriodiAS().get(size - 1));
                 setPeriodType(getSelectedPeriod().getPeriodo());
@@ -1070,6 +1082,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         }
                     }
                 }
+                break;
             case 5://CLASSI
                 if (isCreateAction()) {
                     if (getClassiFacade() != null) {
@@ -1093,6 +1106,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         }
                     }
                 }
+                break;
             case 6://STUDENTI
                 if (isCreateAction()) {
                     if (getStudentiFacade() != null) {
@@ -1398,6 +1412,9 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 case 3://PERIODI ANNO SCOLASTICO
                     if (isModifyAction()) {
                         this.selectedPeriod = getPeriodiAnnoScolasticoFacade().find(selectedPeriod.getPeriodiAnnoScolasticoPK());
+                        getPeriodiAnnoScolasticoFacade().remove(selectedPeriod);
+                        this.selectedPeriod = getOldPeriod();
+                        getPeriodiAnnoScolasticoFacade().create(oldPeriod);
                     }
                     if (isCreateAction()) {
                         getPeriodiAnnoScolasticoFacade().remove(selectedPeriod);
@@ -1414,6 +1431,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                     }
                     if (isCreateAction()) {
                         getParametriOrarioAsFacade().remove(getParametriOrarioAs());
+                        page--;
                     }
                     if (isDeleteAction()) {
                     }
@@ -1536,9 +1554,15 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedPeriod != null) {
                     if (isCreateAction() || isModifyAction()) {
                         selectedPeriod.setPeriodo(getPeriodType());
-                        selectedPeriod.setEndDate(getEndPeriodDate(selectedPeriod.getStartDate()));
+
+                        Date endDate = getEndPeriodDate(selectedPeriod.getStartDate());
+                        if (endDate.after(getSelectedAS().getEndDate())) {
+                            endDate = getSelectedAS().getEndDate();
+                        }
+                        selectedPeriod.setEndDate(endDate);
+
                         if (isModifyAction()) {
-                            
+
                         }
                         getPeriodiAnnoScolasticoFacade().updatePeriodoAnnoScolastico(selectedPeriod);
                         calcCoperturaAS();

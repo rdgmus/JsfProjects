@@ -10,10 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import jpa.entities.AnniScolastici;
 import jpa.entities.ParametriOrarioAs;
+import jsf.util.JsfUtil;
 
 /**
  *
@@ -100,12 +102,14 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
         ParametriOrarioAs params = null;
         Query query = getEntityManager().createNamedQuery("ParametriOrarioAs.findByIdAnnoScolastico");
         query.setParameter("idAnnoScolastico", selectedAS);
-
-        params = (ParametriOrarioAs) query.getSingleResult();
+        try {
+            params = (ParametriOrarioAs) query.getSingleResult();
+        } catch (NoResultException ejbex) {
+//            JsfUtil.addErrorMessage("Non è stato possibile estrarre i PARAMETRI ORARIO:"
+//                    + ejbex.getMessage());
+        }
         return params;
     }
-
-    
 
     public void updateParamsOrario(ParametriOrarioAs parametriOrarioAs) {
 //        throw new UnsupportedOperationException("Not yet implemented");
@@ -120,4 +124,14 @@ public class ParametriOrarioAsFacade extends AbstractFacade<ParametriOrarioAs> {
         query.setParameter("durataIntervalloMinuti", parametriOrarioAs.getDurataIntervalloMinuti());
         query.executeUpdate();
     }
+
+    @Override
+    public void remove(ParametriOrarioAs entity) {
+//        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEntityManager().createQuery("DELETE FROM ParametriOrarioAs p "
+                + " WHERE p.idParamOrario = :idParamOrario");
+        query.setParameter("idParamOrario", entity.getIdParamOrario());
+        query.executeUpdate();
+    }
+
 }
