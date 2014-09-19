@@ -215,5 +215,20 @@ public class ScansioneOrarioAs implements Serializable {
                 + " - " + stringFinisce
                 + " - Lez.";
     }
+    private boolean lezioneAsBool;
+
+    public boolean isLezioneAsBool() {
+        lezioneAsBool = getLezione() != 0;
+        return lezioneAsBool;
+    }
+
+    public void setLezioneAsBool(boolean lezioneAsBool) {
+        if (lezioneAsBool) {
+            setLezione((short) 1);
+        } else {
+            setLezione((short) 0);
+        }
+        this.lezioneAsBool = lezioneAsBool;
+    }
 
 }

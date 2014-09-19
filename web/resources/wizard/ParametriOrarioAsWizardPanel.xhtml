@@ -21,7 +21,10 @@
         </composite:interface>
         <composite:implementation>
             <h:form id="paramsOrarioAsFields">
-                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                <h:outputLabel value="Crea i parametri dell'orario scolastico..." 
+                               rendered="#{gestioneScuolaWizardBean.parametriOrarioAs==null}"/>
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
+                             rendered="#{gestioneScuolaWizardBean.parametriOrarioAs!=null}">
                     <h:outputLabel for="selectedAS"
                                    value="#{cc.attrs.parametriOrarioAsPrompt}" style="font: bold italic large Palatino, serif"/>
                     <h:inputText value="#{gestioneScuolaWizardBean.selectedAS.annoScolastico}" 

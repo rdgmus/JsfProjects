@@ -59,10 +59,10 @@
             <h:form id="esciForm">
                 <h:commandButton value="Esci" action="#{gestioneScuolaWizardBean.backToScegliRegistro()}" id="TerminaWizard"
                                  style="font: bold italic large Palatino, serif" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
-                <h:commandButton value="Rewind" action="#{gestioneScuolaWizardBean.decrementaPagina()}" id="PaginaPrecWizard"
+                <h:commandButton value="Indietro" action="#{gestioneScuolaWizardBean.decrementaPagina()}" id="PaginaPrecWizard"
                                  style="font: bold italic large Palatino, serif" 
                                  rendered="#{gestioneScuolaWizardBean.rewind}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
-                <h:commandButton value="Forward" action="#{gestioneScuolaWizardBean.incrementaPagina()}" id="PaginaSuccWizard"
+                <h:commandButton value="Avanti" action="#{gestioneScuolaWizardBean.incrementaPagina()}" id="PaginaSuccWizard"
                                  style="font: bold italic large Palatino, serif"
                                  rendered="#{gestioneScuolaWizardBean.forward}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
             </h:form>

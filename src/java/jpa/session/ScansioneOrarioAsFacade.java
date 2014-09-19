@@ -265,9 +265,9 @@ public class ScansioneOrarioAsFacade extends AbstractFacade<ScansioneOrarioAs> {
         Query query = getEntityManager().createQuery("SELECT MAX(s.numOraLezione) FROM ScansioneOrarioAs s "
                 + " WHERE s.idAnnoScolastico = :idAnnoScolastico"
                 + " AND s.giornoSettimana = :giornoSettimana");
-        query.setParameter("idAnnoScolastico", selectedAS.getIdAnnoScolastico());
+        query.setParameter("idAnnoScolastico", selectedAS);
         query.setParameter("giornoSettimana", giorno);
-        num = ((Integer) query.getSingleResult()).intValue();
+        num = ((Integer) query.getSingleResult());
 
         return num;
     }

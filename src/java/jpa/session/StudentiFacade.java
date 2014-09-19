@@ -42,8 +42,6 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
         return query.getResultList();
     }
 
-    
-
     public Long getMaxIdStudente() {
         Long maxId = null;
         Query query = getEntityManager().createQuery("SELECT max(s.idStudente) FROM Studenti s");
@@ -72,9 +70,9 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
                     + " WHERE s.idStudente = :idStudente");
             query.setParameter("ritiratoData", ritiratoData);
             if (ritiratoData == null) {
-                query.setParameter("attivo", true);
+                query.setParameter("attivo", (short)1);
             } else {
-                query.setParameter("attivo", false);
+                query.setParameter("attivo", (short)0);
             }
             query.setParameter("idStudente", selectedStudente.getIdStudente());
             query.executeUpdate();
@@ -113,18 +111,19 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
 //        throw new UnsupportedOperationException("Not yet implemented");        
         ArrayList<Studenti> resultList = new ArrayList<Studenti>();
         List<Object[]> objList = null;
-        Query query = getEntityManager().createNativeQuery("SELECT  DISTINCT  "
-                + " ON (studenti.cognome,studenti.nome)"
-                + " studenti.id_classe, "
-                + " studenti.anno_scolastico, "
-                + " studenti.cognome, "
-                + " studenti.nome, "
-                + " studenti.id_studente,"
-                + " studenti.attivo,"
-                + " studenti.id_anno_scolastico"
-                + " FROM scuola.studenti"
-                + " ORDER BY studenti.cognome ASC, "
-                + " studenti.nome ASC");
+        Query query = getEntityManager().createNativeQuery("SELECT  DISTINCT "
+                + "studenti.id_classe, \n"
+                + "studenti.anno_scolastico, \n"
+                + "studenti.cognome,\n"
+                + "studenti.nome,\n"
+                + "studenti.id_studente,\n"
+                + "studenti.attivo,\n"
+                + "studenti.id_anno_scolastico\n"
+                + "FROM scuola.studenti\n"
+                + "GROUP BY studenti.cognome , \n"
+                + "studenti.nome \n"
+                + "ORDER BY studenti.cognome ASC, \n"
+                + "studenti.nome ASC");
         objList = query.getResultList();
 
         for (Object[] obj : objList) {
@@ -139,8 +138,8 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
 
             altroStudente.setIdStudente(Long.valueOf(String.valueOf(obj[4])));
             altroStudente.setAttivo(
-                    Boolean.parseBoolean(String.valueOf(obj[5]))?(short)1:(short)0
-                    );
+                    Boolean.parseBoolean(String.valueOf(obj[5])) ? (short) 1 : (short) 0
+            );
 
             altroStudente.setIdAnnoScolastico(Long.valueOf(String.valueOf(obj[6])));
             if (studenteNotIn(altroStudente, listaStudenti)) {

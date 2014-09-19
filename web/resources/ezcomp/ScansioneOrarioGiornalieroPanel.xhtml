@@ -92,7 +92,7 @@
                                       style="font: bold italic large Palatino, serif" rendered="#{!cc.attrs.edit}"/>
                         <h:outputLabel for="selectAttivita" value="#{records.lezione!=0 ? 'Lez.':'Int.'}" style="font: bold italic small Palatino, serif" 
                                        rendered="#{cc.attrs.edit}"/>
-                        <h:selectBooleanCheckbox id="selectAttivita" value="#{records.lezione!=0}" onchange="submit()"
+                        <h:selectBooleanCheckbox id="selectAttivita" value="#{records.lezioneAsBool}" onchange="submit()"
                                                  valueChangeListener="#{orarioScolasticoBean.processValueChange}" rendered="#{cc.attrs.edit}" >
                             <f:param name="rigaOrario" value="#{records.idScansione}"/>
                         </h:selectBooleanCheckbox>
