@@ -486,11 +486,13 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public List<Studenti> getListaAllStudenti() {
-        try {
-            listaAllStudenti = getStudentiFacade().retrieveAllStudentiDistinctOrderedList(getListaStudenti());
-        } catch (Exception ejbex) {
-            JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista dei nomi degli STUDENTI nel DATABASE:"
-                    + ejbex.getMessage());
+        if (listaAllStudenti == null) {
+            try {
+                listaAllStudenti = getStudentiFacade().retrieveAllStudentiDistinctOrderedList(getListaStudenti());
+            } catch (Exception ejbex) {
+                JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista dei nomi degli STUDENTI nel DATABASE:"
+                        + ejbex.getMessage());
+            }
         }
         for (Studenti i : listaAllStudenti) {
             if (i.getCognome().equals(selectedStudente.getCognome())
@@ -507,11 +509,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public Studenti getSelectedExistingStudente() {
-        if (selectedExistingStudente == null) {
-            if (listaAllStudenti != null && listaAllStudenti.size() > 0) {
-                selectedExistingStudente = listaAllStudenti.get(0);
-            }
-        }
+//        if (selectedExistingStudente == null) {
+//            if (listaAllStudenti != null && listaAllStudenti.size() > 0) {
+//                selectedExistingStudente = listaAllStudenti.get(0);
+//            }
+//        }
         return selectedExistingStudente;
     }
 
@@ -556,11 +558,13 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     //TUTTI GLI INSEGNANTI NEL DATABASE
 
     public List<Insegnanti> getListaAllInsegnanti() {
-        try {
-            listaAllInsegnanti = getInsegnantiFacade().retrieveAllInsegnantiDistinctOrderedList(getListaInsegnanti());
-        } catch (Exception ejbex) {
-            JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista dei nomi degli INSEGNANTI nel DATABASE:"
-                    + ejbex.getMessage());
+        if (listaAllInsegnanti == null) {
+            try {
+                listaAllInsegnanti = getInsegnantiFacade().retrieveAllInsegnantiDistinctOrderedList(getListaInsegnanti());
+            } catch (Exception ejbex) {
+                JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista dei nomi degli INSEGNANTI nel DATABASE:"
+                        + ejbex.getMessage());
+            }
         }
         for (Insegnanti i : listaAllInsegnanti) {
             if (i.getCognome().equals(selectedInsegnante.getCognome())
@@ -577,11 +581,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public Insegnanti getSelectedExistingInsegnante() {
-        if (selectedExistingInsegnante == null) {
-            if (listaAllInsegnanti != null && listaAllInsegnanti.size() > 0) {
-                selectedExistingInsegnante = listaAllInsegnanti.get(0);
-            }
-        }
+//        if (selectedExistingInsegnante == null) {
+//            if (listaAllInsegnanti != null && listaAllInsegnanti.size() > 0) {
+//                selectedExistingInsegnante = listaAllInsegnanti.get(0);
+//            }
+//        }
         return selectedExistingInsegnante;
     }
 

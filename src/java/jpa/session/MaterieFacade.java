@@ -118,7 +118,7 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         ArrayList<Materie> resultList = new ArrayList<Materie>();
         List<Object[]> objList = null;
         Query query = getEntityManager().createNativeQuery(
-                "SELECT DISTINCT ON (materie.materia) "
+                "SELECT DISTINCT "
                 + " materie.id_materia,  "//0
                 + " materie.materia,  "//1
                 + " materie.id_classe,  "//2
@@ -130,6 +130,7 @@ public class MaterieFacade extends AbstractFacade<Materie> {
                 + " materie.pratico,  "//8
                 + " materie.id_anno_scolastico "//9
                 + " FROM scuola.materie "
+                + " GROUP BY materie.materia \n"
                 + " ORDER BY materie.materia ASC");
         objList = query.getResultList();
 

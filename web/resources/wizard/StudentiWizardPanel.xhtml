@@ -91,7 +91,7 @@
             <h:form id="studentiExistingForm">
                 <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
                              rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
-                    <h:outputLabel value="Scegli tra gli #{cc.attrs.studentiPrompt} esistenti:" style="color: blue;font-weight: bold"/>
+                    <h:outputLabel value="Scegli tra gli studenti esistenti:" style="color: blue;font-weight: bold"/>
                     <h:selectOneMenu id="selectedExistingStudente" value="#{gestioneScuolaWizardBean.selectedExistingStudente}" 
                                      onchange="submit()"  
                                      style="font: bold italic large Palatino, serif"

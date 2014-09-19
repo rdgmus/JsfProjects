@@ -61,7 +61,7 @@
             <h:form id="insegnantiExistingForm">
                 <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
                              rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
-                    <h:outputLabel value="Scegli tra gli #{cc.attrs.insegnantiPrompt} esistenti:" style="color: blue;font-weight: bold"/>
+                    <h:outputLabel value="Scegli tra gli insegnanti esistenti:" style="color: blue;font-weight: bold"/>
                     <h:selectOneMenu id="selectedExistingInsegnante" value="#{gestioneScuolaWizardBean.selectedExistingInsegnante}" 
                                      onchange="submit()"  
                                      style="font: bold italic large Palatino, serif"

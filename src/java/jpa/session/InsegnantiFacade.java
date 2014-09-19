@@ -75,7 +75,6 @@ public class InsegnantiFacade extends AbstractFacade<Insegnanti> {
         ArrayList<Insegnanti> resultList = new ArrayList<Insegnanti>();
         List<Object[]> objList = null;
         Query query = getEntityManager().createNativeQuery("SELECT  DISTINCT  "
-                + " ON (insegnanti.cognome,insegnanti.nome)"
                 + " insegnanti.id_insegnante, "
                 + " insegnanti.cognome, "
                 + " insegnanti.nome, "
@@ -83,8 +82,11 @@ public class InsegnantiFacade extends AbstractFacade<Insegnanti> {
                 + " insegnanti.anno_scolastico, "
                 + " insegnanti.id_anno_scolastico"
                 + " FROM scuola.insegnanti"
+                + " GROUP BY insegnanti.cognome , \n"
+                + " insegnanti.nome \n"
                 + " ORDER BY insegnanti.cognome ASC, "
                 + " insegnanti.nome ASC");
+
         objList = query.getResultList();
 
         for (Object[] obj : objList) {
