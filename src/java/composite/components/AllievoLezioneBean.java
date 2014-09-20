@@ -509,18 +509,22 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
 
     private void updateAssenza(Boolean newValue) {
 //        throw new UnsupportedOperationException("Not yet implemented");
-        if (oreAssenzeFacade == null) {
-            getOreAssenzeFacade();
-        }
-        if (studentiFacade == null) {
-            getStudentiFacade();
-        }
+//        if (oreAssenzeFacade == null) {
+//            getOreAssenzeFacade();
+//        }
+//        if (studentiFacade == null) {
+//            getStudentiFacade();
+//        }
         OreAssenze entity;
         entity = new OreAssenze(idLezione, idOra, idStudente);
         if (newValue) {
             try {
                 entity.setAssenza(newValue ? (short) 1 : (short) 0);
-                oreAssenzeFacade.create(entity);
+                if (getOreAssenzeFacade().entityExistsWithDifferentAssenza(entity)) {
+                    getOreAssenzeFacade().updateAssenza(entity, entity.getAssenza());
+                } else {
+                    getOreAssenzeFacade().create(entity);
+                }
                 Studenti studente = studentiFacade.find(idStudente);
                 LezioniMateria lezione = lezioniMateriaFacade.find(idLezione);
                 String msg = ResourceBundle.getBundle("/resources/Registro").getString("CreataAssenzaMsgString")
@@ -835,9 +839,9 @@ public class AllievoLezioneBean implements Serializable, ValueChangeListener {
                 }
                 break;
             case 3:
-                if (oreAssenze.get(0).getAssenza()== (short) 1
-                        && oreAssenze.get(1).getAssenza()== (short) 0
-                        && oreAssenze.get(2).getAssenza()== (short) 0) {
+                if (oreAssenze.get(0).getAssenza() == (short) 1
+                        && oreAssenze.get(1).getAssenza() == (short) 0
+                        && oreAssenze.get(2).getAssenza() == (short) 0) {
                     return true;
                 }
                 break;
