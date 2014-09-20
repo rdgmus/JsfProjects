@@ -220,7 +220,6 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
 
         } while (cal.getTimeInMillis() < end_cal.getTimeInMillis());
 
-
         return mesi;
     }
 
@@ -385,8 +384,6 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
             boolean done = false;
             Calendar cal = Calendar.getInstance();
 
-
-
             for (LezioniMateria l : lezioniMateriaMese) {//scorre l'elenco delle lezioni e seleziona quella corrispondente alla data attuale
                 Calendar lezioneCal = Calendar.getInstance();
                 lezioneCal.setTime(l.getDataLezione());
@@ -403,7 +400,7 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
             String msg = "Non ci sono lezioni per la Materia: "
                     + materiaSelected.getMateria() + " della Classe: "
                     + materiaSelected.getIdClasse().getNomeClasse()
-                    + ", nel mese corrente: " + monthSelected;
+                    + ", nel mese corrente: '" + mesiCalendarConvert((String) monthSelected)+"'";
             Iterator<FacesMessage> listMessages = FacesContext.getCurrentInstance().getMessages();
 
             while (listMessages.hasNext()) {
@@ -415,6 +412,21 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
 
             JsfUtil.addErrorMessage(msg);
         }
+    }
+
+    private String mesiCalendarConvert(String value) {
+        String string = null;
+
+        for (Date d : mesiCalendar) {
+            if (d.toString().equals(value)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMMM - yyyy");
+                string = sdf.format(d.getTime());
+
+                break;
+            }
+        }
+        return string.toUpperCase();
+
     }
 
     public int getCountLezioni() {

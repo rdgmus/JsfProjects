@@ -130,7 +130,7 @@
                     <h:form id="assenze">
                         <ui:repeat var="c" value="#{datiLezione.oreAssenze}" id="displayOreAssenze">
                             <h:outputText value="#{c.ora}a " style="font: bold"/> 
-                            <h:selectOneMenu value="#{c.assenza}" onchange="submit()" onclick="submit()"
+                            <h:selectOneMenu value="#{c.assenza}" onchange="submit()" 
                                              id="selectOreAssenze" 
                                              style="#{c.assenza ? 'border-color: red':'border-color: green'};border-width: medium" 
                                              valueChangeListener="#{allievoLezioneBean.processValueChange}" >

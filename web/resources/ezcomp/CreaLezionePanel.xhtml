@@ -94,7 +94,7 @@
 
                             <h:outputLabel value="Data Lezione:" />
                             <h:selectOneMenu  id="lezioneDaRimuovere" value="#{creaLezioniBean.lezioneDaRimuovere}"
-                                              onclick="submit()" onchange="submit()" disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
+                                              onchange="submit()" disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
                                               valueChangeListener="#{creaLezioniBean.processValueChange}"
                                               style="font-size: 18;font-weight: bold">
 

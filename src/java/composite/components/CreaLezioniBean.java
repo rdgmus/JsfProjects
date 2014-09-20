@@ -260,7 +260,8 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
             if (sel.getId().equals("lezioneDaRimuovere")) {
                 if (event.getNewValue() != null) {
                     LezioniMateria l = null;
-                    BigInteger i = new BigInteger(event.getNewValue().toString());
+                    Long i;
+                    i = new Long(event.getNewValue().toString());
                     l = getLezioniMateriaFacade().find(i);
                     if (l != null) {
                         setOreLezione(l.getOreLezione());
@@ -274,7 +275,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
         if (source instanceof HtmlInputNumberSpinner) {
             HtmlInputNumberSpinner spin = (HtmlInputNumberSpinner) source;
             if (spin.getId().equals("oreNuovaLezione")) {
-                setOreLezione(Integer.valueOf(String.valueOf(event.getNewValue())).intValue());
+                setOreLezione(Integer.valueOf(String.valueOf(event.getNewValue())));
             }
         }
     }

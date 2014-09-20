@@ -60,7 +60,7 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
     private boolean editable = false;
     private boolean insertingNew = false;
     private boolean updatable = false;
-    private long id;
+    private Long id;
     @EJB
     StudentiFacade studentiFacade;
     private boolean dataEntrataChanged = false;
@@ -162,11 +162,11 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
         this.editable = editable;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

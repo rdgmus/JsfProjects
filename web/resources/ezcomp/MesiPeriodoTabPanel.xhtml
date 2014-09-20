@@ -20,7 +20,7 @@
         <composite:implementation>
             <h:form id="mesiPeriodoForm">
                 <rich:collapsiblePanel header="Mesi" expanded="#{lezioniMateriaBean.expandAllPanels}" switchType="client">
-                    <rich:tabPanel switchType="client" activeItem="#{lezioniMateriaBean.monthSelected}"
+                    <rich:tabPanel switchType="server" activeItem="#{lezioniMateriaBean.monthSelected}"
                                    onclick="submit()" onitemchange="submit()" 
                                    itemChangeListener="#{lezioniMateriaBean.processItemChange}" id="mesePeriodo">
                         <a4j:repeat value="#{lezioniMateriaBean.mesiCalendar}" var="mese">

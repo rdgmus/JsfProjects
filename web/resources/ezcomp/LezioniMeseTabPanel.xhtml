@@ -20,7 +20,7 @@
         <composite:implementation>
             <h:form id="lezioniMeseForm">
                 <rich:collapsiblePanel header="Lezioni del Mese" expanded="#{lezioniMateriaBean.expandAllPanels}" switchType="client">
-                    <rich:tabPanel switchType="client" id="lezioniMese" activeItem="#{lezioniMateriaBean.lezioneSelected}"
+                    <rich:tabPanel switchType="server" id="lezioniMese" activeItem="#{lezioniMateriaBean.lezioneSelected}"
                                    onclick="submit()" onitemchange="submit()" 
                                    itemChangeListener="#{lezioniMateriaBean.processItemChange}"
                                    rendered="#{lezioniMateriaBean.countLezioni > 0}">

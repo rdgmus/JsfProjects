@@ -22,7 +22,7 @@
             <h:form id="periodiASForm">
                 <rich:collapsiblePanel header="Periodi Anno Scolastico" expanded="#{lezioniMateriaBean.expandAllPanels}" 
                                        switchType="client" >
-                    <rich:tabPanel switchType="client" onclick="submit()" onitemchange="submit()" 
+                    <rich:tabPanel switchType="server" onclick="submit()" onitemchange="submit()" 
                                    activeItem="#{lezioniMateriaBean.periodSelected}"
                                    itemChangeListener="#{lezioniMateriaBean.processItemChange}" id="periodoScolastico">
                         <a4j:repeat value="#{registriInsegnanteBean.periodiAnnoScolastico}" var="period">
