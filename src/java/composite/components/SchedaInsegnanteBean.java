@@ -5,6 +5,7 @@
 package composite.components;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,7 +28,7 @@ public class SchedaInsegnanteBean implements Serializable, ValueChangeListener {
 
     private Insegnanti selectedInsegnante;
     private String cognome, nome;
-    private long id;
+    private Long id;
     private boolean editable = false;
     private boolean cognomeChanged = false;
     private boolean nomeChanged = false;
@@ -72,11 +73,11 @@ public class SchedaInsegnanteBean implements Serializable, ValueChangeListener {
         this.nome = nome;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -198,6 +199,18 @@ public class SchedaInsegnanteBean implements Serializable, ValueChangeListener {
     }
 
     public void insertNewInsegnante() {
+        selectedInsegnante.setAnnoScolastico(oldSelectedInsegnante.getAnnoScolastico());
+        selectedInsegnante.setIdAnnoScolastico(oldSelectedInsegnante.getIdAnnoScolastico());
+        selectedInsegnante.setIdClasse(oldSelectedInsegnante.getIdClasse());
+        selectedInsegnante.setCognome(cognome.toUpperCase());
+        selectedInsegnante.setNome(nome.toUpperCase());
+        getInsegnantiFacade().create(selectedInsegnante);
+        setInsertingNew(false);
+        setEditable(false);
+        if (selectedInsegnante != null) {
+            loadFields();
+        }
+
     }
 
     public Insegnanti getOldSelectedInsegnante() {
