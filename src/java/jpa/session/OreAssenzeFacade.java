@@ -31,6 +31,13 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         super(OreAssenze.class);
     }
 
+    /**
+     * Ritorna le assenze dello studente nella lezione che appare come parametro.
+     * Una lezione può durare una o più ore.
+     * @param idLezione
+     * @param idStudente
+     * @return
+     */
     public List<OreAssenze> findAssenzeStudenteLezione(long idLezione, long idStudente) {
         //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("SELECT o FROM OreAssenze o WHERE o.oreAssenzePK.idLezione = :idLezione "
@@ -41,6 +48,12 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         return query.getResultList();
     }
 
+    /**
+     * Ritorna tutte le assenze in tabell riguardanti la lezione il cui
+     * id viene fornito come parametro
+     * @param idLezione
+     * @return
+     */
     public List<OreAssenze> findAllAssenzeLezione(Long idLezione) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("SELECT o FROM OreAssenze o WHERE o.oreAssenzePK.idLezione = :idLezione ");
@@ -48,6 +61,11 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         return query.getResultList();
     }
 
+    /**
+     * Controlla che esista il record come quello fornito dal parametro entity
+     * @param entity
+     * @return
+     */
     public boolean existsEntity(OreAssenze entity) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery(
@@ -64,6 +82,10 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         return oreAssenza.size() == 1;
     }
 
+    /**
+     * Update del ritardo come quello fornito dal parametro entity
+     * @param entity
+     */
     public void updateRitardo(OreAssenze entity) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("UPDATE OreAssenze o"
@@ -77,5 +99,46 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         query.setParameter("ritardo", entity.getRitardo());
         query.executeUpdate();
 
+    }
+
+    /**
+     * Controlla che il record di assenza esista già con assenza differente da
+     * quella dell'entity fornita come parametro
+     *
+     * @param entity
+     * @return
+     */
+    public boolean entityExistsWithDifferentAssenza(OreAssenze entity) {
+        Query query = getEntityManager().createQuery(
+                "SELECT o FROM OreAssenze o WHERE o.oreAssenzePK.idLezione = :idLezione "
+                + " AND o.oreAssenzePK.numOra = :numOra"
+                + " AND o.oreAssenzePK.idStudente = :idStudente"
+                + " AND o.assenza = :assenza");
+        query.setParameter("idLezione", entity.getOreAssenzePK().getIdLezione());
+        query.setParameter("numOra", entity.getOreAssenzePK().getNumOra());
+        query.setParameter("idStudente", entity.getOreAssenzePK().getIdStudente());
+        query.setParameter("assenza", entity.getAssenza() == (short)0 ? (short)1 : (short)0);
+
+        List<OreAssenze> oreAssenza = query.getResultList();
+        return oreAssenza.size() == 1;
+    }
+
+    /**
+     * Setta l'assenza dell'allievo nell'ora di lezione se il record gia' esiste
+     *
+     * @param entity
+     * @param value
+     */
+    public void updateAssenza(OreAssenze entity, short value) {
+        Query query = getEntityManager().createQuery("UPDATE OreAssenze o"
+                + " SET o.assenza = :assenza"
+                + " WHERE o.oreAssenzePK.idLezione = :idLezione "
+                + " AND o.oreAssenzePK.numOra = :numOra"
+                + " AND o.oreAssenzePK.idStudente = :idStudente");
+        query.setParameter("idLezione", entity.getOreAssenzePK().getIdLezione());
+        query.setParameter("numOra", entity.getOreAssenzePK().getNumOra());
+        query.setParameter("idStudente", entity.getOreAssenzePK().getIdStudente());
+        query.setParameter("assenza", value);
+        query.executeUpdate();
     }
 }

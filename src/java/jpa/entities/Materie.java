@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jpa.entities;
 
 import java.io.Serializable;
@@ -45,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Materie.findByOrale", query = "SELECT m FROM Materie m WHERE m.orale = :orale"),
     @NamedQuery(name = "Materie.findByPratico", query = "SELECT m FROM Materie m WHERE m.pratico = :pratico")})
 public class Materie implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -231,5 +231,43 @@ public class Materie implements Serializable {
 //        return "jpa.entities.Materie[ idMateria=" + idMateria + " ]";
         return materia;
     }
-    
+
+    private boolean giudizioBool, scrittoBool, oraleBool, praticoBool;
+
+    public boolean isGiudizioBool() {
+        return giudizioBool = (giudizio != 0);
+    }
+
+    public void setGiudizioBool(boolean giudizioBool) {
+        giudizio = (short) (giudizioBool ? 1 : 0);
+        this.giudizioBool = giudizioBool;
+    }
+
+    public boolean isScrittoBool() {
+        return scrittoBool = (scritto != 0);
+    }
+
+    public void setScrittoBool(boolean scrittoBool) {
+        scritto = (short) (scrittoBool ? 1 : 0);
+        this.scrittoBool = scrittoBool;
+    }
+
+    public boolean isOraleBool() {
+        return oraleBool = (orale != 0);
+    }
+
+    public void setOraleBool(boolean oraleBool) {
+        orale = (short) (oraleBool ? 1 : 0);
+        this.oraleBool = oraleBool;
+    }
+
+    public boolean isPraticoBool() {
+        return praticoBool = (pratico != 0);
+    }
+
+    public void setPraticoBool(boolean praticoBool) {
+        pratico = (short) (praticoBool ? 1 : 0);
+        this.praticoBool = praticoBool;
+    }
+
 }

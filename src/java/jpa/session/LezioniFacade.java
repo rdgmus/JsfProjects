@@ -123,7 +123,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
     public List<Lezioni> findLezioniMateriaPrecData(Materie m, Date dataEntrata) {
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
                 + " AND l.dataLezione < :dataLezione");
-        query.setParameter("idMateria", new BigInteger(String.valueOf(m.getIdMateria())));
+        query.setParameter("idMateria", m);
         query.setParameter("dataLezione", dataEntrata);
         return query.getResultList();
     }
@@ -131,7 +131,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
     public List<Lezioni> findLezioniMateriaSuccData(Materie m, Date ritiratoData) {
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
                 + " AND l.dataLezione >= :dataLezione");
-        query.setParameter("idMateria", new BigInteger(String.valueOf(m.getIdMateria())));
+        query.setParameter("idMateria", m);
         query.setParameter("dataLezione", ritiratoData);
         return query.getResultList();
     }

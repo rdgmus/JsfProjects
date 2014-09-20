@@ -615,11 +615,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public Materie getSelectedMateria() {
-        if (selectedMateria == null) {
-            if (listaMaterie != null && listaMaterie.size() > 0) {
-                selectedMateria = listaMaterie.get(0);
-            }
-        }
+//        if (selectedMateria == null) {
+//            if (listaMaterie != null && listaMaterie.size() > 0) {
+//                selectedMateria = listaMaterie.get(0);
+//            }
+//        }
         return selectedMateria;
     }
 
@@ -628,16 +628,18 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public List<Materie> getListaAllMaterie() {
-        try {
-            listaAllMaterie = getMaterieFacade().retrieveAllMaterieDistinctOrderedList(getListaMaterie());
-        } catch (Exception ejbex) {
-            JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista delle MATERIE nel DATABASE:"
-                    + ejbex.getMessage());
-        }
-        for (Materie i : listaAllMaterie) {
-            if (i.getMateria().equals(selectedMateria.getMateria())) {
-                setSelectedExistingMateria(i);
-                break;
+        if (listaAllMaterie == null) {
+            try {
+                listaAllMaterie = getMaterieFacade().retrieveAllMaterieDistinctOrderedList(getListaMaterie());
+            } catch (Exception ejbex) {
+                JsfUtil.addErrorMessage("Non è stato possibile estrarre la lista delle MATERIE nel DATABASE:"
+                        + ejbex.getMessage());
+            }
+            for (Materie i : listaAllMaterie) {
+                if (i.getMateria().equals(selectedMateria.getMateria())) {
+                    setSelectedExistingMateria(i);
+                    break;
+                }
             }
         }
         return listaAllMaterie;
@@ -648,11 +650,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     }
 
     public Materie getSelectedExistingMateria() {
-        if (selectedExistingMateria == null) {
-            if (listaAllMaterie != null && listaAllMaterie.size() > 0) {
-                selectedExistingMateria = listaAllMaterie.get(0);
-            }
-        }
+//        if (selectedExistingMateria == null) {
+//            if (listaAllMaterie != null && listaAllMaterie.size() > 0) {
+//                selectedExistingMateria = listaAllMaterie.get(0);
+//            }
+//        }
         return selectedExistingMateria;
     }
 
@@ -1894,7 +1896,8 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
                         entity.setAssenza((short) 1);
-                        if (!getOreAssenzeFacade().existsEntity(entity)) {
+                        boolean exists = getOreAssenzeFacade().existsEntity(entity);
+                        if (!exists) {
                             contaAssenzeSuccRitiro++;
                         }
                     }
@@ -1927,7 +1930,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         entity = new OreAssenze(idLezione, i, idStudente);
                         entity.setAssenza((short) 1);
                         if (!getOreAssenzeFacade().existsEntity(entity)) {
-                            getOreAssenzeFacade().create(entity);
+                            if (getOreAssenzeFacade().entityExistsWithDifferentAssenza(entity)) {
+                                getOreAssenzeFacade().updateAssenza(entity, (short) 1);
+                            } else {
+                                getOreAssenzeFacade().create(entity);
+                            }
                             messageCreataAssenza(i, selectedStudente, l, classe, m);
                         }
                     }

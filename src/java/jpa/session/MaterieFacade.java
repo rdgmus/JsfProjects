@@ -5,7 +5,6 @@
  */
 package jpa.session;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -149,10 +148,10 @@ public class MaterieFacade extends AbstractFacade<Materie> {
 
             altraMateria.setIdInsegnante(nuovoInsegnante);
 
-            altraMateria.setGiudizio(Boolean.parseBoolean(String.valueOf(obj[5]))?(short)1:(short)0);
-            altraMateria.setScritto(Boolean.parseBoolean(String.valueOf(obj[6]))?(short)1:(short)0);
-            altraMateria.setOrale(Boolean.parseBoolean(String.valueOf(obj[7]))?(short)1:(short)0);
-            altraMateria.setPratico(Boolean.parseBoolean(String.valueOf(obj[8]))?(short)1:(short)0);
+            altraMateria.setGiudizio(Boolean.parseBoolean(String.valueOf(obj[5])) ? (short) 1 : (short) 0);
+            altraMateria.setScritto(Boolean.parseBoolean(String.valueOf(obj[6])) ? (short) 1 : (short) 0);
+            altraMateria.setOrale(Boolean.parseBoolean(String.valueOf(obj[7])) ? (short) 1 : (short) 0);
+            altraMateria.setPratico(Boolean.parseBoolean(String.valueOf(obj[8])) ? (short) 1 : (short) 0);
 
             AnniScolastici nuovoAS = getAnniScolasticiFacade().find(Long.valueOf(String.valueOf(obj[9])));
 
@@ -174,8 +173,6 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         }
         return true;
     }
-
-    
 
     public void updateMateria(Materie selectedMateria) {
 //        throw new UnsupportedOperationException("Not yet implemented");
@@ -204,13 +201,13 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         query.setParameter("idMateria", idMateria);
         Materie m = (Materie) query.getSingleResult();
         if (tipoVoto.equals("G")) {
-            return m.getGiudizio()!=0;
+            return m.getGiudizio() != 0;
         } else if (tipoVoto.equals("S")) {
-            return m.getScritto()!=0;
+            return m.getScritto() != 0;
         } else if (tipoVoto.equals("O")) {
-            return m.getOrale()!=0;
+            return m.getOrale() != 0;
         } else if (tipoVoto.equals("P")) {
-            return m.getPratico()!=0;
+            return m.getPratico() != 0;
         } else {
             return false;
         }
@@ -224,16 +221,33 @@ public class MaterieFacade extends AbstractFacade<Materie> {
         query.setParameter("idMateria", idMateria);
         Materie m = (Materie) query.getSingleResult();
 
-        if (m.getGiudizio()!=0) {
+        if (m.getGiudizio() != 0) {
             return 'G';
-        } else if (m.getPratico()!=0) {
+        } else if (m.getPratico() != 0) {
             return 'P';
-        } else if (m.getOrale()!=0) {
+        } else if (m.getOrale() != 0) {
             return 'O';
-        } else if (m.getScritto()!=0) {
+        } else if (m.getScritto() != 0) {
             return 'S';
         } else {
             return 'N';
         }
     }
+
+    @Override
+    public void remove(Materie entity) {
+//        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        Query query;
+        query = getEntityManager().createQuery(
+                "DELETE  FROM Materie m WHERE m.idMateria = :idMateria");
+        query.setParameter("idMateria",entity.getIdMateria());
+        query.executeUpdate();
+
+    }
+
+    @Override
+    public void create(Materie entity) {
+        super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
