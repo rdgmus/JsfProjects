@@ -66,7 +66,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
      * @param endDate
      * @return
      */
-    public Integer countOreMateriaPeriodo(Long idMateria, Date startDate, Date endDate) {
+    public Integer countOreMateriaPeriodo(Materie idMateria, Date startDate, Date endDate) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         int count = 0;
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
@@ -78,10 +78,10 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
         Iterator iter = lessons.iterator();
         while (iter.hasNext()) {
             Lezioni lez = (Lezioni) iter.next();
-            int ore = lez.getOreLezione().intValue();
+            int ore = lez.getOreLezione();
             count += ore;
         }
-        return new Integer(count);
+        return count;
     }
 
     /**
@@ -92,7 +92,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
      * @param endDate
      * @return
      */
-    public List findLezioniPeriodo(Long idMateria, Date startDate, Date endDate) {
+    public List findLezioniPeriodo(Materie idMateria, Date startDate, Date endDate) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
                 + " AND l.dataLezione BETWEEN :startDate AND :endDate"

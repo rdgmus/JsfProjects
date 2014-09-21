@@ -52,7 +52,7 @@ import org.richfaces.component.UICalendar;
 @ManagedBean(name = "gestioneScuolaWizardBean")
 @SessionScoped
 public class GestioneScuolaWizardBean implements Serializable, ValueChangeListener {
-
+    
     private int page = 1;
     private boolean rewind, forward;
     private String tabella;
@@ -68,14 +68,14 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     private boolean deleteAction = false;//Attivo quando siamo in operazione CANCELLA
     private boolean crudAction = false;
     private double completamentoAS = 0.0;
-
+    
     public double getCompletamentoAS() {
         calcCoperturaAS();
         return completamentoAS;
     }
-
+    
     public void setCompletamentoAS(double completamentoAS) {
-
+        
         this.completamentoAS = completamentoAS;
     }
 
@@ -85,7 +85,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
      *
      */
     public void calcCoperturaAS() {
-
+        
         Calendar asStart = Calendar.getInstance();
         Calendar asEnd = Calendar.getInstance();
         Calendar pStart = Calendar.getInstance();
@@ -109,35 +109,35 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 percent = ((double) durataPeriodi / (double) durataAnno) * 100.0;
                 break;
         }
-
+        
         setCompletamentoAS(percent);
     }
-
+    
     public boolean isCrudAction() {
         crudAction = modifyAction || createAction || deleteAction;
         return crudAction;
     }
-
+    
     public boolean isModifyAction() {
         return modifyAction;
     }
-
+    
     public void setModifyAction(boolean modifyAction) {
         this.modifyAction = modifyAction;
     }
-
+    
     public boolean isCreateAction() {
         return createAction;
     }
-
+    
     public void setCreateAction(boolean createAction) {
         this.createAction = createAction;
     }
-
+    
     public boolean isDeleteAction() {
         return deleteAction;
     }
-
+    
     public void setDeleteAction(boolean deleteAction) {
         this.deleteAction = deleteAction;
     }
@@ -183,49 +183,49 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     private Materie selectedMateria;
     private List<Materie> listaAllMaterie;
     private Materie selectedExistingMateria;
-
+    
     public String getPeriodType() {
         if (periodType == null) {
             periodType = "BIMESTRE";
         }
         return periodType;
     }
-
+    
     public void setPeriodType(String periodType) {
         this.periodType = periodType;
     }
-
+    
     public GestioneScuolaWizardBean() {
     }
-
+    
     public Object getLocale() {
         return locale;
     }
-
+    
     public void setLocale(Object locale) {
         this.locale = locale;
     }
-
+    
     public boolean isPopup() {
         return popup;
     }
-
+    
     public void setPopup(boolean popup) {
         this.popup = popup;
     }
-
+    
     public String getPattern() {
         return pattern;
     }
-
+    
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }
-
+    
     public boolean isShowApply() {
         return showApply;
     }
-
+    
     public void setShowApply(boolean showApply) {
         this.showApply = showApply;
     }
@@ -236,7 +236,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public ScuoleFacade getScuoleFacade() {
         return scuoleFacade;
     }
-
+    
     public Scuole getSelectedScuola() {
         if (selectedScuola == null) {
             if (listaScuole != null && listaScuole.size() > 0) {
@@ -245,11 +245,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedScuola;
     }
-
+    
     public void setSelectedScuola(Scuole selectedScuola) {
         this.selectedScuola = selectedScuola;
     }
-
+    
     public List<Scuole> getListaScuole() {
         try {
             listaScuole = getScuoleFacade().findAll();
@@ -259,7 +259,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaScuole;
     }
-
+    
     public void setListaScuole(List<Scuole> listaScuole) {
         this.listaScuole = listaScuole;
     }
@@ -270,7 +270,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public AnniScolasticiFacade getAnniScolasticiFacade() {
         return anniScolasticiFacade;
     }
-
+    
     public List<AnniScolastici> getListaAS() {
         try {
             listaAS = getAnniScolasticiFacade().retrieveAnniScolasticiScuolaOrderedList(getSelectedScuola());
@@ -280,11 +280,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaAS;
     }
-
+    
     public void setListaAS(List<AnniScolastici> listaAS) {
         this.listaAS = listaAS;
     }
-
+    
     public AnniScolastici getSelectedAS() {
         if (selectedAS == null) {
             if (listaAS != null && listaAS.size() > 0) {
@@ -293,7 +293,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedAS;
     }
-
+    
     public void setSelectedAS(AnniScolastici selectedAS) {
         this.selectedAS = selectedAS;
     }
@@ -304,7 +304,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public PeriodiAnnoScolasticoFacade getPeriodiAnnoScolasticoFacade() {
         return periodiAnnoScolasticoFacade;
     }
-
+    
     public List<PeriodiAnnoScolastico> getListaPeriodiAS() {
         try {
             listaPeriodiAS = getPeriodiAnnoScolasticoFacade().findByAnnoScolastico(getSelectedAS());
@@ -317,11 +317,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaPeriodiAS;
     }
-
+    
     public void setListaPeriodiAS(List<PeriodiAnnoScolastico> listaPeriodiAS) {
         this.listaPeriodiAS = listaPeriodiAS;
     }
-
+    
     public PeriodiAnnoScolastico getSelectedPeriod() {
         if (selectedPeriod == null) {
             if (listaPeriodiAS != null && listaPeriodiAS.size() > 0) {
@@ -330,7 +330,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedPeriod;
     }
-
+    
     public void setSelectedPeriod(PeriodiAnnoScolastico selectedPeriod) {
         this.selectedPeriod = selectedPeriod;
     }
@@ -343,7 +343,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public ParametriOrarioAsFacade getParametriOrarioAsFacade() {
         return parametriOrarioAsFacade;
     }
-
+    
     public Time findInizioLezioni() {
         try {
             this.inizioLezioni = getParametriOrarioAsFacade().findInizioLezioni(selectedAS);
@@ -354,7 +354,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return this.inizioLezioni;
     }
-
+    
     public Integer findDurataOra() {
         try {
             this.durataOra = getParametriOrarioAsFacade().findDurataOra(selectedAS);
@@ -365,7 +365,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return this.durataOra;
     }
-
+    
     public Integer findDurataIntervallo() {
         try {
             this.durataIntervallo = getParametriOrarioAsFacade().findDurataIntervallo(selectedAS);
@@ -376,7 +376,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return this.durataIntervallo;
     }
-
+    
     public Long findIdParamOrario() {
         try {
             this.idParamOrario = getParametriOrarioAsFacade().findIdParamOrario(selectedAS);
@@ -387,7 +387,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return idParamOrario;
     }
-
+    
     public ParametriOrarioAs getParametriOrarioAs() {
         if (crudAction) {
             return parametriOrarioAs;
@@ -401,7 +401,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return parametriOrarioAs;
     }
-
+    
     public void setParametriOrarioAs(ParametriOrarioAs parametriOrarioAs) {
         this.parametriOrarioAs = parametriOrarioAs;
     }
@@ -412,7 +412,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public ClassiFacade getClassiFacade() {
         return classiFacade;
     }
-
+    
     public List<Classi> getListaClassi() {
         try {
             listaClassi = getClassiFacade().retrieveClassiAnnoScolasticoOrderedList(getSelectedAS());
@@ -422,11 +422,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaClassi;
     }
-
+    
     public void setListaClassi(List<Classi> listaClassi) {
         this.listaClassi = listaClassi;
     }
-
+    
     public Classi getSelectedClasse() {
         if (selectedClasse == null) {
             if (listaClassi != null && listaClassi.size() > 0) {
@@ -435,18 +435,18 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedClasse;
     }
-
+    
     public void setSelectedClasse(Classi selectedClasse) {
         this.selectedClasse = selectedClasse;
     }
     private int countStudenti;
-
+    
     public int getCountStudenti() {
         setCountStudenti(listaStudenti.size());
-
+        
         return countStudenti;
     }
-
+    
     public void setCountStudenti(int countStudenti) {
         this.countStudenti = countStudenti;
     }
@@ -457,7 +457,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public StudentiFacade getStudentiFacade() {
         return studentiFacade;
     }
-
+    
     public List<Studenti> getListaStudenti() {
         try {
             listaStudenti = getStudentiFacade().retrieveStudentiClasseOrderedList(getSelectedClasse());
@@ -467,11 +467,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaStudenti;
     }
-
+    
     public void setListaStudenti(List<Studenti> listaStudenti) {
         this.listaStudenti = listaStudenti;
     }
-
+    
     public Studenti getSelectedStudente() {
         if (selectedStudente == null) {
             if (listaStudenti != null && listaStudenti.size() > 0) {
@@ -480,11 +480,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedStudente;
     }
-
+    
     public void setSelectedStudente(Studenti selectedStudente) {
         this.selectedStudente = selectedStudente;
     }
-
+    
     public List<Studenti> getListaAllStudenti() {
         if (listaAllStudenti == null) {
             try {
@@ -503,11 +503,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaAllStudenti;
     }
-
+    
     public void setListaAllStudenti(List<Studenti> listaAllStudenti) {
         this.listaAllStudenti = listaAllStudenti;
     }
-
+    
     public Studenti getSelectedExistingStudente() {
 //        if (selectedExistingStudente == null) {
 //            if (listaAllStudenti != null && listaAllStudenti.size() > 0) {
@@ -516,7 +516,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
 //        }
         return selectedExistingStudente;
     }
-
+    
     public void setSelectedExistingStudente(Studenti selectedExistingStudente) {
         this.selectedExistingStudente = selectedExistingStudente;
     }
@@ -527,7 +527,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public InsegnantiFacade getInsegnantiFacade() {
         return insegnantiFacade;
     }
-
+    
     public List<Insegnanti> getListaInsegnanti() {
         try {
             listaInsegnanti = getInsegnantiFacade().retrieveInsegnantiClasseOrderedList(
@@ -538,11 +538,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaInsegnanti;
     }
-
+    
     public void setListaInsegnanti(List<Insegnanti> listaInsegnanti) {
         this.listaInsegnanti = listaInsegnanti;
     }
-
+    
     public Insegnanti getSelectedInsegnante() {
         if (selectedInsegnante == null) {
             if (listaInsegnanti != null && listaInsegnanti.size() > 0) {
@@ -551,7 +551,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return selectedInsegnante;
     }
-
+    
     public void setSelectedInsegnante(Insegnanti selectedInsegnante) {
         this.selectedInsegnante = selectedInsegnante;
     }
@@ -575,11 +575,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaAllInsegnanti;
     }
-
+    
     public void setListaAllInsegnanti(List<Insegnanti> listaAllInsegnanti) {
         this.listaAllInsegnanti = listaAllInsegnanti;
     }
-
+    
     public Insegnanti getSelectedExistingInsegnante() {
 //        if (selectedExistingInsegnante == null) {
 //            if (listaAllInsegnanti != null && listaAllInsegnanti.size() > 0) {
@@ -588,7 +588,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
 //        }
         return selectedExistingInsegnante;
     }
-
+    
     public void setSelectedExistingInsegnante(Insegnanti selectedExistingInsegnante) {
         this.selectedExistingInsegnante = selectedExistingInsegnante;
     }
@@ -599,7 +599,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     public MaterieFacade getMaterieFacade() {
         return materieFacade;
     }
-
+    
     public List<Materie> getListaMaterie() {
         try {
             listaMaterie = getMaterieFacade().retrieveMaterieInsegnanteOrderedList(selectedAS, selectedClasse, selectedInsegnante);
@@ -609,11 +609,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaMaterie;
     }
-
+    
     public void setListaMaterie(List<Materie> listaMaterie) {
         this.listaMaterie = listaMaterie;
     }
-
+    
     public Materie getSelectedMateria() {
 //        if (selectedMateria == null) {
 //            if (listaMaterie != null && listaMaterie.size() > 0) {
@@ -622,11 +622,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
 //        }
         return selectedMateria;
     }
-
+    
     public void setSelectedMateria(Materie selectedMateria) {
         this.selectedMateria = selectedMateria;
     }
-
+    
     public List<Materie> getListaAllMaterie() {
         if (listaAllMaterie == null) {
             try {
@@ -644,11 +644,11 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return listaAllMaterie;
     }
-
+    
     public void setListaAllMaterie(List<Materie> listaAllMaterie) {
         this.listaAllMaterie = listaAllMaterie;
     }
-
+    
     public Materie getSelectedExistingMateria() {
 //        if (selectedExistingMateria == null) {
 //            if (listaAllMaterie != null && listaAllMaterie.size() > 0) {
@@ -657,7 +657,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
 //        }
         return selectedExistingMateria;
     }
-
+    
     public void setSelectedExistingMateria(Materie selectedExistingMateria) {
         this.selectedExistingMateria = selectedExistingMateria;
     }
@@ -671,28 +671,28 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         rewind = page > 1;
         return rewind;
     }
-
+    
     public void setRewind(boolean rewind) {
         this.rewind = rewind;
     }
-
+    
     public boolean isForward() {
         forward = page < 10;
         return forward;
     }
-
+    
     public void setForward(boolean forward) {
         this.forward = forward;
     }
-
+    
     public int getPage() {
         return page;
     }
-
+    
     public void setPage(int page) {
         this.page = page;
     }
-
+    
     public String getTabella() {
         switch (page) {
             case 1:
@@ -728,22 +728,22 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         }
         return tabella;
     }
-
+    
     public void setTabella(String tabella) {
         this.tabella = tabella;
     }
-
+    
     public String backToScegliRegistro() {
         page = 1;
         listaScuole = null;
         selectedScuola = null;
         return "/registro/ScegliRegistroScolastico";
     }
-
+    
     public void decrementaPagina() {
         page--;
     }
-
+    
     public void incrementaPagina() {
         page++;
         switch (page) {
@@ -850,27 +850,27 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         setDisableCommitRollback(false);
         setDisableCreateModifyDelete(true);
         setAzioneInCorso("Cancella record!");
-
+        
         setDeleteAction(true);
         JsfUtil.addErrorMessage("ATTENZIONE siamo in procinto di cancellare il record!");
         switch (page) {
             case 3://PERIODI ANNO SCOLASTICO
                 JsfUtil.addSuccessMessage("ATTENZIONE verrà sempre cancellato l'ultimo periodo disponibile!");
                 int size = getListaPeriodiAS().size();
-
+                
                 setSelectedPeriod(getListaPeriodiAS().get(size - 1));
                 break;
             default:
                 break;
         }
     }
-
+    
     private PeriodiAnnoScolastico oldPeriod;
-
+    
     public PeriodiAnnoScolastico getOldPeriod() {
         return oldPeriod;
     }
-
+    
     public void setOldPeriod(PeriodiAnnoScolastico oldPeriod) {
         this.oldPeriod = oldPeriod;
     }
@@ -900,9 +900,9 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 JsfUtil.addSuccessMessage("ATTENZIONE verrà sempre modificata la sola data finale dell'ultimo periodo disponibile"
                         + " oppure la sua denominazione. Altrimenti procedere con cancella e ricrea!");
                 int size = getListaPeriodiAS().size();
-
+                
                 setOldPeriod(getListaPeriodiAS().get(size - 1));
-
+                
                 setSelectedPeriod(getListaPeriodiAS().get(size - 1));
                 setPeriodType(getSelectedPeriod().getPeriodo());
                 break;
@@ -942,10 +942,10 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         setDisableCommitRollback(false);
         setDisableCreateModifyDelete(true);
         setAzioneInCorso("Modifica record!");
-
+        
         setModifyAction(true);
         JsfUtil.addErrorMessage("ATTENZIONE siamo in procinto di modificare il record!");
-
+        
     }
 
     /**
@@ -955,7 +955,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         setDisableCommitRollback(false);
         setDisableCreateModifyDelete(true);
         setAzioneInCorso("Crea record!");
-
+        
         setCreateAction(true);
         JsfUtil.addErrorMessage("ATTENZIONE stiamo creando un nuovo record!");
         switch (page) {
@@ -987,13 +987,13 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
 //                        Long nextId = getAnniScolasticiFacade().getNextId();
 //                        nuovoAnno.setIdAnnoScolastico(nextId);
                         nuovoAnno.setIdScuola(this.selectedScuola);
-
+                        
                         Calendar startCal = Calendar.getInstance();
-
+                        
                         nuovoAnno.setStartDate(startCal.getTime());
                         startCal.add(Calendar.YEAR, 1);
                         nuovoAnno.setEndDate(startCal.getTime());
-
+                        
                         nuovoAnno.setAnnoScolastico(getAnniScolasticiFacade().getAnnoAscolasticoAsString(nuovoAnno));
                         try {
                             getAnniScolasticiFacade().create(nuovoAnno);
@@ -1018,7 +1018,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         PeriodiAnnoScolasticoPK pkPeriod = new PeriodiAnnoScolasticoPK();
                         pkPeriod.setIdScuola(getSelectedScuola().getIdScuola());
                         pkPeriod.setIdAnnoScolastico(getSelectedAS().getIdAnnoScolastico());
-
+                        
                         nuovoPeriodo.setPeriodiAnnoScolasticoPK(pkPeriod);
                         nuovoPeriodo.setPeriodo(getPeriodType());
                         int size = getListaPeriodiAS().size();
@@ -1038,18 +1038,18 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                             setDisableCommitRollback(true);
                             setDisableCreateModifyDelete(false);
                             setAzioneInCorso("In attesa...");
-
+                            
                             setModifyAction(false);
                             setCreateAction(false);
                             setDeleteAction(false);
                             return;
                         }
-
+                        
                         Date endDate = getEndPeriodDate(nuovoPeriodo.getStartDate());
                         if (endDate.after(getSelectedAS().getEndDate())) {
                             endDate = getSelectedAS().getEndDate();
                         }
-
+                        
                         nuovoPeriodo.setEndDate(endDate);
                         try {
                             getPeriodiAnnoScolasticoFacade().create(nuovoPeriodo);
@@ -1074,7 +1074,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                         cal.set(Calendar.HOUR_OF_DAY, 8);
                         cal.set(Calendar.MINUTE, 0);
                         cal.set(Calendar.SECOND, 0);
-
+                        
                         paramsOrario.setIdAnnoScolastico(getSelectedAS());
                         paramsOrario.setInizioLezioni(cal.getTime());
                         paramsOrario.setDurataOraMinuti(60);
@@ -1191,7 +1191,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 break;
         }
     }
-
+    
     private Date getEndPeriodDate(Date startDate) {
         Date endDate = null;
         Calendar endCal = Calendar.getInstance();
@@ -1209,7 +1209,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         } else if (periodType.equals("ANNUALITA'")) {
             endCal.add(Calendar.MONTH, 12);
         }
-
+        
         endDate = endCal.getTime();
         return endDate;
     }
@@ -1372,7 +1372,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         setDisableCommitRollback(true);
         setDisableCreateModifyDelete(false);
         setAzioneInCorso("In attesa...");
-
+        
         setModifyAction(false);
         setCreateAction(false);
         setDeleteAction(false);
@@ -1511,38 +1511,44 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         setModifyAction(false);
         setCreateAction(false);
         setDeleteAction(false);
-
+        
     }
-
+    
     public boolean isDisableCommitRollback() {
         return disableCommitRollback;
     }
-
+    
     public void setDisableCommitRollback(boolean disableCommitRollback) {
         this.disableCommitRollback = disableCommitRollback;
     }
-
+    
     public boolean isDisableCreateModifyDelete() {
         return disableCreateModifyDelete;
     }
-
+    
     public void setDisableCreateModifyDelete(boolean disableCreateModifyDelete) {
         this.disableCreateModifyDelete = disableCreateModifyDelete;
     }
-
+    
     public String getAzioneInCorso() {
         return azioneInCorso;
     }
-
+    
     public void setAzioneInCorso(String azioneInCorso) {
         this.azioneInCorso = azioneInCorso;
     }
-
+    
     @Override
     public void processValueChange(ValueChangeEvent event) throws AbortProcessingException {
 //        throw new UnsupportedOperationException("Not supported yet.");
         Object source = event.getSource();
         // PARAMETERS FOR UPDATING ASSENZE
+//        if (source instanceof HtmlInputNumberSpinner) {
+//            HtmlInputNumberSpinner spinnerPage = (HtmlInputNumberSpinner) source;
+//            if (spinnerPage.getId().equals("spinnerPage")) {
+//                setPage(Integer.parseInt((String) event.getNewValue()));
+//            }
+//        }
         if (source instanceof HtmlSelectOneMenu) {
             HtmlSelectOneMenu hmenu = (HtmlSelectOneMenu) source;
             if (hmenu.getId().equals("selectedScuola")) {
@@ -1560,15 +1566,15 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedPeriod != null) {
                     if (isCreateAction() || isModifyAction()) {
                         selectedPeriod.setPeriodo(getPeriodType());
-
+                        
                         Date endDate = getEndPeriodDate(selectedPeriod.getStartDate());
                         if (endDate.after(getSelectedAS().getEndDate())) {
                             endDate = getSelectedAS().getEndDate();
                         }
                         selectedPeriod.setEndDate(endDate);
-
+                        
                         if (isModifyAction()) {
-
+                            
                         }
                         getPeriodiAnnoScolasticoFacade().updatePeriodoAnnoScolastico(selectedPeriod);
                         calcCoperturaAS();
@@ -1618,7 +1624,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 }
             }
             JsfUtil.addSuccessMessage(" modifica in corso... di " + hmenu.getId() + " a '" + event.getNewValue() + "'");
-
+            
         }
         if (source instanceof HtmlInputText) {
             HtmlInputText intext = (HtmlInputText) source;
@@ -1775,25 +1781,25 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
     LezioniFacade lezioniFacade;
     @EJB
     OreAssenzeFacade oreAssenzeFacade;
-
+    
     public UtentiLoggerFacade getUtentiLoggerFacade() {
         return utentiLoggerFacade;
     }
-
+    
     public LezioniFacade getLezioniFacade() {
         return lezioniFacade;
     }
-
+    
     public OreAssenzeFacade getOreAssenzeFacade() {
         return oreAssenzeFacade;
     }
     private int contaAssenzePrecEntrata;
-
+    
     public int getContaAssenzePrecEntrata() {
         contaAssenzeAllievoLezioniPrecEntrata();
         return contaAssenzePrecEntrata;
     }
-
+    
     public void setContaAssenzePrecEntrata(int contaAssenzePrecEntrata) {
         this.contaAssenzePrecEntrata = contaAssenzePrecEntrata;
     }
@@ -1815,7 +1821,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedStudente.getAttivo() == (short) 1
                         && l.getDataLezione().before(selectedStudente.getDataEntrata())) {
                     Long idStudente = selectedStudente.getIdStudente();
-
+                    
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
@@ -1824,9 +1830,9 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                             contaAssenzePrecEntrata++;
                         }
                     }
-
+                    
                 }
-
+                
             }
         }
     }
@@ -1847,7 +1853,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedStudente.getAttivo() == (short) 1
                         && l.getDataLezione().before(selectedStudente.getDataEntrata())) {
                     Long idStudente = selectedStudente.getIdStudente();
-
+                    
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
@@ -1857,19 +1863,19 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                             messageCreataAssenza(i, selectedStudente, l, classe, m);
                         }
                     }
-
+                    
                 }
-
+                
             }
         }
     }
     private int contaAssenzeSuccRitiro;
-
+    
     public int getContaAssenzeSuccRitiro() {
         contaAssenzeAllievoLezioniSuccRitiro();
         return contaAssenzeSuccRitiro;
     }
-
+    
     public void setContaAssenzeSuccRitiro(int contaAssenzeSuccRitiro) {
         this.contaAssenzeSuccRitiro = contaAssenzeSuccRitiro;
     }
@@ -1891,7 +1897,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedStudente.getAttivo() == (short) 0
                         && l.getDataLezione().after(selectedStudente.getRitiratoData())) {
                     Long idStudente = selectedStudente.getIdStudente();
-
+                    
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
@@ -1901,9 +1907,9 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                             contaAssenzeSuccRitiro++;
                         }
                     }
-
+                    
                 }
-
+                
             }
         }
     }
@@ -1924,7 +1930,7 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                 if (selectedStudente.getAttivo() == (short) 0
                         && l.getDataLezione().after(selectedStudente.getRitiratoData())) {
                     Long idStudente = selectedStudente.getIdStudente();
-
+                    
                     for (int i = 1; i <= ore; i++) {
                         OreAssenze entity;
                         entity = new OreAssenze(idLezione, i, idStudente);
@@ -1938,13 +1944,13 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
                             messageCreataAssenza(i, selectedStudente, l, classe, m);
                         }
                     }
-
+                    
                 }
-
+                
             }
         }
     }
-
+    
     private void messageCreataAssenza(int ora, Studenti selectedStudente, Lezioni l, Classi classe, Materie m) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         String msg = ResourceBundle.getBundle("/resources/Registro").getString("CreataAssenzaMsgString")
@@ -1957,6 +1963,6 @@ public class GestioneScuolaWizardBean implements Serializable, ValueChangeListen
         JsfUtil.registraEventoNelDatabase(msg,
                 ResourceBundle.getBundle("/resources/Registro").getString("CreataAssenzaTypeString"),
                 getUtentiLoggerFacade());
-
+        
     }
 }

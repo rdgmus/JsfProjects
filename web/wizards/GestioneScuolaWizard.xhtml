@@ -58,12 +58,13 @@
         <ui:define name="bottom">
             <h:form id="esciForm">
                 <h:commandButton value="Esci" action="#{gestioneScuolaWizardBean.backToScegliRegistro()}" id="TerminaWizard"
-                                 style="font: bold italic large Palatino, serif" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
+                                 style="font: bold italic large Palatino, serif" image="/resources/images/dialog_close_icon.png"
+                                 disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
                 <h:commandButton value="Indietro" action="#{gestioneScuolaWizardBean.decrementaPagina()}" id="PaginaPrecWizard"
-                                 style="font: bold italic large Palatino, serif" 
+                                 style="font: bold italic large Palatino, serif" image="/resources/images/previous.png"
                                  rendered="#{gestioneScuolaWizardBean.rewind}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
                 <h:commandButton value="Avanti" action="#{gestioneScuolaWizardBean.incrementaPagina()}" id="PaginaSuccWizard"
-                                 style="font: bold italic large Palatino, serif"
+                                 style="font: bold italic large Palatino, serif" image="/resources/images/next.png"
                                  rendered="#{gestioneScuolaWizardBean.forward}" disabled="#{gestioneScuolaWizardBean.disableCreateModifyDelete}"/>
             </h:form>
             <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="TerminaWizard">

@@ -306,7 +306,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         if (source instanceof HtmlInputNumberSpinner) {//UPDATE NUMBER STUDENTS PAGE SIZE 
             HtmlInputNumberSpinner cb = (HtmlInputNumberSpinner) source;
             if (cb.getId().equals("numeroStudentiPerPage")) {//AFGGIUSTAMENTO NUMERO STUDENTI PER PAGINA
-                setPageSize(Integer.valueOf(String.valueOf(event.getNewValue())).intValue());
+                setPageSize(Integer.parseInt(String.valueOf(event.getNewValue())));
             }
         }
         if (source instanceof HtmlSelectOneMenu) {
@@ -349,7 +349,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         Integer countOre = null;
         Date startDate = periodo.getStartDate();
         Date endDate = periodo.getEndDate();
-        countOre = getLezioniFacade().countOreMateriaPeriodo(materia.getIdMateria(), startDate, endDate);
+        countOre = getLezioniFacade().countOreMateriaPeriodo(materia, startDate, endDate);
         return countOre;
     }
 
@@ -363,7 +363,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         Date startDate = periodo.getStartDate();
         Date endDate = periodo.getEndDate();
         List lezioniMateriaPeriodo
-                = getLezioniFacade().findLezioniPeriodo(materia.getIdMateria(), startDate, endDate);
+                = getLezioniFacade().findLezioniPeriodo(materia, startDate, endDate);
         Long idStudente = studente.getIdStudente();
 
         Iterator iter = lezioniMateriaPeriodo.iterator();
@@ -405,7 +405,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         Long idStudente = studente.getIdStudente();
 
         List lezioniMateriaPeriodo
-                = getLezioniFacade().findLezioniPeriodo(materia.getIdMateria(), startDate, endDate);
+                = getLezioniFacade().findLezioniPeriodo(materia, startDate, endDate);
 
         Iterator iter = lezioniMateriaPeriodo.iterator();
         while (iter.hasNext()) {
@@ -624,8 +624,8 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
     private boolean foundDifferenceBetween(AllieviRisultatiPeriodo get, RisultatiPeriodoRecord rec) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         boolean isDifferent = false;
-        isDifferent = (get.getTotaleOrePeriodo().intValue() != rec.getTotaleOrePeriodo().intValue())
-                || (get.getNumAssenze().intValue() != rec.getNumAssenze().intValue())
+        isDifferent = (get.getTotaleOrePeriodo() != rec.getTotaleOrePeriodo().intValue())
+                || (get.getNumAssenze() != rec.getNumAssenze().intValue())
                 || (!get.getScritto().equals(getAsString(rec.getScritto())))
                 || (!get.getOrale().equals(getAsString(rec.getOrale())))
                 || (!get.getPratico().equals(getAsString(rec.getPratico())))
@@ -719,7 +719,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         Date startDate = periodo.getStartDate();
         Date endDate = periodo.getEndDate();
         List lezioniMateriaPeriodo
-                = getLezioniFacade().findLezioniPeriodo(materia.getIdMateria(), startDate, endDate);
+                = getLezioniFacade().findLezioniPeriodo(materia, startDate, endDate);
         Collection<Studenti> studenti = materia.getIdClasse().getStudentiCollection();
 
         Iterator iter = lezioniMateriaPeriodo.iterator();

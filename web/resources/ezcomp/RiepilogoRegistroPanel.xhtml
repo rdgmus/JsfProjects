@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:a4j="http://richfaces.org/a4j">
     <h:head>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head> 
@@ -30,17 +31,19 @@
                     <f:facet name="header">
                         <h:outputText value="Pagina Studenti:"/>
                     </f:facet>
-                    <h:panelGroup>
-                        <h:form id="paginationForm">
+                    <h:form id="paginationForm">
+                        <h:panelGroup>
                             <h:commandButton value="Prec." disabled="#{!risultatiPeriodoBean.hasPreviousPage}" id="prec"
                                              action="#{risultatiPeriodoBean.previousPage()}"/>
                             <h:outputText value="[#{risultatiPeriodoBean.row+1}-#{risultatiPeriodoBean.row+risultatiPeriodoBean.pageSize}]"
                                           style="color: darkkhaki"/>
                             <h:commandButton value="Succ." disabled="#{!risultatiPeriodoBean.hasNextPage}" id="succ"
                                              action="#{risultatiPeriodoBean.nextPage()}"/>
-                            <rich:inputNumberSpinner value="#{risultatiPeriodoBean.pageSize}" inputSize="4" id="numeroStudentiPerPage"
-                                                     step="1" minValue="1" maxValue="20" ondownclick="submit()" onupclick="submit()"
-                                                     valueChangeListener="#{risultatiPeriodoBean.processValueChange}"/>
+                            <rich:inputNumberSpinner value="#{risultatiPeriodoBean.pageSize}" id="numeroStudentiPerPage"
+                                                     minValue="1" maxValue="20" 
+                                                     valueChangeListener="#{risultatiPeriodoBean.processValueChange}"
+                                                     onchange="submit()">
+                            </rich:inputNumberSpinner>
                             <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="prec">
                                 <span style="white-space: nowrap"><strong>Pagina precedente degli studenti</strong>                                                                             
                                 </span>        
@@ -53,8 +56,8 @@
                                 <span style="white-space: nowrap"><strong>Numero studenti visibili nella pagina</strong>                                                                             
                                 </span>        
                             </rich:tooltip>
-                        </h:form>
-                    </h:panelGroup>
+                        </h:panelGroup>
+                    </h:form>
                     <ezcomp:PeriodoDalAlPanel/>
                     <h:panelGroup>
                         <h:form id="modificheGeneraliForm">

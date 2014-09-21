@@ -270,14 +270,5 @@ public class RegistriInsegnanteBean implements ValueChangeListener, Serializable
     public void setRenderRiepilogo(boolean renderRiepilogo) {
         renderRegistro = (!renderRiepilogo);
         this.renderRiepilogo = renderRiepilogo;
-//
-//        RisultatiPeriodoBean controller = (RisultatiPeriodoBean) FacesContext.getCurrentInstance().getExternalContext()
-//                .getSessionMap().get("risultatiPeriodoBean");
-//
-//        // This only works if myBean2 is request scoped and already created.
-//        if (controller != null) {
-//            controller.initRecords();
-//        }
-
     }
 }

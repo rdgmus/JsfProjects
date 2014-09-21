@@ -853,7 +853,7 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
      * @param m
      */
     private void addLezioniMateriaToRecords(Materie m) {
-        List<Lezioni> lezioniPeriodo = getLezioniFacade().findLezioniPeriodo(m.getIdMateria(), assenzeDal, assenzeAl);
+        List<Lezioni> lezioniPeriodo = getLezioniFacade().findLezioniPeriodo(m, assenzeDal, assenzeAl);
         //Assenze se esistenti, dello studente dalla lezione
         for (Lezioni l : lezioniPeriodo) {
             List<OreAssenze> oreAssenze = getOreAssenzeFacade().findAssenzeStudenteLezione(
@@ -976,7 +976,7 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
 
     private void addVotiLezioneToRecords(Materie m) {
 //        throw new UnsupportedOperationException("Not yet implemented");
-        List<Lezioni> lezioniPeriodo = getLezioniFacade().findLezioniPeriodo(m.getIdMateria(), assenzeDal, assenzeAl);
+        List<Lezioni> lezioniPeriodo = getLezioniFacade().findLezioniPeriodo(m, assenzeDal, assenzeAl);
         //Assenze se esistenti, dello studente dalla lezione
         for (Lezioni l : lezioniPeriodo) {
             List<VotiLezioniStudente> votiLezione = getVotiLezioniStudenteFacade().findVotiStudenteLezione(
