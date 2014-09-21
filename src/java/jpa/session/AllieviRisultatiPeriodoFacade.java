@@ -41,9 +41,9 @@ public class AllieviRisultatiPeriodoFacade extends AbstractFacade<AllieviRisulta
      */
     public List<AllieviRisultatiPeriodo> getRisultatiFor(Long idPeriodo, Long idMateria, Long idStudente) {
         Query query = getEntityManager().createQuery("SELECT a FROM AllieviRisultatiPeriodo a "
-                + " WHERE a.allieviRisultatiPeriodoPK.idPeriodo = :idPeriodo"
-                + " AND a.allieviRisultatiPeriodoPK.idMateria = :idMateria"
-                + " AND a.allieviRisultatiPeriodoPK.idStudente = :idStudente");
+                + " WHERE a.idPeriodo = :idPeriodo"
+                + " AND a.idMateria = :idMateria"
+                + " AND a.idStudente = :idStudente");
 
         query.setParameter("idPeriodo", idPeriodo);
         query.setParameter("idMateria", idMateria);
@@ -60,8 +60,8 @@ public class AllieviRisultatiPeriodoFacade extends AbstractFacade<AllieviRisulta
      */
     public List<AllieviRisultatiPeriodo> getRisultatiMateriaPeriodo(Long idPeriodo, Long idMateria) {
         Query query = getEntityManager().createQuery("SELECT a FROM AllieviRisultatiPeriodo a "
-                + " WHERE a.allieviRisultatiPeriodoPK.idPeriodo = :idPeriodo"
-                + " AND a.allieviRisultatiPeriodoPK.idMateria = :idMateria");
+                + " WHERE a.idPeriodo = :idPeriodo"
+                + " AND a.idMateria = :idMateria");
 
         query.setParameter("idPeriodo", idPeriodo);
         query.setParameter("idMateria", idMateria);
@@ -72,8 +72,8 @@ public class AllieviRisultatiPeriodoFacade extends AbstractFacade<AllieviRisulta
     public Double findCondottaStudentePeriodo(Long idPeriodo, Long idStudente) {
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("SELECT a FROM AllieviRisultatiPeriodo a "
-                + " WHERE a.allieviRisultatiPeriodoPK.idPeriodo = :idPeriodo"
-                + " AND a.allieviRisultatiPeriodoPK.idStudente = :idStudente");
+                + " WHERE a.idPeriodo = :idPeriodo"
+                + " AND a.idStudente = :idStudente");
 
         query.setParameter("idPeriodo", idPeriodo);
         query.setParameter("idStudente", idStudente);
@@ -94,8 +94,8 @@ public class AllieviRisultatiPeriodoFacade extends AbstractFacade<AllieviRisulta
 //        throw new UnsupportedOperationException("Not yet implemented");
         Query query = getEntityManager().createQuery("UPDATE AllieviRisultatiPeriodo a "
                 + " SET a.condotta = :condotta"
-                + " WHERE a.allieviRisultatiPeriodoPK.idPeriodo = :idPeriodo"
-                + " AND a.allieviRisultatiPeriodoPK.idStudente = :idStudente");
+                + " WHERE a.idPeriodo = :idPeriodo"
+                + " AND a.idStudente = :idStudente");
 
         query.setParameter("idPeriodo", idPeriodo);
         query.setParameter("idStudente", idStudente);

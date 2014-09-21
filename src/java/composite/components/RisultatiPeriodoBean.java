@@ -372,7 +372,7 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
             Long idLezione = lez.getIdLezione();
             List<OreAssenze> oreAssenze = getOreAssenzeFacade().findAssenzeStudenteLezione(idLezione, idStudente);
             for (OreAssenze ore : oreAssenze) {
-                if (ore.getAssenza()!=0) {
+                if (ore.getAssenza() != 0) {
                     countAssenze++;
                 }
             }
@@ -556,8 +556,8 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
 //                rec.getIdMateria(), 
 //                rec.getIdStudente());
         AllieviRisultatiPeriodo result = getAllieviRisultatiPeriodoFacade().findRisultati(
-                rec.getIdPeriodo(), 
-                rec.getIdMateria(), 
+                rec.getIdPeriodo(),
+                rec.getIdMateria(),
                 rec.getIdStudente());
         if (result != null) {
             getAllieviRisultatiPeriodoFacade().remove(result);//lo rimuove
@@ -720,7 +720,8 @@ public class RisultatiPeriodoBean implements Serializable, ValueChangeListener {
         Date endDate = periodo.getEndDate();
         List lezioniMateriaPeriodo
                 = getLezioniFacade().findLezioniPeriodo(materia, startDate, endDate);
-        Collection<Studenti> studenti = materia.getIdClasse().getStudentiCollection();
+//        Collection<Studenti> studenti = materia.getIdClasse().getStudentiCollection();
+        Collection<Studenti> studenti = getStudentiFacade().retrieveStudentiClasseOrderedList(materia.getIdClasse());
 
         Iterator iter = lezioniMateriaPeriodo.iterator();
         //ITERA SULLE LEZIONI DEL PERIODO NELLA MATERIA SELEZIONATA
