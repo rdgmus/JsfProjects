@@ -321,4 +321,22 @@ public class LezioniMateria implements Serializable {
         return sdf.format(d);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+//        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+        if (obj instanceof LezioniMateria) {
+            LezioniMateria lez = (LezioniMateria) obj;
+            return lez.idLezione == this.idLezione;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + (int) (this.idLezione ^ (this.idLezione >>> 32));
+        return hash;
+    }
+
 }

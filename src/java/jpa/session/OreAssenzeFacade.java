@@ -141,4 +141,19 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         query.setParameter("assenza", value);
         query.executeUpdate();
     }
+
+    @Override
+    public void remove(OreAssenze entity) {
+//        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEntityManager().createQuery("DELETE FROM OreAssenze o"
+                + " WHERE o.oreAssenzePK.idLezione = :idLezione "
+                + " AND o.oreAssenzePK.numOra = :numOra"
+                + " AND o.oreAssenzePK.idStudente = :idStudente");
+        query.setParameter("idLezione", entity.getOreAssenzePK().getIdLezione());
+        query.setParameter("numOra", entity.getOreAssenzePK().getNumOra());
+        query.setParameter("idStudente", entity.getOreAssenzePK().getIdStudente());
+        query.executeUpdate();
+    }
+    
+    
 }

@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp">
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:a4j="http://richfaces.org/a4j">
     <h:head>
         <title>This content will not be displayed</title>
 
@@ -36,8 +37,9 @@
                         <rich:select  id="lezioneDaRimuovere" value="#{creaLezioniBean.lezioneDaRimuovere}"
                                           disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
                                           valueChangeListener="#{creaLezioniBean.processValueChange}"
-                                          onblur="submit()"
+                                          
                                           style="font-size: 18;font-weight: bold">
+                            <a4j:ajax event="change" render="rimuoviLezioneForm"/>
                             <f:selectItems value="#{lezioniMateriaBean.lezioniMateriaMese}" id="lezioniMateriaMese"
                                            var="lezione" 
                                            itemDisabled="#{creaLezioniBean.lezioneItemDisabled}">

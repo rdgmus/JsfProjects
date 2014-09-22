@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
@@ -34,6 +33,7 @@ import jpa.session.OreAssenzeFacade;
 import jpa.session.UtentiLoggerFacade;
 import jpa.session.VotiLezioniStudenteFacade;
 import jsf.util.JsfUtil;
+import org.richfaces.component.UISelect;
 import org.richfaces.component.html.HtmlInputNumberSpinner;
 
 /**
@@ -253,20 +253,16 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     public void processValueChange(ValueChangeEvent event) throws AbortProcessingException {
         //        throw new UnsupportedOperationException("Not supported yet.");
         Object source = event.getSource();
-        if (source instanceof HtmlSelectOneMenu) {
-            HtmlSelectOneMenu sel = (HtmlSelectOneMenu) source;
+        if (source instanceof UISelect) {
+            UISelect sel = (UISelect) source;
             if (sel.getId().equals("lezioneDaRimuovere")) {
                 if (event.getNewValue() != null) {
-                    LezioniMateria l = null;
-                    Long i;
-                    i = new Long(event.getNewValue().toString());
-                    l = getLezioniMateriaFacade().find(i);
+                    LezioniMateria l = (LezioniMateria) event.getNewValue();
                     if (l != null) {
                         setLezioneDaRimuovere(l);
                         setOreLezione(l.getOreLezione());
                         setOreLezioneDaRemove(l.getOreLezione());
                         setArgLezioneDaRemove(l.getArgomento());
-//                        cancellaRimozione();
                     }
                 }
             }
@@ -377,11 +373,9 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     public void updateArgomentoLezione() {
 //        Long idLezione = lezioneDaRimuovere;
         try {
-            Lezioni daRimuovere = getLezioniFacade().find(getLezioneDaRimuovere().getIdLezione());
 
             getLezioniFacade().cambiaArgomento(getLezioneDaRimuovere().getIdLezione(), argomentoLezione);
-
-//            rinfrescaLezioniMese();
+            Lezioni daRimuovere = getLezioniFacade().find(getLezioneDaRimuovere().getIdLezione());
 
             String msg = ResourceBundle.getBundle("/resources/Registro").getString("ArgomentoCambiatoMsgString")
                     + " Data:" + daRimuovere.getDataLezione().toString()

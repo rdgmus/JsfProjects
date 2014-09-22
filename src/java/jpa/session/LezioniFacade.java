@@ -118,8 +118,6 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
         return query.getResultList();
     }
 
-    
-
     public List<Lezioni> findLezioniMateriaPrecData(Materie m, Date dataEntrata) {
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
                 + " AND l.dataLezione < :dataLezione");
@@ -135,4 +133,14 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
         query.setParameter("dataLezione", ritiratoData);
         return query.getResultList();
     }
+
+    @Override
+    public void remove(Lezioni entity) {
+//        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEntityManager().createQuery("DELETE FROM Lezioni l "
+                + "WHERE l.idLezione = :idLezione");
+        query.setParameter("idLezione", entity.getIdLezione());
+        query.executeUpdate();
+    }
+
 }
