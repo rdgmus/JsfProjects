@@ -6,6 +6,7 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -309,6 +310,15 @@ public class LezioniMateria implements Serializable {
 
     public void setTipoScuolaAcronimo(String tipoScuolaAcronimo) {
         this.tipoScuolaAcronimo = tipoScuolaAcronimo;
+    }
+
+    @Override
+    public String toString() {
+//        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        Date d = (Date) this.getDataLezione();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE d MMMM yyyy");
+
+        return sdf.format(d);
     }
 
 }

@@ -4,6 +4,8 @@
  */
 package composite.components.converters;
 
+import composite.components.CreaLezioniBean;
+import composite.components.RegistriInsegnanteBean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.component.UIComponent;
@@ -21,16 +23,17 @@ public class MyLezioniMateriaConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+//        throw new UnsupportedOperationException("Not supported yet.");
 //        LezioniMateria l = null;
+//        Long idLezione = null;
 //        if (component.getId().equals("lezioneDaRimuovere")) {
 //
 //            RegistriInsegnanteBean controller = (RegistriInsegnanteBean) FacesContext.getCurrentInstance().getExternalContext()
 //                    .getSessionMap().get("registriInsegnanteBean");
 //            if (controller != null) {
-//                BigInteger i = new BigInteger(String.valueOf(value));
+//                Long i = Long.parseLong(String.valueOf(value));
 //                l = controller.getLezioniMateriaFacade().find(i);
-//
+//                idLezione=l.getIdLezione();
 //                CreaLezioniBean bean = (CreaLezioniBean) FacesContext.getCurrentInstance().getExternalContext()
 //                        .getSessionMap().get("creaLezioniBean");
 //                if (bean != null) {
@@ -38,7 +41,8 @@ public class MyLezioniMateriaConverter implements Converter {
 //                }
 //            }
 //        }
-//        return l;
+//        return idLezione;
+        return value;
     }
 
     @Override
@@ -47,14 +51,14 @@ public class MyLezioniMateriaConverter implements Converter {
         String string = null;
         if (value instanceof LezioniMateria) {
             LezioniMateria m = (LezioniMateria) value;
-            if (component.getId().equals("lezioneDaRimuovere")) {
-                string = String.valueOf(m.getIdLezione());
-            } else {
+//            if (component.getId().equals("lezioneDaRimuovere")) {
+//                string = String.valueOf(m.getIdLezione());
+//            } else {
                 Date d = (Date) m.getDataLezione();
                 SimpleDateFormat sdf = new SimpleDateFormat("EEEE d MMMM yyyy");
 
                 string = sdf.format(d);
-            }
+//            }
         }
         return string;
     }

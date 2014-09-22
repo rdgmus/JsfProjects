@@ -49,7 +49,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     private boolean popup = true;
     private String pattern = "dd MMM yyyy";
     private final boolean showApply = true;
-    private Long lezioneDaRimuovere;
+    private LezioniMateria lezioneDaRimuovere;
     private boolean confermaRimozione = false;
     private boolean confermaCreazione = false;
     private boolean lezioneItemDisabled = false;
@@ -58,6 +58,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     private int oreLezioneDaRemove;
     private String argLezioneDaRemove;
     private LezioniMateriaFacade lezioniMateriaFacade;
+    private List<Lezioni> lezioniMateriaMese;
     @EJB
     LezioniFacade lezioniFacade;
     @EJB
@@ -151,7 +152,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
             nuovaLezione.setDataLezione(selectedDate);
             nuovaLezione.setOreLezione(oreLezione);
             nuovaLezione.setArgomento(argomentoLezione);
-            nuovaLezione.setFreezeLezione((short)0);
+            nuovaLezione.setFreezeLezione((short) 0);
             try {
 //                Long nextId = getLezioniFacade().getNextId();
 //                nuovaLezione.setIdLezione(nextId);
@@ -201,17 +202,16 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     }
 
     public void rimuoviLezione() {
-//        Long idLezione = new Long(lezioneDaRimuovere);
-        Long idLezione = lezioneDaRimuovere.longValue();
+//        Long idLezione = lezioneDaRimuovere;
         try {
-            Lezioni daRimuovere = getLezioniFacade().find(idLezione);
+            Lezioni daRimuovere = getLezioniFacade().find(getLezioneDaRimuovere().getIdLezione());
             //Prima di rimuovere la lezione bisogna rimuovere le assenze legate alla lezione
             //e i voti legati alla lezione
-            List<OreAssenze> assenze = getOreAssenzeFacade().findAllAssenzeLezione(idLezione);
+            List<OreAssenze> assenze = getOreAssenzeFacade().findAllAssenzeLezione(getLezioneDaRimuovere().getIdLezione());
             for (OreAssenze a : assenze) {
                 getOreAssenzeFacade().remove(a);
             }
-            List<VotiLezioniStudente> voti = getVotiLezioniStudenteFacade().findAllVotiLezione(idLezione);
+            List<VotiLezioniStudente> voti = getVotiLezioniStudenteFacade().findAllVotiLezione(getLezioneDaRimuovere().getIdLezione());
             for (VotiLezioniStudente v : voti) {
                 getVotiLezioniStudenteFacade().remove(v);
             }
@@ -241,14 +241,12 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
         updateArgomentoDisabled = false;
     }
 
-    public Long getLezioneDaRimuovere() {
+    public LezioniMateria getLezioneDaRimuovere() {
         return lezioneDaRimuovere;
     }
 
-    public void setLezioneDaRimuovere(Long lezioneDaRimuovere) {
-        if (lezioneDaRimuovere != null) {
-            this.lezioneDaRimuovere = lezioneDaRimuovere;
-        }
+    public void setLezioneDaRimuovere(LezioniMateria lezioneDaRimuovere) {
+        this.lezioneDaRimuovere = lezioneDaRimuovere;
     }
 
     @Override
@@ -264,6 +262,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
                     i = new Long(event.getNewValue().toString());
                     l = getLezioniMateriaFacade().find(i);
                     if (l != null) {
+                        setLezioneDaRimuovere(l);
                         setOreLezione(l.getOreLezione());
                         setOreLezioneDaRemove(l.getOreLezione());
                         setArgLezioneDaRemove(l.getArgomento());
@@ -340,23 +339,24 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
         LezioniMateria l = null;
         if (lezioniMateriaMese != null && lezioniMateriaMese.size() > 0) {
             l = lezioniMateriaMese.get(0);
-        }
-        if (l != null) {
-            if (lezioneDaRimuovere == null || notInLezioniMateriaMese(
-                    lezioneDaRimuovere, lezioniMateriaMese)) {
-                lezioneDaRimuovere = l.getIdLezione();
+            if (l != null) {
+                if (lezioneDaRimuovere == null || notInLezioniMateriaMese(
+                        lezioneDaRimuovere, lezioniMateriaMese)) {
+                    lezioneDaRimuovere = l;
+                }
             }
-        }
-        if (lezioniMateriaMese.isEmpty()) {
-            argLezioneDaRemove = "";
-            oreLezioneDaRemove = 0;
-            oreLezione = 0;
-        } else {
-            Lezioni lez = getLezioniFacade().find(lezioneDaRimuovere.longValue());
+            if (lezioniMateriaMese.isEmpty()) {
+                argLezioneDaRemove = "";
+                oreLezioneDaRemove = 0;
+                oreLezione = 0;
+            } else {
+                Lezioni lez;
+                lez = getLezioniFacade().find(lezioneDaRimuovere.getIdLezione());
 
-            argLezioneDaRemove = lez.getArgomento();
-            oreLezioneDaRemove = lez.getOreLezione();
-            oreLezione = lez.getOreLezione();
+                argLezioneDaRemove = lez.getArgomento();
+                oreLezioneDaRemove = lez.getOreLezione();
+                oreLezione = lez.getOreLezione();
+            }
         }
         return argLezioneDaRemove;
     }
@@ -375,15 +375,13 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     }
 
     public void updateArgomentoLezione() {
-//        Long idLezione = new Long(lezioneDaRimuovere);
-        Long idLezione = lezioneDaRimuovere.longValue();
+//        Long idLezione = lezioneDaRimuovere;
         try {
-            Lezioni daRimuovere = getLezioniFacade().find(idLezione);
+            Lezioni daRimuovere = getLezioniFacade().find(getLezioneDaRimuovere().getIdLezione());
 
-            getLezioniFacade().cambiaArgomento(idLezione, argomentoLezione);
+            getLezioniFacade().cambiaArgomento(getLezioneDaRimuovere().getIdLezione(), argomentoLezione);
 
-            rinfrescaLezioniMese();
-
+//            rinfrescaLezioniMese();
 
             String msg = ResourceBundle.getBundle("/resources/Registro").getString("ArgomentoCambiatoMsgString")
                     + " Data:" + daRimuovere.getDataLezione().toString()
@@ -420,10 +418,10 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
         rimuoviLezioneDisabled = false;
     }
 
-    private boolean notInLezioniMateriaMese(Long lezioneDaRimuovere, List<LezioniMateria> lezioniMateriaMese) {
+    private boolean notInLezioniMateriaMese(LezioniMateria lezioneDaRimuovere, List<LezioniMateria> lezioniMateriaMese) {
         boolean notIn = true;
         for (LezioniMateria lm : lezioniMateriaMese) {
-            if (lezioneDaRimuovere.equals(lm.getIdLezione())) {
+            if (lezioneDaRimuovere.equals(lm)) {
                 notIn = false;
                 break;
             }
@@ -447,7 +445,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
         int ore = nuovaLezione.getOreLezione();
         getStudentiItems();
 //        Iterator iterator = studentiItems.iterator();
-        for (int j=0; j < studentiItems.getRowCount(); j++) {
+        for (int j = 0; j < studentiItems.getRowCount(); j++) {
             studentiItems.setRowIndex(j);
             Studenti studente = (Studenti) studentiItems.getRowData();
             if (studente.getAttivo() == 0
@@ -458,10 +456,10 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
                 for (int i = 1; i <= ore; i++) {
                     OreAssenze entity;
                     entity = new OreAssenze(idLezione, i, idStudente);
-                    entity.setAssenza((short)1);
-                    entity.setRitardo((short)0);
-                    entity.setGiustificaAssenza((short)0);
-                    entity.setGiustificaRitardo((short)0);
+                    entity.setAssenza((short) 1);
+                    entity.setRitardo((short) 0);
+                    entity.setGiustificaAssenza((short) 0);
+                    entity.setGiustificaRitardo((short) 0);
                     getOreAssenzeFacade().create(entity);
                 }
 
@@ -476,10 +474,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     }
 
     public boolean isRimuoviLezioneDisabled() {
-        if (lezioneDaRimuovere == null) {
-            rimuoviLezioneDisabled = true;
-        }
-        return rimuoviLezioneDisabled;
+        return rimuoviLezioneDisabled = (lezioneDaRimuovere == null);
     }
 
     public void setRimuoviLezioneDisabled(boolean rimuoviLezioneDisabled) {

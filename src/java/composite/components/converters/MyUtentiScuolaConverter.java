@@ -22,7 +22,7 @@ public class MyUtentiScuolaConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         //        throw new UnsupportedOperationException("Not supported yet.");
         
-        return value.toString();
+        return value;
     }
 
     @Override
