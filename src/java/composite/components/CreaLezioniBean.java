@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
@@ -33,7 +34,6 @@ import jpa.session.OreAssenzeFacade;
 import jpa.session.UtentiLoggerFacade;
 import jpa.session.VotiLezioniStudenteFacade;
 import jsf.util.JsfUtil;
-import org.richfaces.component.UISelect;
 import org.richfaces.component.html.HtmlInputNumberSpinner;
 
 /**
@@ -246,6 +246,9 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     }
 
     public void setLezioneDaRimuovere(LezioniMateria lezioneDaRimuovere) {
+        if (lezioneDaRimuovere == null) {
+            return;
+        }
         this.lezioneDaRimuovere = lezioneDaRimuovere;
     }
 
@@ -253,8 +256,8 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
     public void processValueChange(ValueChangeEvent event) throws AbortProcessingException {
         //        throw new UnsupportedOperationException("Not supported yet.");
         Object source = event.getSource();
-        if (source instanceof UISelect) {
-            UISelect sel = (UISelect) source;
+        if (source instanceof HtmlSelectOneMenu) {
+            HtmlSelectOneMenu sel = (HtmlSelectOneMenu) source;
             if (sel.getId().equals("lezioneDaRimuovere")) {
                 if (event.getNewValue() != null) {
                     LezioniMateria l = (LezioniMateria) event.getNewValue();
@@ -267,6 +270,7 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
                 }
             }
         }
+
         if (source instanceof HtmlInputNumberSpinner) {
             HtmlInputNumberSpinner spin = (HtmlInputNumberSpinner) source;
             if (spin.getId().equals("oreNuovaLezione")) {

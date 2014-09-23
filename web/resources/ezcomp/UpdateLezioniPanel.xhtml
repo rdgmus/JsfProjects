@@ -4,9 +4,7 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich"
-      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:rich="http://richfaces.org/rich">
     <h:head>
         <title>This content will not be displayed</title>
 
@@ -34,18 +32,17 @@
                                          rendered="#{creaLezioniBean.nuovoArgomento}" style="font: bold italic large Palatino, serif"/>
 
                         <h:outputLabel value="Data Lezione:" />
-                        <rich:select  id="lezioneDaRimuovere" value="#{creaLezioniBean.lezioneDaRimuovere}"
-                                          disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
-                                          valueChangeListener="#{creaLezioniBean.processValueChange}"
-                                          
-                                          style="font-size: 18;font-weight: bold">
-                            <a4j:ajax event="change" render="rimuoviLezioneForm"/>
+
+                        <h:selectOneMenu  id="lezioneDaRimuovere" value="#{creaLezioniBean.lezioneDaRimuovere}"
+                                      disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
+                                      style="font-size: 18;font-weight: bold"
+                                      valueChangeListener="#{creaLezioniBean.processValueChange}"
+                                      onchange="submit()" >
                             <f:selectItems value="#{lezioniMateriaBean.lezioniMateriaMese}" id="lezioniMateriaMese"
                                            var="lezione" 
                                            itemDisabled="#{creaLezioniBean.lezioneItemDisabled}">
                             </f:selectItems>
-                        </rich:select>
-
+                        </h:selectOneMenu>
                     </h:panelGrid>
 
                     <h:commandButton value="Confermi rimozione?" action="#{creaLezioniBean.rimuoviLezione}"
