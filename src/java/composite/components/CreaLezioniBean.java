@@ -138,13 +138,11 @@ public class CreaLezioniBean implements Serializable, ValueChangeListener {
 
     public void creaLezione() {
         Materie m = null;
-        BigInteger idMateria = null;
         RegistriInsegnanteBean controller = (RegistriInsegnanteBean) FacesContext.getCurrentInstance().getExternalContext()
                 .getSessionMap().get("registriInsegnanteBean");
         if (controller != null) {
             m = controller.getMateriaSelezionata();
         }
-        idMateria = new BigInteger(m.getIdMateria().toString());
 
         if (lezioniFacade != null) {
             Lezioni nuovaLezione = new Lezioni();

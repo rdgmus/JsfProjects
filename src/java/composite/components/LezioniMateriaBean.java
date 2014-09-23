@@ -5,7 +5,6 @@
 package composite.components;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,7 +58,7 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
     private Object lezioneSelected;
     private DataModel studentiItems;
     private ArrayList<Integer> oreLezione;
-    private BigInteger idLezione;
+    private Long idLezione;
     private boolean expandAllPanels = true;
     private String argomentoLezione;
 
@@ -477,11 +476,11 @@ public class LezioniMateriaBean implements Serializable, ItemChangeListener, Val
         this.oreLezione = oreLezione;
     }
 
-    public BigInteger getIdLezione() {
+    public Long getIdLezione() {
         return idLezione;
     }
 
-    public void setIdLezione(BigInteger idLezione) {
+    public void setIdLezione(Long idLezione) {
         this.idLezione = idLezione;
     }
 

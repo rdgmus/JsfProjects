@@ -5,7 +5,6 @@
  */
 package jpa.session;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -110,7 +109,7 @@ public class LezioniFacade extends AbstractFacade<Lezioni> {
      * @param dataLezione
      * @return
      */
-    public List<Lezioni> findLezione(BigInteger idMateria, Date dataLezione) {
+    public List<Lezioni> findLezione(Long idMateria, Date dataLezione) {
         Query query = getEntityManager().createQuery("SELECT l FROM Lezioni l WHERE l.idMateria = :idMateria"
                 + " AND l.dataLezione = :dataLezione");
         query.setParameter("idMateria", idMateria);
