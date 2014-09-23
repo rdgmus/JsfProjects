@@ -40,8 +40,10 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
      */
     public List<OreAssenze> findAssenzeStudenteLezione(long idLezione, long idStudente) {
         //        throw new UnsupportedOperationException("Not yet implemented");
-        Query query = getEntityManager().createQuery("SELECT o FROM OreAssenze o WHERE o.oreAssenzePK.idLezione = :idLezione "
+        Query query = getEntityManager().createQuery("SELECT o FROM OreAssenze o "
+                + "WHERE o.oreAssenzePK.idLezione = :idLezione "
                 + "AND o.oreAssenzePK.idStudente = :idStudente "
+                + "AND o.assenza = 1 "
                 + "ORDER BY o.oreAssenzePK.numOra ASC");
         query.setParameter("idLezione", idLezione);
         query.setParameter("idStudente", idStudente);

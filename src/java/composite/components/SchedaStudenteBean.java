@@ -635,7 +635,6 @@ public class SchedaStudenteBean implements Serializable, ValueChangeListener {
     }
 
     public String riepilogoVotiStudente() {
-//        setRecordsAssenze(null);
         return "/registro/RiepilogoVoti";
     }
 
