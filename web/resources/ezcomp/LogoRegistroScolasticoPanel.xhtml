@@ -63,8 +63,9 @@
                     <h:graphicImage id="Contributi"                                     
                                     library="images"  name="RegistroWebApp3.0Contrib.png"
                                     alt="Contributi" title="MySql-NetBeans-JBossEAP"/>
-                    <h:outputText value="#{cc.attrs.userPrompt}" rendered="#{cc.attrs.renderUser}"
-                                  style="color: gold; font: bold italic large Palatino, serif"/>
+                    <h:graphicImage id="UserImage"                                        
+                                    library="images"  name="ruolo_utente.png"
+                                    alt="UserImage" title="UserImage"/>
                     <h:commandLink value="#{intestazioneBean.utente.cognome} #{intestazioneBean.utente.nome}" id="sendEmail"
                                    action="#{intestazioneBean.sendEmail()}" 
                                    style="color: gold; font: bold italic large Palatino, serif"

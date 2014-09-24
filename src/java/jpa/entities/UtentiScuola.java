@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UtentiScuola.findAll", query = "SELECT u FROM UtentiScuola u"),
+    @NamedQuery(name = "UtentiScuola.findByEmail", query = "SELECT u FROM UtentiScuola u WHERE u.email = :email"),
+    @NamedQuery(name = "UtentiScuola.findByPassword", query = "SELECT u FROM UtentiScuola u WHERE u.password = :password"),
     @NamedQuery(name = "UtentiScuola.findByIdUtente", query = "SELECT u FROM UtentiScuola u WHERE u.idUtente = :idUtente")})
 public class UtentiScuola implements Serializable {
     private static final long serialVersionUID = 1L;

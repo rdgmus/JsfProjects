@@ -17,8 +17,13 @@
             </h:column>
             <h:column>
                 <h:form>
-                    <rich:panel>
-                        
+                    <rich:panel style="
+                                background-color: goldenrod; 
+                                background-image: url('/RegistroWebApp3.0/resources/images/application_background.png');
+                                background-repeat: no-repeat; 
+                                background-size: 100% 100%;
+                                background-origin: content-box">
+
                         <h:commandButton id="registraUtenteButton" value="Registra Utente"
                                          action="/authenticate/nuovoUtente" style="font: bold italic large Palatino, serif;color: #0033cc"/>
                         <h:commandButton id="loginButton" value="Login"
