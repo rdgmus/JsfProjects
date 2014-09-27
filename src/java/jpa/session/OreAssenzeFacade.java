@@ -158,7 +158,7 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         query.executeUpdate();
     }
 
-    void removeAssenzeStudente(Studenti entity) {
+    public void removeAssenzeStudente(Studenti entity) {
         Query query = getEntityManager().createQuery("DELETE FROM OreAssenze o"
                 + " WHERE o.oreAssenzePK.idStudente = :idStudente");
         query.setParameter("idStudente", entity.getIdStudente());

@@ -76,7 +76,7 @@ public class VotiLezioniStudenteFacade extends AbstractFacade<VotiLezioniStudent
     @Override
     public void remove(VotiLezioniStudente entity) {
 //        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
-                Query query = getEntityManager().createQuery("DELETE FROM VotiLezioniStudente v"
+        Query query = getEntityManager().createQuery("DELETE FROM VotiLezioniStudente v"
                 + " WHERE v.votiLezioniStudentePK.idLezione = :idLezione "
                 + " AND v.votiLezioniStudentePK.idVoto = :idVoto"
                 + " AND v.votiLezioniStudentePK.idStudente = :idStudente");
@@ -87,12 +87,11 @@ public class VotiLezioniStudenteFacade extends AbstractFacade<VotiLezioniStudent
 
     }
 
-    void removeVotiStudente(Studenti entity) {
-                Query query = getEntityManager().createQuery("DELETE FROM VotiLezioniStudente v"
+    public void removeVotiStudente(Studenti entity) {
+        Query query = getEntityManager().createQuery("DELETE FROM VotiLezioniStudente v"
                 + " WHERE v.votiLezioniStudentePK.idStudente = :idStudente");
         query.setParameter("idStudente", entity.getIdStudente());
         query.executeUpdate();
     }
 
-    
 }
