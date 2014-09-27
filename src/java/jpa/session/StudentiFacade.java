@@ -159,4 +159,33 @@ public class StudentiFacade extends AbstractFacade<Studenti> {
         }
         return true;
     }
+    
+    @EJB
+    OreAssenzeFacade oreAssenzeFacade;
+    
+    @EJB
+    VotiLezioniStudenteFacade votiLezioniStudenteFacade;
+
+    public OreAssenzeFacade getOreAssenzeFacade() {
+        return oreAssenzeFacade;
+    }
+
+    
+    public VotiLezioniStudenteFacade getVotiLezioniStudenteFacade() {
+        return votiLezioniStudenteFacade;
+    }
+
+    
+    
+    @Override
+    public void remove(Studenti entity) {
+        //Rimuove prima le assenze e i voti registrati per lo studente
+        //altrimenti il constrain in cascata impedisce la cancellazione
+        getOreAssenzeFacade().removeAssenzeStudente(entity);
+        getVotiLezioniStudenteFacade().removeVotiStudente(entity);
+        
+        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

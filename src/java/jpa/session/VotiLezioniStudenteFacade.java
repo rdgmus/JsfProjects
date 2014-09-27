@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import jpa.entities.Studenti;
 import jpa.entities.VotiLezioniStudente;
 
 /**
@@ -84,6 +85,13 @@ public class VotiLezioniStudenteFacade extends AbstractFacade<VotiLezioniStudent
         query.setParameter("idStudente", entity.getVotiLezioniStudentePK().getIdStudente());
         query.executeUpdate();
 
+    }
+
+    void removeVotiStudente(Studenti entity) {
+                Query query = getEntityManager().createQuery("DELETE FROM VotiLezioniStudente v"
+                + " WHERE v.votiLezioniStudentePK.idStudente = :idStudente");
+        query.setParameter("idStudente", entity.getIdStudente());
+        query.executeUpdate();
     }
 
     

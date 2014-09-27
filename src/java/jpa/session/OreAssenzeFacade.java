@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import jpa.entities.OreAssenze;
+import jpa.entities.Studenti;
 
 /**
  *
@@ -154,6 +155,13 @@ public class OreAssenzeFacade extends AbstractFacade<OreAssenze> {
         query.setParameter("idLezione", entity.getOreAssenzePK().getIdLezione());
         query.setParameter("numOra", entity.getOreAssenzePK().getNumOra());
         query.setParameter("idStudente", entity.getOreAssenzePK().getIdStudente());
+        query.executeUpdate();
+    }
+
+    void removeAssenzeStudente(Studenti entity) {
+        Query query = getEntityManager().createQuery("DELETE FROM OreAssenze o"
+                + " WHERE o.oreAssenzePK.idStudente = :idStudente");
+        query.setParameter("idStudente", entity.getIdStudente());
         query.executeUpdate();
     }
     
