@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="11">
+        <file>
+            <url>web/resources/ezcomp/ScansioneOrarioGiornalieroPanel.xhtml</url>
+            <bookmark id="9">
+                <name/>
+                <line>98</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/java/composite/components/GestioneScuolaWizardBean.java</url>
+            <bookmark id="5">
+                <name/>
+                <line>104</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1052</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>1561</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>1564</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/java/composite/components/CreaLezioniBean.java</url>
+            <bookmark id="10">
+                <name/>
+                <line>69</line>
+                <key/>
+            </bookmark>
+            <bookmark id="11">
+                <name/>
+                <line>252</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/jpa/session/VotiLezioniStudenteFacade.java</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/jpa/session/OreAssenzeFacade.java</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/jpa/session/StudentiFacade.java</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/composite/components/GestioneScuolaWizardBean.java</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/web/authenticate/loginRegistro.xhtml</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/composite/components/MyLoginBean.java</file>
+            <file>file:/Users/rdgmus/NetBeansProjects/Scuola/RegistroWebApp3.0/src/java/jsf/util/JsfUtil.java</file>
+        </group>
+    </open-files>
+</project-private>

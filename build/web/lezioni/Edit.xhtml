@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLezioniTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_idLezione}" for="idLezione" />
+                    <h:inputText id="idLezione" value="#{lezioniController.selected.idLezione}" title="#{bundle.EditLezioniTitle_idLezione}" required="true" requiredMessage="#{bundle.EditLezioniRequiredMessage_idLezione}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_dataLezione}" for="dataLezione" />
+                    <h:inputText id="dataLezione" value="#{lezioniController.selected.dataLezione}" title="#{bundle.EditLezioniTitle_dataLezione}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_oreLezione}" for="oreLezione" />
+                    <h:inputText id="oreLezione" value="#{lezioniController.selected.oreLezione}" title="#{bundle.EditLezioniTitle_oreLezione}" />
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_argomento}" for="argomento" />
+                    <h:inputText id="argomento" value="#{lezioniController.selected.argomento}" title="#{bundle.EditLezioniTitle_argomento}" />
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_freezeLezione}" for="freezeLezione" />
+                    <h:inputText id="freezeLezione" value="#{lezioniController.selected.freezeLezione}" title="#{bundle.EditLezioniTitle_freezeLezione}" />
+                    <h:outputLabel value="#{bundle.EditLezioniLabel_idMateria}" for="idMateria" />
+                    <h:selectOneMenu id="idMateria" value="#{lezioniController.selected.idMateria}" title="#{bundle.EditLezioniTitle_idMateria}" required="true" requiredMessage="#{bundle.EditLezioniRequiredMessage_idMateria}">
+                        <f:selectItems value="#{materieController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{lezioniController.update}" value="#{bundle.EditLezioniSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditLezioniViewLink}"/>
+                <br />
+                <h:commandLink action="#{lezioniController.prepareList}" value="#{bundle.EditLezioniShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLezioniIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

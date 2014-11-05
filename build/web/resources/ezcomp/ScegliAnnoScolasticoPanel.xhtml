@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="esciAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="salvaAction"
+                                 method-signature="java.lang.String action()" required="false"/>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="orarioScolasticoForm">
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Orario Scolastico" style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <h:outputLabel for="scuole"
+                                   value="#{cc.attrs.scuolePrompt}" style="color: gold"/>
+                    <rich:column  >
+                        <h:selectOneMenu id="selectedScuola" value="#{orarioScolasticoBean.selectedScuola}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{orarioScolasticoBean.processValueChange}">
+                            <f:selectItems value="#{orarioScolasticoBean.scuole}" 
+                                           var="thisScuola" itemValue="#{thisScuola}" />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <h:outputLabel for="anniscolastici"
+                                   value="#{cc.attrs.anniscolasticiPrompt}" style="color: gold"/>
+                    <rich:column >
+                        <h:selectOneMenu id="selectedAS" value="#{orarioScolasticoBean.selectedAS}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{orarioScolasticoBean.processValueChange}">
+                            <f:selectItems value="#{orarioScolasticoBean.as}" 
+                                           var="thisAS" itemValue="#{thisAS}"  />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <h:panelGroup>
+                        <h:commandButton  value="Esci" action="#{cc.attrs.esciAction}" style="font: bold italic large Palatino, serif;color: darkred"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="selectedScuola">
+                <span style="white-space: nowrap">Scuola selezionata:<br/>
+                    Scuola:<strong>#{orarioScolasticoBean.selectedScuola.tipoScuolaAcronimo} #{orarioScolasticoBean.selectedScuola.nomeScuola}</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="selectedAS">
+                <span style="white-space: nowrap">Anno Scolastico selezionato per la scuola:<br/>
+                    A.S.:<strong>#{orarioScolasticoBean.selectedAS.annoScolastico}</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+        </composite:implementation>
+    </h:body>
+</html>

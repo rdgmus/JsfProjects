@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewInsegnantiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_idInsegnante}"/>
+                    <h:outputText value="#{insegnantiController.selected.idInsegnante}" title="#{bundle.ViewInsegnantiTitle_idInsegnante}"/>
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_cognome}"/>
+                    <h:outputText value="#{insegnantiController.selected.cognome}" title="#{bundle.ViewInsegnantiTitle_cognome}"/>
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_nome}"/>
+                    <h:outputText value="#{insegnantiController.selected.nome}" title="#{bundle.ViewInsegnantiTitle_nome}"/>
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_annoScolastico}"/>
+                    <h:outputText value="#{insegnantiController.selected.annoScolastico}" title="#{bundle.ViewInsegnantiTitle_annoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{insegnantiController.selected.idAnnoScolastico}" title="#{bundle.ViewInsegnantiTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewInsegnantiLabel_idClasse}"/>
+                    <h:outputText value="#{insegnantiController.selected.idClasse}" title="#{bundle.ViewInsegnantiTitle_idClasse}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{insegnantiController.destroyAndView}" value="#{bundle.ViewInsegnantiDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewInsegnantiEditLink}"/>
+                <br />
+                <h:commandLink action="#{insegnantiController.prepareCreate}" value="#{bundle.ViewInsegnantiCreateLink}" />
+                <br />
+                <h:commandLink action="#{insegnantiController.prepareList}" value="#{bundle.ViewInsegnantiShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewInsegnantiIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

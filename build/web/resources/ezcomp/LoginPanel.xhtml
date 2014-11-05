@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="emailPrompt" default="Email: "/>
+            <composite:attribute name="passwordPrompt" default="Password: "/>
+            <composite:attribute name="loginButtonText" default="Login"/>
+            <composite:attribute name="loginAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="myLoginBean"/>
+            <composite:editableValueHolder name="emailVal" targets="email"/>
+            <composite:editableValueHolder name="passwordVal" targets="password"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="loginForm">
+                <table columns="3" role="presentation">
+                    <tr>
+                        <td colspan="3" align="center">
+                            <h:outputLabel value="* Credenziali per l'accesso al Registro Scolastico *" 
+                                           style="color: darkblue;font: bold italic large Palatino, serif"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="email"
+                                           value="#{cc.attrs.emailPrompt}" style="color: gold;font: bold italic large Palatino, serif"/>
+                        </td>
+                        <td><h:inputText id="email" 
+                                         value="#{cc.attrs.myLoginBean.email}"
+                                         size="35" style="font: bold italic large Palatino, serif"/>
+                        </td>
+                        <td>
+                            <h:message for="email" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="password"
+                                           value="#{cc.attrs.passwordPrompt}" style="color: gold;font: bold italic large Palatino, serif"/>
+                        </td>
+                        <td><h:inputSecret id="password"
+                                           value="#{cc.attrs.myLoginBean.password}"
+                                           size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="password" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <h:commandButton id="loginButton"
+                                     value="#{cc.attrs.loginButtonText}"
+                                     action="#{myLoginBean.login}"
+                                     style="font: bold italic large Palatino, serif;color: deeppink">
+                    </h:commandButton>
+                </p>
+                <p>
+                    <rich:notifyMessages nonblocking="true"/>
+                </p>
+            </h:form>            
+        </composite:implementation>
+    </h:body>
+</html>

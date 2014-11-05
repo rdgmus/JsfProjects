@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="insegnantiForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedInsegnante"
+                                   value="#{cc.attrs.insegnantiPrompt} num. [#{gestioneScuolaWizardBean.listaInsegnanti.size()}]" style="font: bold italic large Palatino, serif"/>
+                    <h:selectOneMenu id="selectedInsegnante" value="#{gestioneScuolaWizardBean.selectedInsegnante}" 
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaInsegnanti}"                                       
+                                       var="thisInsegnante" itemValue="#{thisInsegnante}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="insegnantiFormFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel value="#{bundle.ListInsegnantiTitle_idInsegnante}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedInsegnante.idInsegnante}" readonly="true" style="font: bold italic large Palatino, serif"/>
+
+                    <h:outputLabel value="Anno Scolastico:" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedInsegnante.annoScolastico}" readonly="true" style="font: bold italic large Palatino, serif"/>
+
+                    <h:outputLabel value="Classe:" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedInsegnante.idClasse.nomeClasse}" readonly="true" style="font: bold italic large Palatino, serif"/>
+
+                    <h:outputLabel value="#{bundle.ListInsegnantiTitle_cognome}:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedInsegnante.cognome}" 
+                                 readonly="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                 style="font: bold italic large Palatino, serif" id="page7_cognome"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+
+                    <h:outputLabel value="#{bundle.ListInsegnantiTitle_nome}:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedInsegnante.nome}" 
+                                 readonly="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}"  
+                                 style="font: bold italic large Palatino, serif" id="page7_nome"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+
+                </h:panelGrid>
+            </h:form>
+            <h:form id="insegnantiExistingForm">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
+                             rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
+                    <h:outputLabel value="Scegli tra gli insegnanti esistenti:" style="color: blue;font-weight: bold"/>
+                    <h:selectOneMenu id="selectedExistingInsegnante" value="#{gestioneScuolaWizardBean.selectedExistingInsegnante}" 
+                                     onchange="submit()"  
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaAllInsegnanti}"                                       
+                                       var="thisExistingInsegnante" itemValue="#{thisExistingInsegnante}"/>
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+            </h:form>
+
+        </composite:implementation>
+    </h:body>
+</html>

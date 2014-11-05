@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRegistriInsegnantiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{registriInsegnantiController.selected.idMateria}" title="#{bundle.EditRegistriInsegnantiTitle_idMateria}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_tipoScuolaAcronimo}" for="tipoScuolaAcronimo" />
+                    <h:inputText id="tipoScuolaAcronimo" value="#{registriInsegnantiController.selected.tipoScuolaAcronimo}" title="#{bundle.EditRegistriInsegnantiTitle_tipoScuolaAcronimo}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_tipoScuolaAcronimo}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_nomeScuola}" for="nomeScuola" />
+                    <h:inputText id="nomeScuola" value="#{registriInsegnantiController.selected.nomeScuola}" title="#{bundle.EditRegistriInsegnantiTitle_nomeScuola}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_nomeScuola}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{registriInsegnantiController.selected.annoScolastico}" title="#{bundle.EditRegistriInsegnantiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputText id="nomeClasse" value="#{registriInsegnantiController.selected.nomeClasse}" title="#{bundle.EditRegistriInsegnantiTitle_nomeClasse}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_nomeClasse}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_cognome}" for="cognome" />
+                    <h:inputText id="cognome" value="#{registriInsegnantiController.selected.cognome}" title="#{bundle.EditRegistriInsegnantiTitle_cognome}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_cognome}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{registriInsegnantiController.selected.nome}" title="#{bundle.EditRegistriInsegnantiTitle_nome}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_materia}" for="materia" />
+                    <h:inputText id="materia" value="#{registriInsegnantiController.selected.materia}" title="#{bundle.EditRegistriInsegnantiTitle_materia}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_materia}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_idInsegnante}" for="idInsegnante" />
+                    <h:inputText id="idInsegnante" value="#{registriInsegnantiController.selected.idInsegnante}" title="#{bundle.EditRegistriInsegnantiTitle_idInsegnante}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_idInsegnante}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:inputText id="idAnnoScolastico" value="#{registriInsegnantiController.selected.idAnnoScolastico}" title="#{bundle.EditRegistriInsegnantiTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_idAnnoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_idScuola}" for="idScuola" />
+                    <h:inputText id="idScuola" value="#{registriInsegnantiController.selected.idScuola}" title="#{bundle.EditRegistriInsegnantiTitle_idScuola}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_idScuola}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_idClasse}" for="idClasse" />
+                    <h:inputText id="idClasse" value="#{registriInsegnantiController.selected.idClasse}" title="#{bundle.EditRegistriInsegnantiTitle_idClasse}" required="true" requiredMessage="#{bundle.EditRegistriInsegnantiRequiredMessage_idClasse}"/>
+                    <h:outputLabel value="#{bundle.EditRegistriInsegnantiLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{registriInsegnantiController.selected.id}" title="#{bundle.EditRegistriInsegnantiTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{registriInsegnantiController.update}" value="#{bundle.EditRegistriInsegnantiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRegistriInsegnantiViewLink}"/>
+                <br />
+                <h:commandLink action="#{registriInsegnantiController.prepareList}" value="#{bundle.EditRegistriInsegnantiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRegistriInsegnantiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

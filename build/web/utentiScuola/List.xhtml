@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUtentiScuolaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUtentiScuolaEmpty}" rendered="#{utentiScuolaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{utentiScuolaController.items.rowCount > 0}">
+                    <h:outputText value="#{utentiScuolaController.pagination.pageFirstItem + 1}..#{utentiScuolaController.pagination.pageLastItem + 1}/#{utentiScuolaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{utentiScuolaController.previous}" value="#{bundle.Previous} #{utentiScuolaController.pagination.pageSize}" rendered="#{utentiScuolaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{utentiScuolaController.next}" value="#{bundle.Next} #{utentiScuolaController.pagination.pageSize}" rendered="#{utentiScuolaController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{utentiScuolaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiScuolaTitle_idUtente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUtente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiScuolaTitle_cognome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cognome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiScuolaTitle_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiScuolaTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiScuolaTitle_password}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.password}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{utentiScuolaController.prepareView}" value="#{bundle.ListUtentiScuolaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{utentiScuolaController.prepareEdit}" value="#{bundle.ListUtentiScuolaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{utentiScuolaController.destroy}" value="#{bundle.ListUtentiScuolaDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{utentiScuolaController.prepareCreate}" value="#{bundle.ListUtentiScuolaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListUtentiScuolaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

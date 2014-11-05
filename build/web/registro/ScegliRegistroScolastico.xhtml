@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/RegistroTemplate.xhtml">
+        <ui:define name="topLeft">            
+            <ezcomp:LogoRegistroScolasticoPanel intestazioneBean="#{intestazioneBean}" 
+                                                loginBean="#{myLoginBean}"
+                                                logoutAction="#{myLoginBean.logout()}"
+                                                renderBackButton="false"
+                                                renderMateria="false"
+                                                renderClasse="false"
+                                                renderInsegnante="false"
+                                                backButtonAction="#{myLoginBean.backToIntestazione()}"
+                                                renderHeader="true"
+                                                renderLogoutButton="true"
+                                                renderUser="true"
+                                                renderCancellaLogButton="#{intestazioneBean.renderCancellaLogs}"
+                                                cancellaLogButtonAction="#{intestazioneBean.cancellaMyLogRicevuti()}"/>
+            <ezcomp:GestioneScuolePanel scansioneOrarioAction="#{orarioScolasticoBean.orarioScolastico()}"
+                                        coloriMaterieAction="#{orarioScolasticoBean.coloriMaterie()}"
+                                        scuolaWizardAction="#{orarioScolasticoBean.scuolaWizard()}"
+                                        permessiWizardAction="#{orarioScolasticoBean.grantWizard()}"/>
+        </ui:define>
+        <ui:define name="topCenter">
+            <ezcomp:ScuolaStructurePanel scuolaStructureBean="#{scuolaStructureBean}"/> 
+            <ezcomp:RegistriInsegnanteChoosePanel registriInsegnanteBean="#{registriInsegnanteBean}"/>
+        </ui:define>
+        <ui:define name="topRight">
+            <ezcomp:SchedaStudentePanel rendered="#{scuolaStructureBean.selectedStudente != null}"
+                                        riepilogoAssenzeAction="#{schedaStudenteBean.riepilogoAssenzeStudente()}"
+                                        riepilogoVotiAction="#{schedaStudenteBean.riepilogoVotiStudente()}"/>
+            <ezcomp:SchedaInsegnantePanel rendered="#{scuolaStructureBean.selectedInsegnante != null}"/>   
+
+        </ui:define>
+        <ui:define name="content">
+        </ui:define>
+        <ui:define name="contentRight">
+        </ui:define>
+        <ui:define name="bottom">
+            <rich:notifyMessages nonblocking="true"/>
+        </ui:define>
+    </ui:composition>
+</html>
+

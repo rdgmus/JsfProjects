@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+        </composite:interface>
+        <composite:implementation>                
+            <h:form id="rimuoviLezioneForm" >
+                <rich:collapsiblePanel header="Rimozione lezioni o Update Argomenti" expanded="true">
+                    <h:panelGrid columns="2" id="rimuoviLezionePanelGrid">
+                        <f:facet name="header">
+                            <h:outputText value="Rimozione lezioni o Update Argomenti"/>
+                        </f:facet>
+                        <h:outputLabel value="Ore Lezione:" />
+                        <h:outputText value="#{creaLezioniBean.oreLezioneDaRemove}" style="font-size: 18;font-weight: bold" id="oreLezione"/>
+                        <h:outputLabel value="Argomento Lezione:" />
+                        <h:outputText value="#{creaLezioniBean.argLezioneDaRemove}" id="argomentoLezione"
+                                      style="text-wrap: normal;font-size: 18;font-weight: bold"
+                                      rendered="#{!creaLezioniBean.nuovoArgomento}"/>
+                        <h:inputTextarea value="#{creaLezioniBean.argomentoLezione}" 
+                                         rendered="#{creaLezioniBean.nuovoArgomento}" style="font: bold italic large Palatino, serif"/>
+
+                        <h:outputLabel value="Data Lezione:" />
+
+                        <h:selectOneMenu  id="lezioneDaRimuovere" value="#{creaLezioniBean.lezioneDaRimuovere}"
+                                      disabled="#{lezioniMateriaBean.lezioniMateriaMese.size()==0}"
+                                      style="font-size: 18;font-weight: bold"
+                                      valueChangeListener="#{creaLezioniBean.processValueChange}"
+                                      onchange="submit()" >
+                            <f:selectItems value="#{lezioniMateriaBean.lezioniMateriaMese}" id="lezioniMateriaMese"
+                                           var="lezione" 
+                                           itemDisabled="#{creaLezioniBean.lezioneItemDisabled}">
+                            </f:selectItems>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+
+                    <h:commandButton value="Confermi rimozione?" action="#{creaLezioniBean.rimuoviLezione}"
+                                     rendered="#{creaLezioniBean.confermaRimozione}" id="rimuoviLezione"
+                                     style="color: red"/>
+                    <h:commandButton value="No! Cancella" action="#{creaLezioniBean.cancellaRimozione()}"
+                                     rendered="#{creaLezioniBean.confermaRimozione}" 
+                                     style="color: green"/>
+                    <h:commandButton value="Rimuovi Lezione" action="#{creaLezioniBean.setConfermaRimozione(true)}" 
+                                     rendered="#{!creaLezioniBean.confermaRimozione}" disabled="#{creaLezioniBean.rimuoviLezioneDisabled}"/>
+                    <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="rimuoviLezione">
+                        <span style="white-space: nowrap">Cancella:<br/>
+                            Lezione:<strong>#{creaLezioniBean.lezioneDaRimuovere.toString()}</strong> <br/>                                                                            
+                            Argomento:<strong>#{creaLezioniBean.argLezioneDaRemove}</strong>  <br/>                                                                           
+                        </span>        
+                    </rich:tooltip>
+                    <h:commandButton value="Confermi Update Argomento" action="#{creaLezioniBean.updateArgomentoLezione()}"
+                                     id="updateArgomento"
+                                     rendered="#{creaLezioniBean.nuovoArgomento}" style="color: red"/>
+                    <h:commandButton value="No! Cancella" action="#{creaLezioniBean.cancellaNuovoArgomento()}"
+                                     rendered="#{creaLezioniBean.nuovoArgomento}" 
+                                     style="color: green"/>
+                    <h:commandButton value="Update Argomento" action="#{creaLezioniBean.setNuovoArgomento(true)}" 
+                                     rendered="#{!creaLezioniBean.nuovoArgomento}" disabled="#{creaLezioniBean.updateArgomentoDisabled}"/>
+                    <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="updateArgomento">
+                        <span style="white-space: nowrap">Cambia l'argomento:<br/>
+                            Lezione:<strong>#{creaLezioniBean.lezioneDaRimuovere.toString()}</strong> <br/>                                                                            
+                            Argomento:<strong>#{creaLezioniBean.argLezioneDaRemove}</strong>  <br/>                                                                           
+                        </span>        
+                    </rich:tooltip>                    
+                </rich:collapsiblePanel>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

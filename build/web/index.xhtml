@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <rich:panel style="
+                    background-color: goldenrod; 
+                    background-image: url('/RegistroWebApp3.0/resources/images/application_background.png');
+                    background-repeat: no-repeat; 
+                    background-size: 100% 100%;
+                    background-origin: content-box" >
+            <h1 class="jsfcrud_h1">Registro Scolastico Strutture</h1>
+            <br />
+            <h:link outcome="welcomeRichfaces" value="Richfaces welcome page" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/allieviRisultatiPeriodo/List" value="Show All AllieviRisultatiPeriodo Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/anniScolastici/List" value="Show All AnniScolastici Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/aule/List" value="Show All Aule Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/classi/List" value="Show All Classi Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/insegnanti/List" value="Show All Insegnanti Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/lezioni/List" value="Show All Lezioni Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/logMsgTypes/List" value="Show All LogMsgTypes Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/materie/List" value="Show All Materie Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/orarioInsegnante/List" value="Show All OrarioInsegnante Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/orarioLezioniAs/List" value="Show All OrarioLezioniAs Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/oreAssenze/List" value="Show All OreAssenze Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/parametriOrarioAs/List" value="Show All ParametriOrarioAs Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/periodiAnnoScolastico/List" value="Show All PeriodiAnnoScolastico Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/registriGranted/List" value="Show All RegistriGranted Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/ruoliGrantedToUtenti/List" value="Show All RuoliGrantedToUtenti Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/ruoliUtenti/List" value="Show All RuoliUtenti Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/scansioneOrarioAs/List" value="Show All ScansioneOrarioAs Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/scuole/List" value="Show All Scuole Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/studenti/List" value="Show All Studenti Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/tipologiaGiudizi/List" value="Show All TipologiaGiudizi Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/utentiLogger/List" value="Show All UtentiLogger Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/utentiScuola/List" value="Show All UtentiScuola Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+            <br />
+            <h:link outcome="/votiLezioniStudente/List" value="Show All VotiLezioniStudente Items" style="color: #0033cc; font: bold italic large Palatino, serif"/>
+
+            <h:form>
+                <h:commandButton id="submit" value="Registro Scolastico"
+                                 action="/intestazione" style="font: bold italic large Palatino, serif"/>
+            </h:form>   
+            <br />
+            <h:link outcome="welcomeRichfaces" value="Richfaces welcome page" style="color: highlighttext; font: bold italic large Palatino, serif"/>                <br />
+        </rich:panel>
+    </h:body>
+</html>
+

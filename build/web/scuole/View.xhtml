@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewScuoleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewScuoleLabel_nomeScuola}"/>
+                    <h:outputText value="#{scuoleController.selected.nomeScuola}" title="#{bundle.ViewScuoleTitle_nomeScuola}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_tipoScuolaAcronimo}"/>
+                    <h:outputText value="#{scuoleController.selected.tipoScuolaAcronimo}" title="#{bundle.ViewScuoleTitle_tipoScuolaAcronimo}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_idScuola}"/>
+                    <h:outputText value="#{scuoleController.selected.idScuola}" title="#{bundle.ViewScuoleTitle_idScuola}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_indirizzo}"/>
+                    <h:outputText value="#{scuoleController.selected.indirizzo}" title="#{bundle.ViewScuoleTitle_indirizzo}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_cap}"/>
+                    <h:outputText value="#{scuoleController.selected.cap}" title="#{bundle.ViewScuoleTitle_cap}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_città}"/>
+                    <h:outputText value="#{scuoleController.selected.città}" title="#{bundle.ViewScuoleTitle_città}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_provincia}"/>
+                    <h:outputText value="#{scuoleController.selected.provincia}" title="#{bundle.ViewScuoleTitle_provincia}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_telefono}"/>
+                    <h:outputText value="#{scuoleController.selected.telefono}" title="#{bundle.ViewScuoleTitle_telefono}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_fax}"/>
+                    <h:outputText value="#{scuoleController.selected.fax}" title="#{bundle.ViewScuoleTitle_fax}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_email}"/>
+                    <h:outputText value="#{scuoleController.selected.email}" title="#{bundle.ViewScuoleTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewScuoleLabel_web}"/>
+                    <h:outputText value="#{scuoleController.selected.web}" title="#{bundle.ViewScuoleTitle_web}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{scuoleController.destroyAndView}" value="#{bundle.ViewScuoleDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewScuoleEditLink}"/>
+                <br />
+                <h:commandLink action="#{scuoleController.prepareCreate}" value="#{bundle.ViewScuoleCreateLink}" />
+                <br />
+                <h:commandLink action="#{scuoleController.prepareList}" value="#{bundle.ViewScuoleShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewScuoleIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

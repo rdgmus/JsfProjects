@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="REGISTRO SCOLASTICO"/>
+            <composite:attribute name="renderHeader" required="true"/>
+
+            <composite:attribute name="author" default="Key Orchestra"/>
+            <composite:attribute name="userPrompt" default="User:"/>
+            <composite:attribute name="renderUser" required="true"/>
+
+            <composite:attribute name="materiaPrompt" default="Materia:"/>
+            <composite:attribute name="classePrompt" default="Classe:"/>
+            <composite:attribute name="insegnantePrompt" default="Insegnante:"/>
+            <composite:attribute name="asPrompt" default="A.S.:"/>
+            <composite:attribute name="logoutButtonText" default="Logout"/>
+            <composite:attribute name="logoutAction"
+                                 method-signature="java.lang.String action()"/>
+            <composite:attribute name="renderLogoutButton" required="true"/>
+
+            <composite:attribute name="intestazioneBean" required="true"/>
+            <composite:attribute name="loginBean" required="true"/>
+
+            <composite:attribute name="registriInsegnanteBean"/>
+            <composite:attribute name="renderMateria" default="false"/>
+            <composite:attribute name="renderClasse" default="false"/>
+            <composite:attribute name="renderInsegnante" default="false"/>
+
+            <composite:attribute name="refreshButtonText" default="Refresh"/>
+            <composite:attribute name="renderRefreshButton" default="false"/>
+            <composite:attribute name="refreshAction"
+                                 method-signature="java.lang.String action()"/>
+
+            <composite:attribute name="backButtonText" default="Chiudi Registro"/>
+            <composite:attribute name="renderBackButton" default="false"/>
+            <composite:attribute name="backButtonAction" 
+                                 method-signature="java.lang.String action()"
+                                 required="true"/>
+
+            <composite:attribute name="cancellaLogButtonText" default="Cancella LOG"/>
+            <composite:attribute name="renderCancellaLogButton" default="false"/>
+            <composite:attribute name="cancellaLogButtonAction"
+                                 method-signature="java.lang.String action()"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="intestazioneForm">
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.header}" style="font: bold italic large Palatino, serif"
+                                      rendered="#{cc.attrs.renderHeader}"/>
+                    </f:facet>
+                    <h:graphicImage id="cBasso"                                        
+                                    library="images"  name="Cbasso1.png"
+                                    alt="Key Orchestra" title="Key Orchestra"/>
+                    <h:graphicImage id="Contributi"                                     
+                                    library="images"  name="RegistroWebApp3.0Contrib.png"
+                                    alt="Contributi" title="MySql-NetBeans-JBossEAP"/>
+                    <h:graphicImage id="UserImage"                                        
+                                    library="images"  name="ruolo_utente.png"
+                                    alt="UserImage" title="UserImage"/>
+                    <h:commandLink value="#{intestazioneBean.utente.cognome} #{intestazioneBean.utente.nome}" id="sendEmail"
+                                   action="#{intestazioneBean.sendEmail()}" 
+                                   style="color: gold; font: bold italic large Palatino, serif"
+                                   rendered="#{cc.attrs.renderUser}"/>
+                    <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="Contributi">
+                        <span style="white-space: nowrap">CONTRIBUTI:<br/>
+                            <strong>MySql-NetBeans-JBossEAP</strong><br/>                                
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="sendEmail" rendered="#{cc.attrs.renderUser}">
+                        <span style="white-space: nowrap">Invia EMAIL a<br/>
+                            <strong>#{intestazioneBean.utente.cognome} #{intestazioneBean.utente.nome}</strong><br/>
+                            Email:<strong>#{intestazioneBean.utente.email}</strong><br/>                                
+                        </span>        
+                    </rich:tooltip>
+
+                    <h:outputText value="#{cc.attrs.materiaPrompt} 
+                                  #{cc.attrs.registriInsegnanteBean.materiaSelezionata.materia}" 
+                                  rendered="#{cc.attrs.renderMateria}" style="color: blue; background-color: gold"/>
+                    <h:outputText value="#{cc.attrs.classePrompt} 
+                                  #{cc.attrs.registriInsegnanteBean.materiaSelezionata.idClasse.nomeClasse} 
+                                  #{cc.attrs.asPrompt}#{registriInsegnanteBean.annoScolastico.annoScolastico}" 
+                                  rendered="#{cc.attrs.renderClasse}" style="color: blue; background-color: gold"/>
+                    <h:outputText value="#{cc.attrs.insegnantePrompt} 
+                                  #{cc.attrs.registriInsegnanteBean.materiaSelezionata.idInsegnante.cognome} 
+                                  #{cc.attrs.registriInsegnanteBean.materiaSelezionata.idInsegnante.nome}" 
+                                  rendered="#{cc.attrs.renderInsegnante}" style="color: blue; background-color: gold"/>
+
+                    <f:facet name="footer">
+                        <h:panelGroup style="display:block; text-align:left">
+                            <h:commandButton id="logoutButton" value="#{cc.attrs.logoutButtonText}"
+                                             action="#{cc.attrs.logoutAction}" style="font: bold italic large Palatino, serif;color: deeppink"
+                                             rendered="#{cc.attrs.renderLogoutButton}"/>
+                            <h:commandButton id="backButton" value="#{cc.attrs.backButtonText}"
+                                             action="#{cc.attrs.backButtonAction}" rendered="#{cc.attrs.renderBackButton}" style="font: bold italic large Palatino, serif;color: deeppink"/>
+                            <h:commandButton id="refreshButton" value="#{cc.attrs.refreshButtonText}"
+                                             action="#{cc.attrs.refreshAction}" rendered="#{cc.attrs.renderRefreshButton}" style="font: bold italic large Palatino, serif;color: deeppink"/>
+                            <h:commandButton id="cancellaLogButton" value="#{cc.attrs.cancellaLogButtonText}"
+                                             action="#{cc.attrs.cancellaLogButtonAction}" rendered="#{cc.attrs.renderCancellaLogButton}" style="font: bold italic large Palatino, serif;color: deeppink"/>
+                            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="cancellaLogButton" rendered="#{cc.attrs.renderCancellaLogButton}">
+                                <span style="white-space: nowrap">
+                                    <strong>Cancella i #{intestazioneBean.countMyLogs} messaggi di LOG</strong><br/>
+                                    <strong>appartenenti all'utente</strong><br/>                                
+                                    <strong>#{intestazioneBean.utente.cognome} #{intestazioneBean.utente.nome}</strong><br/>                                
+                                    <strong>precedentemente notificati tramite email.</strong><br/>                                
+                                </span>        
+                            </rich:tooltip>
+                        </h:panelGroup>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

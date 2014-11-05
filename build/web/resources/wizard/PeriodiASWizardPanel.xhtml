@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="periodiASPrompt" default="Periodi Anno Scolastico: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="periodiASForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedAS"
+                                   value="#{cc.attrs.periodiASPrompt} num. [#{gestioneScuolaWizardBean.listaPeriodiAS.size()}]" style="font: bold italic large Palatino, serif"/>
+                    <h:selectOneMenu id="selectedPeriod" value="#{gestioneScuolaWizardBean.selectedPeriod}" 
+                                     onchange="submit()"  style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"
+                                     readonly="#{gestioneScuolaWizardBean.crudAction}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaPeriodiAS}" 
+                                       var="thisPeriod" itemValue="#{thisPeriod}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="periodiASFormFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel value="#{bundle.ListPeriodiAnnoScolasticoTitle_periodiAnnoScolasticoPK_idPeriodo}" style="color: blue;font-weight: bold"/>
+                    <h:outputText value="#{gestioneScuolaWizardBean.selectedPeriod.periodiAnnoScolasticoPK.idPeriodo}" 
+                                  style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="Periodo Scolastico:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:outputText value="#{gestioneScuolaWizardBean.selectedPeriod.periodo}" style="font: bold italic large Palatino, serif"
+                                  rendered="#{!gestioneScuolaWizardBean.modifyAction}" />
+                    
+                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.selectedPeriod.periodo}" onchange="submit()" 
+                                     id="selectedPeriod" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}" 
+                                     rendered="#{gestioneScuolaWizardBean.modifyAction}">
+                        <f:selectItem itemLabel="BIMESTRE" itemValue="BIMESTRE" />
+                        <f:selectItem itemLabel="TRIMESTRE" itemValue="TRIMESTRE" />
+                        <f:selectItem itemLabel="QUADRIMESTRE" itemValue="QUADRIMESTRE" />
+                        <f:selectItem itemLabel="PENTAMESTRE" itemValue="PENTAMESTRE" />
+                        <f:selectItem itemLabel="SEMESTRE" itemValue="SEMESTRE" />
+                        <f:selectItem itemLabel="ANNUALITA'" itemValue="ANNUALITA'" />
+                    </h:selectOneMenu>
+                    
+                    <h:outputLabel value="Data inizio periodo:" style="color: blue;font-weight: bold"/>
+                    <rich:calendar value="#{gestioneScuolaWizardBean.selectedPeriod.startDate}" id="startPeriodDate" inputStyle="font: bold italic large Palatino, serif"
+                                   locale="#{gestioneScuolaWizardBean.locale}"
+                                   popup="#{gestioneScuolaWizardBean.popup}"
+                                   datePattern="#{gestioneScuolaWizardBean.pattern}"
+                                   showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="true"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Data fine periodo:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <rich:calendar value="#{gestioneScuolaWizardBean.selectedPeriod.endDate}" id="page3_endPeriodDate" inputStyle="font: bold italic large Palatino, serif"
+                                   locale="#{gestioneScuolaWizardBean.locale}" 
+                                   popup="#{gestioneScuolaWizardBean.popup}"
+                                   datePattern="#{gestioneScuolaWizardBean.pattern}"
+                                   showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="#{!gestioneScuolaWizardBean.modifyAction}"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Scuola:" style="color: blue;font-weight: bold"/>
+                    <h:outputText value="#{gestioneScuolaWizardBean.selectedScuola.tipoScuolaAcronimo} #{gestioneScuolaWizardBean.selectedScuola.nomeScuola}" 
+                                  style="font: bold italic large Palatino, serif" />
+                    <h:outputLabel value="Anno Scolastico:" style="color: blue;font-weight: bold"/>
+                    <h:outputText value="#{gestioneScuolaWizardBean.selectedAS.annoScolastico}" 
+                                  style="font: bold italic large Palatino, serif" />
+                    <h:outputLabel value="Copertura periodi su durata A.S.:" style="color: blue;font-weight: bold"/>
+                    <rich:progressBar value="#{gestioneScuolaWizardBean.completamentoAS}" maxValue="100" minValue="0">
+                        <h:outputText value="#{gestioneScuolaWizardBean.completamentoAS}%"
+                                      style="font: bold italic medium Palatino, serif;
+                                      #{gestioneScuolaWizardBean.completamentoAS == 100 ? 'color: darkblue':'color: red'}"/>
+                    </rich:progressBar>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="periodiASTypeFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
+                             rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}">
+                    <h:outputLabel value="Scegli nuovo periodo scolastico:" style="color: #e33b06;font-weight: bold" 
+                                   rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}"/>
+                    <h:selectOneMenu value="#{gestioneScuolaWizardBean.periodType}" onchange="submit()" 
+                                     id="selectPeriodType" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}" 
+                                     rendered="#{gestioneScuolaWizardBean.completamentoAS == 100 ? 'false':'true'}">
+                        <f:selectItem itemLabel="BIMESTRE" itemValue="BIMESTRE" />
+                        <f:selectItem itemLabel="TRIMESTRE" itemValue="TRIMESTRE" />
+                        <f:selectItem itemLabel="QUADRIMESTRE" itemValue="QUADRIMESTRE" />
+                        <f:selectItem itemLabel="PENTAMESTRE" itemValue="PENTAMESTRE" />
+                        <f:selectItem itemLabel="SEMESTRE" itemValue="SEMESTRE" />
+                        <f:selectItem itemLabel="ANNUALITA'" itemValue="ANNUALITA'" />
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

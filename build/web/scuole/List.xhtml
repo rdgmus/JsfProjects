@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListScuoleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListScuoleEmpty}" rendered="#{scuoleController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{scuoleController.items.rowCount > 0}">
+                    <h:outputText value="#{scuoleController.pagination.pageFirstItem + 1}..#{scuoleController.pagination.pageLastItem + 1}/#{scuoleController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{scuoleController.previous}" value="#{bundle.Previous} #{scuoleController.pagination.pageSize}" rendered="#{scuoleController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{scuoleController.next}" value="#{bundle.Next} #{scuoleController.pagination.pageSize}" rendered="#{scuoleController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{scuoleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_nomeScuola}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeScuola}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_tipoScuolaAcronimo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoScuolaAcronimo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_idScuola}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idScuola}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_indirizzo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.indirizzo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_cap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_città}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.città}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_provincia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.provincia}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_telefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_fax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fax}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScuoleTitle_web}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.web}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{scuoleController.prepareView}" value="#{bundle.ListScuoleViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scuoleController.prepareEdit}" value="#{bundle.ListScuoleEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scuoleController.destroy}" value="#{bundle.ListScuoleDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{scuoleController.prepareCreate}" value="#{bundle.ListScuoleCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListScuoleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

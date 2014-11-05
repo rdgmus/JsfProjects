@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="GESTIONE SCUOLE"/>
+
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+
+
+            <composite:attribute name="scuoleAction"
+                                 method-signature="java.util.String action()"/>
+
+            <composite:attribute name="scuolaStructureBean" required="true"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="scuoleForm">
+                <h:panelGrid columns="4">
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.header}" style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <h:outputLabel for="scuole"
+                                   value="#{cc.attrs.scuolePrompt}" style="color: gold"/>
+                    <rich:column  >
+                        <h:selectOneMenu id="selectedScuola" value="#{scuolaStructureBean.selectedScuola}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveScuole()}" 
+                                           var="thisScuola" itemValue="#{thisScuola}" />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.scuoleSize()}" style="color: gold"/>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.selectedScuola.toString()}"/>
+                    </rich:column>
+                    <h:outputLabel for="anniscolastici"
+                                   value="#{cc.attrs.anniscolasticiPrompt}" style="color: gold"/>
+                    <rich:column >
+                        <h:selectOneMenu id="selectedAS" value="#{scuolaStructureBean.selectedAS}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveAS()}" 
+                                           var="thisAS" itemValue="#{thisAS}"  />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.anniScolasticiSize()}" style="color: gold"/>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.selectedAS.toString()}"/>
+                    </rich:column>
+                    <h:outputLabel for="classi"
+                                   value="#{cc.attrs.classiPrompt}" style="color: gold"/>
+                    <rich:column >
+
+                        <h:selectOneMenu id="selectedClasse" value="#{scuolaStructureBean.selectedClasse}" 
+                                         onchange="submit()"  
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveClassi()}" 
+                                           var="thisClasse" itemValue="#{thisClasse}"  />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.classiSize()}" style="color: gold"/>
+                    </rich:column>
+                    <rich:column >
+                        <h:commandButton value="Tabellone dei Voti" id="tabelloneVoti" 
+                                         rendered="#{scuolaStructureBean.selectedClasse != null}"
+                                         action="#{scuolaStructureBean.tabelloneDeiVoti(scuolaStructureBean.selectedClasse)}"
+                                         style="font: bold italic medium Palatino, serif"/>
+                        <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="tabelloneVoti">
+                            <span style="white-space: nowrap">Tabellone dei Voti per lo scrutinio:<br/>
+                                Classe:<strong>#{scuolaStructureBean.selectedClasse.toString()}</strong>   <br/>                                                                          
+                                A.S.:<strong>#{scuolaStructureBean.selectedAS.toString()}</strong>   <br/>                                                                          
+                                Scuola:<strong>#{scuolaStructureBean.selectedScuola.toString()}</strong>   <br/>                                                                          
+                            </span>        
+                        </rich:tooltip>
+                    </rich:column>
+                    <h:outputLabel for="studenti"
+                                   value="#{cc.attrs.studentiPrompt}" style="color: gold"/>
+                    <rich:column >
+                        <h:selectOneMenu id="selectedStudente" value="#{scuolaStructureBean.selectedStudente}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveStudenti()}" 
+                                           var="thisStudente" itemValue="#{thisStudente}"  />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.studentiSize()}" style="color: gold"/>
+
+                    </rich:column>
+                    <rich:column >
+                        <h:commandButton value="Scheda studente" id="schedaStudente" 
+                                         rendered="#{scuolaStructureBean.selectedStudente != null}"
+                                         action="#{scuolaStructureBean.schedaStudente(scuolaStructureBean.selectedStudente)}"
+                                         style="font: bold italic medium Palatino, serif"/>
+                        <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="schedaStudente">
+                            <span style="white-space: nowrap">Scheda informativa dello studente:<br/>
+                                Studente:<strong>#{scuolaStructureBean.selectedStudente.toString()}</strong> <br/>                                                                            
+                                Classe:<strong>#{scuolaStructureBean.selectedClasse.toString()}</strong>   <br/>                                                                          
+                                A.S.:<strong>#{scuolaStructureBean.selectedAS.toString()}</strong>   <br/>                                                                          
+                                Scuola:<strong>#{scuolaStructureBean.selectedScuola.toString()}</strong>   <br/>                                                                          
+                            </span>        
+                        </rich:tooltip>
+                    </rich:column>
+                    <h:outputLabel for="insegnanti"
+                                   value="#{cc.attrs.insegnantiPrompt}" style="color: gold"/>
+                    <rich:column>
+                        <h:selectOneMenu id="selectedInsegnante" value="#{scuolaStructureBean.selectedInsegnante}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveInsegnanti()}" 
+                                           var="thisInsegnante" itemValue="#{thisInsegnante}"  />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.insegnantiSize()}" style="color: gold"/>
+                    </rich:column>
+                    <rich:column >
+                        <h:commandButton value="Scheda insegnante" id="schedaInsegnante" 
+                                         rendered="#{scuolaStructureBean.selectedInsegnante != null}"
+                                         action="#{scuolaStructureBean.schedaInsegnante(scuolaStructureBean.selectedInsegnante)}"
+                                         style="font: bold italic medium Palatino, serif"/>
+                        <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="schedaInsegnante">
+                            <span style="white-space: nowrap">Scheda informativa dell'insegnante:<br/>
+                                Insegnante:<strong>#{scuolaStructureBean.selectedInsegnante.toString()}</strong> <br/>                                                                            
+                                Classe:<strong>#{scuolaStructureBean.selectedClasse.toString()}</strong>   <br/>                                                                          
+                                A.S.:<strong>#{scuolaStructureBean.selectedAS.toString()}</strong>   <br/>                                                                          
+                                Scuola:<strong>#{scuolaStructureBean.selectedScuola.toString()}</strong>   <br/>                                                                          
+                            </span>        
+                        </rich:tooltip>
+                    </rich:column>
+                    <h:outputLabel for="materie"
+                                   value="#{cc.attrs.materiePrompt}" style="color: gold"/>
+                    <rich:column >
+                        <h:selectOneMenu id="selectedMateria" value="#{scuolaStructureBean.selectedMateria}" 
+                                         onchange="submit()" 
+                                         valueChangeListener="#{scuolaStructureBean.processValueChange}">
+                            <f:selectItems value="#{scuolaStructureBean.retrieveMaterie()}" 
+                                           var="thisMateria" itemValue="#{thisMateria}"/>
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.materieSize()}" style="color: gold"/>
+                    </rich:column>
+                    <rich:column >
+                        <h:outputText value="#{scuolaStructureBean.selectedMateria.toString()}"/>
+                    </rich:column>
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

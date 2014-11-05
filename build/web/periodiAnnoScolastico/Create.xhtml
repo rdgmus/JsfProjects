@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePeriodiAnnoScolasticoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_periodiAnnoScolasticoPK_idPeriodo}" for="periodiAnnoScolasticoPK_idPeriodo" />
+                    <h:inputText id="periodiAnnoScolasticoPK_idPeriodo" value="#{periodiAnnoScolasticoController.selected.periodiAnnoScolasticoPK.idPeriodo}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_periodiAnnoScolasticoPK_idPeriodo}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_periodiAnnoScolasticoPK_idPeriodo}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_periodo}" for="periodo" />
+                    <h:inputText id="periodo" value="#{periodiAnnoScolasticoController.selected.periodo}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_periodo}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_periodo}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{periodiAnnoScolasticoController.selected.startDate}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_startDate}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{periodiAnnoScolasticoController.selected.endDate}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_endDate}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_anniScolastici}" for="anniScolastici" />
+                    <h:selectOneMenu id="anniScolastici" value="#{periodiAnnoScolasticoController.selected.anniScolastici}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_anniScolastici}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_anniScolastici}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodiAnnoScolasticoLabel_scuole}" for="scuole" />
+                    <h:selectOneMenu id="scuole" value="#{periodiAnnoScolasticoController.selected.scuole}" title="#{bundle.CreatePeriodiAnnoScolasticoTitle_scuole}" required="true" requiredMessage="#{bundle.CreatePeriodiAnnoScolasticoRequiredMessage_scuole}">
+                        <f:selectItems value="#{scuoleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodiAnnoScolasticoController.create}" value="#{bundle.CreatePeriodiAnnoScolasticoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{periodiAnnoScolasticoController.prepareList}" value="#{bundle.CreatePeriodiAnnoScolasticoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePeriodiAnnoScolasticoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewParametriOrarioAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewParametriOrarioAsLabel_idParamOrario}"/>
+                    <h:outputText value="#{parametriOrarioAsController.selected.idParamOrario}" title="#{bundle.ViewParametriOrarioAsTitle_idParamOrario}"/>
+                    <h:outputText value="#{bundle.ViewParametriOrarioAsLabel_inizioLezioni}"/>
+                    <h:outputText value="#{parametriOrarioAsController.selected.inizioLezioni}" title="#{bundle.ViewParametriOrarioAsTitle_inizioLezioni}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewParametriOrarioAsLabel_durataOraMinuti}"/>
+                    <h:outputText value="#{parametriOrarioAsController.selected.durataOraMinuti}" title="#{bundle.ViewParametriOrarioAsTitle_durataOraMinuti}"/>
+                    <h:outputText value="#{bundle.ViewParametriOrarioAsLabel_durataIntervalloMinuti}"/>
+                    <h:outputText value="#{parametriOrarioAsController.selected.durataIntervalloMinuti}" title="#{bundle.ViewParametriOrarioAsTitle_durataIntervalloMinuti}"/>
+                    <h:outputText value="#{bundle.ViewParametriOrarioAsLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{parametriOrarioAsController.selected.idAnnoScolastico}" title="#{bundle.ViewParametriOrarioAsTitle_idAnnoScolastico}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{parametriOrarioAsController.destroyAndView}" value="#{bundle.ViewParametriOrarioAsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewParametriOrarioAsEditLink}"/>
+                <br />
+                <h:commandLink action="#{parametriOrarioAsController.prepareCreate}" value="#{bundle.ViewParametriOrarioAsCreateLink}" />
+                <br />
+                <h:commandLink action="#{parametriOrarioAsController.prepareList}" value="#{bundle.ViewParametriOrarioAsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewParametriOrarioAsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

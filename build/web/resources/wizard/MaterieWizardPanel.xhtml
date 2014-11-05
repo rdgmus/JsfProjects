@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="materieForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedMateria"
+                                   value="#{cc.attrs.materiePrompt} num. [#{gestioneScuolaWizardBean.listaMaterie.size()}]" 
+                                   style="font: bold italic large Palatino, serif"/>
+                    <h:selectOneMenu id="selectedMateria" value="#{gestioneScuolaWizardBean.selectedMateria}" 
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaMaterie}"                                       
+                                       var="thisMateria" itemValue="#{thisMateria}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="materieFormFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel value="#{bundle.ListMaterieTitle_idMateria}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedMateria.idMateria}" readonly="true" 
+                                 style="font: bold italic large Palatino, serif"/>
+
+                    <h:outputLabel value="Materia:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputTextarea value="#{gestioneScuolaWizardBean.selectedMateria.materia}" 
+                                     readonly="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                     style="font: bold italic large Palatino, serif" id="page8_materia"
+                                     onchange="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListMaterieTitle_idClasse}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedMateria.idClasse.nomeClasse}" 
+                                 readonly="true" 
+                                 style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="#{bundle.ListMaterieTitle_idAnnoScolastico}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedMateria.idAnnoScolastico.annoScolastico}" 
+                                 readonly="true" 
+                                 style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="#{bundle.ListMaterieTitle_idInsegnante}" style="color: blue;font-weight: bold"/>
+                    <h:inputTextarea value="#{gestioneScuolaWizardBean.selectedMateria.idInsegnante.cognome} #{gestioneScuolaWizardBean.selectedMateria.idInsegnante.nome}" 
+                                     readonly="true"
+                                     style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="Giudizio" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.giudizioBool}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                             id="page8_giudizio" onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Scritto" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.scrittoBool}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                             id="page8_scritto"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Orale" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.oraleBool}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                             id="page8_orale"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Pratico" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:selectBooleanCheckbox value="#{gestioneScuolaWizardBean.selectedMateria.praticoBool}" disabled="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                             id="page8_pratico"  onclick="submit()" valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+
+                </h:panelGrid>
+                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="page8_giudizio">
+                    <span style="white-space: nowrap">Scegli tipologia voto:<br/>
+                        Voto:<strong>Giudizio</strong> <br/>   
+                        Nota:<strong>E' una tipologia di voto espressa come frase codificata, </strong><br/>
+                        <strong>per materie che non ammettono voti numerici in pagella</strong> <br/>   
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="page8_scritto">
+                    <span style="white-space: nowrap">Scegli tipologia voto:<br/>
+                        Voto:<strong>Scritto</strong> <br/>                                                                            
+                        Nota:<strong>E' una tipologia di voto espressa numericamente </strong><br/>
+                        <strong>riferita a elaborati scritti</strong> <br/>   
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="page8_orale">
+                    <span style="white-space: nowrap">Scegli tipologia voto:<br/>
+                        Voto:<strong>Orale</strong> <br/>                                                                            
+                        Nota:<strong>E' una tipologia di voto espressa numericamente </strong><br/>
+                        <strong>riferita a interrogazioni orali</strong> <br/>   
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="page8_pratico">
+                    <span style="white-space: nowrap">Scegli tipologia voto:<br/>
+                        Voto:<strong>Pratico</strong> <br/>                                                                            
+                        Nota:<strong>E' una tipologia di voto espressa numericamente </strong><br/>
+                        <strong>riferita a elaborati prodotti in esercitazioni di laboratorio</strong> <br/>   
+                    </span>        
+                </rich:tooltip>
+            </h:form>
+            <h:form id="materieExistingForm">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
+                             rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
+                    <h:outputLabel value="Scegli tra le materie esistenti:" style="color: blue;font-weight: bold"/>
+                    <h:selectOneMenu id="selectedExistingMateria" value="#{gestioneScuolaWizardBean.selectedExistingMateria}" 
+                                     onchange="submit()"  
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaAllMaterie}"                                       
+                                       var="thisExistingMateria" itemValue="#{thisExistingMateria}"/>
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+            </h:form>
+
+        </composite:implementation>
+    </h:body>
+</html>

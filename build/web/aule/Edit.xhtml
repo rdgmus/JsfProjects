@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAuleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAuleLabel_idAula}" for="idAula" />
+                    <h:inputText id="idAula" value="#{auleController.selected.idAula}" title="#{bundle.EditAuleTitle_idAula}" required="true" requiredMessage="#{bundle.EditAuleRequiredMessage_idAula}"/>
+                    <h:outputLabel value="#{bundle.EditAuleLabel_nomeAula}" for="nomeAula" />
+                    <h:inputText id="nomeAula" value="#{auleController.selected.nomeAula}" title="#{bundle.EditAuleTitle_nomeAula}" required="true" requiredMessage="#{bundle.EditAuleRequiredMessage_nomeAula}"/>
+                    <h:outputLabel value="#{bundle.EditAuleLabel_idScuola}" for="idScuola" />
+                    <h:selectOneMenu id="idScuola" value="#{auleController.selected.idScuola}" title="#{bundle.EditAuleTitle_idScuola}" required="true" requiredMessage="#{bundle.EditAuleRequiredMessage_idScuola}">
+                        <f:selectItems value="#{scuoleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{auleController.update}" value="#{bundle.EditAuleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAuleViewLink}"/>
+                <br />
+                <h:commandLink action="#{auleController.prepareList}" value="#{bundle.EditAuleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAuleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

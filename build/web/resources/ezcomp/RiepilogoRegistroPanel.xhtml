@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head> 
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="studentiPrompt" default="Studenti"/>
+            <composite:attribute name="indexStudentiPrompt" default="Num."/>
+            <composite:attribute name="totOrePrompt" default="Ore"/>
+            <composite:attribute name="assenzePrompt" default="Ass."/>
+            <composite:attribute name="percAssenzePrompt" default="Ass. %"/>
+            <composite:attribute name="scrittoPrompt" default="S"/>
+            <composite:attribute name="oralePrompt" default="O"/>
+            <composite:attribute name="praticoPrompt" default="P"/>
+            <composite:attribute name="giudizioPrompt" default="G"/>
+            <composite:attribute name="condottaPrompt" default="Condotta"/>
+            <composite:attribute name="actionsPrompt" default="Azioni"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <rich:panel>
+                <h:panelGrid columns="3" border="0">
+                    <f:facet name="header">
+                        <h:outputText value="Pagina Studenti:"/>
+                    </f:facet>
+                    <h:form id="paginationForm">
+                        <h:panelGroup>
+                            <h:commandButton value="Prec." disabled="#{!risultatiPeriodoBean.hasPreviousPage}" id="prec"
+                                             action="#{risultatiPeriodoBean.previousPage()}"/>
+                            <h:outputText value="[#{risultatiPeriodoBean.row+1}-#{risultatiPeriodoBean.row+risultatiPeriodoBean.pageSize}]"
+                                          style="color: darkkhaki"/>
+                            <h:commandButton value="Succ." disabled="#{!risultatiPeriodoBean.hasNextPage}" id="succ"
+                                             action="#{risultatiPeriodoBean.nextPage()}"/>
+                            <rich:inputNumberSpinner value="#{risultatiPeriodoBean.pageSize}" id="numeroStudentiPerPage"
+                                                     minValue="1" maxValue="20" 
+                                                     valueChangeListener="#{risultatiPeriodoBean.processValueChange}"
+                                                     onchange="submit()">
+                            </rich:inputNumberSpinner>
+                            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="prec">
+                                <span style="white-space: nowrap"><strong>Pagina precedente degli studenti</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="succ">
+                                <span style="white-space: nowrap"><strong>Pagina successiva degli studenti</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="numeroStudentiPerPage">
+                                <span style="white-space: nowrap"><strong>Numero studenti visibili nella pagina</strong>                                                                             
+                                </span>        
+                            </rich:tooltip>
+                        </h:panelGroup>
+                    </h:form>
+                    <ezcomp:PeriodoDalAlPanel/>
+                    <h:panelGroup>
+                        <h:form id="modificheGeneraliForm">
+                            <h:commandButton value="Ass.%" style="font: bold italic medium Palatino, serif;
+                                             color: #{risultatiPeriodoBean.viewAsProgressBar ? 'green' : 'red'}" 
+                                             id="progressBarEtich"
+                                             action="#{risultatiPeriodoBean.switchAssenzePercView()}"/>
+                            <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="progressBarEtich">
+                                <span style="white-space: nowrap"> Visualizza percentuali assenze come<br />
+                                    <strong> ProgressBar </strong> 
+                                    o come<strong> etichetta semplice </strong><br/>
+                                    <strong>#{risultatiPeriodoBean.viewAsProgressBar ? 'ABILITATA' : 'DISABILITATA'}</strong>
+                                </span>        
+                            </rich:tooltip>
+                            <h:commandButton value="Media Pesata" style="font: bold italic medium Palatino, serif;
+                                             color: #{risultatiPeriodoBean.mediaPesata ? 'green' : 'red'}" 
+                                             id="mediaPesata"
+                                             action="#{risultatiPeriodoBean.switchTipoMedia()}"/>
+                            <h:commandButton value="Condotta" style="font: bold italic medium Palatino, serif;
+                                             color: #{risultatiPeriodoBean.insertingCondotta ? 'green' : 'red'}" 
+                                             id="insertCondotta"
+                                             action="#{risultatiPeriodoBean.switchToInsertingCondotta()}"/>
+                            <rich:tooltip id="tt10" styleClass="tooltip" layout="block" target="mediaPesata">
+                                <span style="white-space: nowrap"> Calcola la media pesata<br />
+                                    come<strong> Somma dei voti / numero massimo assoluto delle valutazioni </strong><br/>
+                                    <strong>#{risultatiPeriodoBean.mediaPesata ? 'ABILITATA' : 'DISABILITATA'}</strong>
+                                </span>        
+                            </rich:tooltip>
+                            <rich:tooltip id="tt11" styleClass="tooltip" layout="block" target="insertCondotta">
+                                <span style="white-space: nowrap"> Abilita o disabilita <br />
+                                    <strong> l'inserimento del voto di CONDOTTA </strong>nel periodo<br/>
+                                    <strong>#{risultatiPeriodoBean.insertingCondotta ? 'ABILITATA se records inseriti nel TABELLONE' : 'DISABILITATA'}</strong>
+                                </span>        
+                            </rich:tooltip>
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:panel>
+
+            <rich:dataTable id="riepilogoRegistro" value="#{risultatiPeriodoBean.records}" 
+                            var="datiPeriodo" rows="#{risultatiPeriodoBean.pageSize}" first="#{risultatiPeriodoBean.row}"
+                            rowClasses="jsfcrud_odd_row,jsfcrud_even_row"  style="border:solid 1px;width: 800px"                            
+                            onrowmouseover="this.style.backgroundColor='#eeb056'"  
+                            onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                <f:facet name="header">
+                    <h:form id="modificheGeneraliForm">
+                        <h:outputText value="Riepilogo Periodo" style="font: bold italic medium Palatino, serif"/>
+                        <h:commandButton value="Modif.Tutti" style="font: bold italic medium Palatino, serif;
+                                         color: red" 
+                                         id="genInsTab"
+                                         action="#{risultatiPeriodoBean.inserisciAllRecordsNelTabellone(risultatiPeriodoBean.records)}"
+                                         rendered="#{!risultatiPeriodoBean.tuttiRecordsInseritiNelTabellone}"/>
+                        <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="genInsTab">
+                            <span style="white-space: nowrap"> Salva nel Tabellone i risultati completi<br />
+                                di tutti gli allievi modificati:<br/>
+                                <strong><ezcomp:PeriodoDalAlPanel/></strong> <br/> 
+                                <strong>#{risultatiPeriodoBean.tuttiRecordsInseritiNelTabellone ? 'TUTTI INSERITI' : 'NON TUTTI I RECORDS INSERITI'}</strong>
+                            </span>        
+                        </rich:tooltip>
+                    </h:form>
+                </f:facet>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.indexStudentiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.registroIndex}" 
+                                  style="font: bold italic medium Palatino, serif;color: darkblue">
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.studentiPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.cognome} #{datiPeriodo.nome}" id="cognomeNome"
+                                  style="font: bold italic medium Palatino, serif;
+                                  color: #{datiPeriodo.ritiratoData != null ? 'red': datiPeriodo.dataEntrata == null ? '#0033c' : 'blue'}"/>
+                    <rich:tooltip id="tt8" styleClass="tooltip" layout="block" target="cognomeNome" rendered="#{datiPeriodo.dataEntrata != null}">
+                        <span style="white-space: nowrap">
+                            Studente:<strong>#{datiPeriodo.cognome} #{datiPeriodo.nome}</strong><br/>                                                                            
+                            Iscritto dal:<strong>#{datiPeriodo.dataEntrata}</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                    <rich:tooltip id="tt9" styleClass="tooltip" layout="block" target="cognomeNome" rendered="#{datiPeriodo.ritiratoData != null}">
+                        <span style="white-space: nowrap">
+                            Studente:<strong>#{datiPeriodo.cognome} #{datiPeriodo.nome}</strong><br/>                                                                             
+                            Ritirato dal:<strong>#{datiPeriodo.ritiratoData}</strong>                                                                             
+                        </span>        
+                    </rich:tooltip>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.totOrePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.totaleOrePeriodo}" style="font: bold italic medium Palatino, serif;color: darkblue"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.assenzePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.numAssenze}" style="font: bold italic medium Palatino, serif;color: darkblue"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.percAssenzePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.percentualeAssenzePeriodo}%" 
+                                  style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.percentualeAssenzePeriodo > 25 ? 'color: red':'color: darkblue'}"
+                                  rendered="#{!risultatiPeriodoBean.viewAsProgressBar}"/>
+                    <rich:progressBar value="#{datiPeriodo.percentualeAssenzePeriodo}" maxValue="100" minValue="0"                               
+                                      rendered="#{risultatiPeriodoBean.viewAsProgressBar}">
+                        <h:outputText value="#{datiPeriodo.percentualeAssenzePeriodo}%"
+                                      style="font: bold italic medium Palatino, serif;
+                                      #{datiPeriodo.percentualeAssenzePeriodo > 25 ? 'color: red':'color: darkblue'}"/>
+                    </rich:progressBar>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.scrittoPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.scritto}" style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.insuffScritto ? 'color: red':'color: darkblue'}">
+                        <f:converter converterId="myVotiConverter"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.oralePrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.orale}" style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.insuffOrale ? 'color: red':'color: darkblue'}">
+                        <f:converter converterId="myVotiConverter"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.praticoPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.pratico}" style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.insuffPratico ? 'color: red':'color: darkblue'}">
+                        <f:converter converterId="myVotiConverter"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.giudizioPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.giudizio}" style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.insuffGiudizio ? 'color: red':'color: darkblue'}">
+                        <f:converter converterId="myVotiConverter"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.condottaPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="#{datiPeriodo.condotta}" style="font: bold italic medium Palatino, serif;
+                                  #{datiPeriodo.insuffCondotta ? 'color: red':'color: darkblue'}" 
+                                  rendered="#{!risultatiPeriodoBean.insertingCondotta}">
+                        <f:converter converterId="myVotiConverter"/>
+                    </h:outputText>
+                    <h:form id="condottaForm">
+                        <h:selectOneMenu value="#{datiPeriodo.condottaStr}" 
+                                         rendered="#{risultatiPeriodoBean.insertingCondotta}"
+                                         disabled="#{!risultatiPeriodoBean.tuttiRecordsInseritiNelTabellone}"
+                                         onchange="submit()" valueChangeListener="#{risultatiPeriodoBean.processValueChange}"
+                                         id="condottaStudentePeriodo">
+
+                            <f:selectItem itemValue="0.0" itemLabel="n.c." />
+                            <f:selectItem itemValue="4.0" itemLabel="4" />
+                            <f:selectItem itemValue="5.0" itemLabel="5" />
+                            <f:selectItem itemValue="6.0" itemLabel="6" />
+                            <f:selectItem itemValue="7.0" itemLabel="7" />
+                            <f:selectItem itemValue="8.0" itemLabel="8" />
+                            <f:selectItem itemValue="9.0" itemLabel="9" />
+                            <f:selectItem itemValue="10.0" itemLabel="10" />
+
+                            <f:param id="idPeriodo" value="#{datiPeriodo.idPeriodo}"/>
+                            <f:param id="idStudente" value="#{datiPeriodo.idStudente}"/>
+                            <f:param id="record" value="#{datiPeriodo}"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{cc.attrs.actionsPrompt}" style="font: bold italic medium Palatino, serif"/>
+                    </f:facet>
+                    <h:form id="modificaRecordTabelloneForm">
+                        <h:commandButton value="#{datiPeriodo.recordWasSaved ? 'Modificato':'Da inserire'}" id="modificaRecordTabellone"
+                                         style="font: bold italic medium Palatino, serif;
+                                         #{datiPeriodo.recordWasSaved ? 'color: green':'color: red'}"
+                                         action="#{risultatiPeriodoBean.inserisciRecordNelTabellone(datiPeriodo)}"/>
+                        <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="modificaRecordTabellone">
+                            <span style="white-space: nowrap"> Modifica o inserisce nel Tabellone i risultati di <br />
+                                <strong>#{datiPeriodo.cognome} #{datiPeriodo.nome}</strong>                                                                             
+                            </span>        
+                        </rich:tooltip>
+
+                    </h:form>
+                </rich:column>
+
+            </rich:dataTable>
+        </composite:implementation>
+    </h:body>
+</html>

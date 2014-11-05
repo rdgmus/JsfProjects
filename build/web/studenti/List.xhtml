@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListStudentiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListStudentiEmpty}" rendered="#{studentiController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{studentiController.items.rowCount > 0}">
+                    <h:outputText value="#{studentiController.pagination.pageFirstItem + 1}..#{studentiController.pagination.pageLastItem + 1}/#{studentiController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{studentiController.previous}" value="#{bundle.Previous} #{studentiController.pagination.pageSize}" rendered="#{studentiController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{studentiController.next}" value="#{bundle.Next} #{studentiController.pagination.pageSize}" rendered="#{studentiController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{studentiController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_annoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_cognome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cognome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_idStudente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idStudente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_attivo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.attivo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_ritiratoData}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ritiratoData}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_idAnnoScolastico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnnoScolastico}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_dataEntrata}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataEntrata}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentiTitle_idClasse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idClasse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{studentiController.prepareView}" value="#{bundle.ListStudentiViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{studentiController.prepareEdit}" value="#{bundle.ListStudentiEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{studentiController.destroy}" value="#{bundle.ListStudentiDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{studentiController.prepareCreate}" value="#{bundle.ListStudentiCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListStudentiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateStudentiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{studentiController.selected.annoScolastico}" title="#{bundle.CreateStudentiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_cognome}" for="cognome" />
+                    <h:inputText id="cognome" value="#{studentiController.selected.cognome}" title="#{bundle.CreateStudentiTitle_cognome}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_cognome}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{studentiController.selected.nome}" title="#{bundle.CreateStudentiTitle_nome}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_idStudente}" for="idStudente" />
+                    <h:inputText id="idStudente" value="#{studentiController.selected.idStudente}" title="#{bundle.CreateStudentiTitle_idStudente}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_idStudente}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_attivo}" for="attivo" />
+                    <h:inputText id="attivo" value="#{studentiController.selected.attivo}" title="#{bundle.CreateStudentiTitle_attivo}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_attivo}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_ritiratoData}" for="ritiratoData" />
+                    <h:inputText id="ritiratoData" value="#{studentiController.selected.ritiratoData}" title="#{bundle.CreateStudentiTitle_ritiratoData}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:inputText id="idAnnoScolastico" value="#{studentiController.selected.idAnnoScolastico}" title="#{bundle.CreateStudentiTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_idAnnoScolastico}"/>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_dataEntrata}" for="dataEntrata" />
+                    <h:inputText id="dataEntrata" value="#{studentiController.selected.dataEntrata}" title="#{bundle.CreateStudentiTitle_dataEntrata}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateStudentiLabel_idClasse}" for="idClasse" />
+                    <h:selectOneMenu id="idClasse" value="#{studentiController.selected.idClasse}" title="#{bundle.CreateStudentiTitle_idClasse}" required="true" requiredMessage="#{bundle.CreateStudentiRequiredMessage_idClasse}">
+                        <f:selectItems value="#{classiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{studentiController.create}" value="#{bundle.CreateStudentiSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{studentiController.prepareList}" value="#{bundle.CreateStudentiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateStudentiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

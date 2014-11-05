@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditMaterieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{materieController.selected.idMateria}" title="#{bundle.EditMaterieTitle_idMateria}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_materia}" for="materia" />
+                    <h:inputText id="materia" value="#{materieController.selected.materia}" title="#{bundle.EditMaterieTitle_materia}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_materia}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{materieController.selected.annoScolastico}" title="#{bundle.EditMaterieTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_giudizio}" for="giudizio" />
+                    <h:inputText id="giudizio" value="#{materieController.selected.giudizio}" title="#{bundle.EditMaterieTitle_giudizio}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_giudizio}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_scritto}" for="scritto" />
+                    <h:inputText id="scritto" value="#{materieController.selected.scritto}" title="#{bundle.EditMaterieTitle_scritto}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_scritto}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_orale}" for="orale" />
+                    <h:inputText id="orale" value="#{materieController.selected.orale}" title="#{bundle.EditMaterieTitle_orale}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_orale}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_pratico}" for="pratico" />
+                    <h:inputText id="pratico" value="#{materieController.selected.pratico}" title="#{bundle.EditMaterieTitle_pratico}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_pratico}"/>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{materieController.selected.idAnnoScolastico}" title="#{bundle.EditMaterieTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_idClasse}" for="idClasse" />
+                    <h:selectOneMenu id="idClasse" value="#{materieController.selected.idClasse}" title="#{bundle.EditMaterieTitle_idClasse}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_idClasse}">
+                        <f:selectItems value="#{classiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditMaterieLabel_idInsegnante}" for="idInsegnante" />
+                    <h:selectOneMenu id="idInsegnante" value="#{materieController.selected.idInsegnante}" title="#{bundle.EditMaterieTitle_idInsegnante}" required="true" requiredMessage="#{bundle.EditMaterieRequiredMessage_idInsegnante}">
+                        <f:selectItems value="#{insegnantiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{materieController.update}" value="#{bundle.EditMaterieSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditMaterieViewLink}"/>
+                <br />
+                <h:commandLink action="#{materieController.prepareList}" value="#{bundle.EditMaterieShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditMaterieIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

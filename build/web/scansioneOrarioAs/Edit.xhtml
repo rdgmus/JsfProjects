@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditScansioneOrarioAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_idScansione}" for="idScansione" />
+                    <h:inputText id="idScansione" value="#{scansioneOrarioAsController.selected.idScansione}" title="#{bundle.EditScansioneOrarioAsTitle_idScansione}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_idScansione}"/>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_giornoSettimana}" for="giornoSettimana" />
+                    <h:inputTextarea rows="4" cols="30" id="giornoSettimana" value="#{scansioneOrarioAsController.selected.giornoSettimana}" title="#{bundle.EditScansioneOrarioAsTitle_giornoSettimana}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_giornoSettimana}"/>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_numOraLezione}" for="numOraLezione" />
+                    <h:inputText id="numOraLezione" value="#{scansioneOrarioAsController.selected.numOraLezione}" title="#{bundle.EditScansioneOrarioAsTitle_numOraLezione}" />
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_inizia}" for="inizia" />
+                    <h:inputText id="inizia" value="#{scansioneOrarioAsController.selected.inizia}" title="#{bundle.EditScansioneOrarioAsTitle_inizia}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_inizia}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_finisce}" for="finisce" />
+                    <h:inputText id="finisce" value="#{scansioneOrarioAsController.selected.finisce}" title="#{bundle.EditScansioneOrarioAsTitle_finisce}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_finisce}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_lezione}" for="lezione" />
+                    <h:inputText id="lezione" value="#{scansioneOrarioAsController.selected.lezione}" title="#{bundle.EditScansioneOrarioAsTitle_lezione}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_lezione}"/>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_intervallo}" for="intervallo" />
+                    <h:inputText id="intervallo" value="#{scansioneOrarioAsController.selected.intervallo}" title="#{bundle.EditScansioneOrarioAsTitle_intervallo}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_intervallo}"/>
+                    <h:outputLabel value="#{bundle.EditScansioneOrarioAsLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:selectOneMenu id="idAnnoScolastico" value="#{scansioneOrarioAsController.selected.idAnnoScolastico}" title="#{bundle.EditScansioneOrarioAsTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditScansioneOrarioAsRequiredMessage_idAnnoScolastico}">
+                        <f:selectItems value="#{anniScolasticiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{scansioneOrarioAsController.update}" value="#{bundle.EditScansioneOrarioAsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditScansioneOrarioAsViewLink}"/>
+                <br />
+                <h:commandLink action="#{scansioneOrarioAsController.prepareList}" value="#{bundle.EditScansioneOrarioAsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditScansioneOrarioAsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

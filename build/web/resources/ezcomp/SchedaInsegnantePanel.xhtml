@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="SCHEDA INSEGNANTE"/>
+            <composite:editableValueHolder name="cognomeVal" targets="form:cognome"/>
+            <composite:editableValueHolder name="nomeVal" targets="form:nome"/>
+
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="insegnanteForm">
+                <h:panelGrid columns="2" rendered="#{schedaInsegnanteBean.selectedInsegnante != null}">
+                    <f:facet name="header">
+                        <h:graphicImage library="images"  name="insegnanti.jpg" alt="immagine" />
+                        <h:outputText value="#{cc.attrs.header}" style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="id" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.id}" id="id"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Cognome" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.cognome}" id="cognome"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="#{!schedaInsegnanteBean.editable}"
+                                 onchange="submit()" valueChangeListener="#{schedaInsegnanteBean.processValueChange}"
+                                 required="true"/>
+                    <h:outputText value="Nome" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.nome}" id="nome"
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="#{!schedaInsegnanteBean.editable}"
+                                 onchange="submit()" valueChangeListener="#{schedaInsegnanteBean.processValueChange}"
+                                 required="true"/>
+                    <h:outputText value="Classe" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.selectedInsegnante.idClasse.nomeClasse}"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Scuola" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.selectedInsegnante.idAnnoScolastico.idScuola.nomeScuola}"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="A.S." style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaInsegnanteBean.selectedInsegnante.idAnnoScolastico.annoScolastico}" 
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Materie" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:selectOneMenu id="materie" value="#{schedaInsegnanteBean.selectedMateria}" 
+                                     onchange="submit()" onclick="submit()" style="font: bold italic medium Palatino, serif;color: #0033cc"
+                                     valueChangeListener="#{schedaInsegnanteBean.processValueChange}">
+                        <f:selectItems value="#{schedaInsegnanteBean.selectedInsegnante.materieCollection}" 
+                                       var="thisMateria" itemValue="#{thisMateria}"/>
+                    </h:selectOneMenu>
+                    <h:panelGroup>
+                        <h:commandButton value="Edita" disabled="#{schedaInsegnanteBean.updatable}"
+                                         action="#{schedaInsegnanteBean.setUpdatable(true)}"
+                                         rendered="#{!schedaInsegnanteBean.insertingNew}"/>
+                        <h:commandButton value="Salva" rendered="#{schedaInsegnanteBean.updatable}"
+                                         action="#{schedaInsegnanteBean.updateInsegnante()}" style="color: red"/>
+                        <h:commandButton value="Cancella" rendered="#{schedaInsegnanteBean.updatable}"
+                                         action="#{schedaInsegnanteBean.setUpdatable(false)}"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:commandButton value="Nuovo Insegnante" disabled="#{schedaInsegnanteBean.insertingNew}"
+                                         action="#{schedaInsegnanteBean.setInsertingNew(true)}"
+                                         rendered="#{!schedaInsegnanteBean.editable}"/>
+                        <h:commandButton value="Inserisci" rendered="#{schedaInsegnanteBean.insertingNew}" id="inserisciInsegnante"
+                                         action="#{schedaInsegnanteBean.insertNewInsegnante()}" style="color: red"/>
+                        <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="inserisciInsegnante">
+                            <span style="white-space: nowrap">Crea l'insegnante:<br/>
+                                <strong>#{schedaInsegnanteBean.selectedInsegnante.cognome} #{schedaInsegnanteBean.selectedInsegnante.nome}</strong><br/>
+                                Classe:<strong>#{schedaInsegnanteBean.oldSelectedInsegnante.idClasse.nomeClasse}</strong><br/>                                
+                                Scuola:<strong>#{schedaInsegnanteBean.oldSelectedInsegnante.idClasse.idScuola.nomeScuola}</strong><br/>                                
+                                A.S.:<strong>#{schedaInsegnanteBean.oldSelectedInsegnante.idClasse.idAnnoScolastico.annoScolastico}</strong><br/>                                
+                            </span>        
+                        </rich:tooltip>
+                        <h:commandButton value="Cancella" rendered="#{schedaInsegnanteBean.insertingNew}"
+                                         action="#{schedaInsegnanteBean.setInsertingNew(false)}"/>
+                    </h:panelGroup>
+                    <h:commandButton value="Chiudi Scheda" 
+                                     action="#{schedaInsegnanteBean.setSelectedInsegnante(null)}" style="color: red"/>
+
+
+                </h:panelGrid>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

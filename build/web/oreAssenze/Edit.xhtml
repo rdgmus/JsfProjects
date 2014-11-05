@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOreAssenzeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_oreAssenzePK_numOra}" for="oreAssenzePK_numOra" />
+                    <h:inputText id="oreAssenzePK_numOra" value="#{oreAssenzeController.selected.oreAssenzePK.numOra}" title="#{bundle.EditOreAssenzeTitle_oreAssenzePK_numOra}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_oreAssenzePK_numOra}"/>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_assenza}" for="assenza" />
+                    <h:inputText id="assenza" value="#{oreAssenzeController.selected.assenza}" title="#{bundle.EditOreAssenzeTitle_assenza}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_assenza}"/>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_giustificaAssenza}" for="giustificaAssenza" />
+                    <h:inputText id="giustificaAssenza" value="#{oreAssenzeController.selected.giustificaAssenza}" title="#{bundle.EditOreAssenzeTitle_giustificaAssenza}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_giustificaAssenza}"/>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_ritardo}" for="ritardo" />
+                    <h:inputText id="ritardo" value="#{oreAssenzeController.selected.ritardo}" title="#{bundle.EditOreAssenzeTitle_ritardo}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_ritardo}"/>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_giustificaRitardo}" for="giustificaRitardo" />
+                    <h:inputText id="giustificaRitardo" value="#{oreAssenzeController.selected.giustificaRitardo}" title="#{bundle.EditOreAssenzeTitle_giustificaRitardo}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_giustificaRitardo}"/>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_motivoGiustifica}" for="motivoGiustifica" />
+                    <h:inputTextarea rows="4" cols="30" id="motivoGiustifica" value="#{oreAssenzeController.selected.motivoGiustifica}" title="#{bundle.EditOreAssenzeTitle_motivoGiustifica}" />
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_lezioni}" for="lezioni" />
+                    <h:selectOneMenu id="lezioni" value="#{oreAssenzeController.selected.lezioni}" title="#{bundle.EditOreAssenzeTitle_lezioni}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_lezioni}">
+                        <f:selectItems value="#{lezioniController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditOreAssenzeLabel_studenti}" for="studenti" />
+                    <h:selectOneMenu id="studenti" value="#{oreAssenzeController.selected.studenti}" title="#{bundle.EditOreAssenzeTitle_studenti}" required="true" requiredMessage="#{bundle.EditOreAssenzeRequiredMessage_studenti}">
+                        <f:selectItems value="#{studentiController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{oreAssenzeController.update}" value="#{bundle.EditOreAssenzeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditOreAssenzeViewLink}"/>
+                <br />
+                <h:commandLink action="#{oreAssenzeController.prepareList}" value="#{bundle.EditOreAssenzeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditOreAssenzeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

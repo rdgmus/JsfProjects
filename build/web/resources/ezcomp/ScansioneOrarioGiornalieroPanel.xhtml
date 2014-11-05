@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="giorno" default="GG." required="true"/>
+            <composite:attribute name="recordsList" required="true"/>
+            <composite:attribute name="edit" required="true"/>
+            <composite:attribute name="renderEdit" required="true"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="impostaOrarioForm">
+                <h:outputLabel for="#{cc.attrs.giorno}" value="Imposta Orario:" style="color: gold" rendered="#{cc.attrs.renderEdit}"/>
+                <h:selectBooleanCheckbox id="#{cc.attrs.giorno}" value="#{cc.attrs.edit}" onchange="submit()"
+                                         valueChangeListener="#{orarioScolasticoBean.processValueChange}" rendered="#{cc.attrs.renderEdit}"/>
+                <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="#{cc.attrs.giorno}" rendered="#{!cc.attrs.edit}" >
+                    <span style="white-space: nowrap">Imposta orario del:<br/>
+                        <strong>#{cc.attrs.giorno}</strong>                                                                             
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="#{cc.attrs.giorno}" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap">Termina impostazione orario del:<br/>
+                        <strong>#{cc.attrs.giorno}</strong>                                                                             
+                    </span>        
+                </rich:tooltip>
+            </h:form>
+            <h:form id="scansioneTableForm">
+                <rich:dataTable value="#{cc.attrs.recordsList}" var="records" id="giornoTable" style="background-color: yellow"
+                                onrowmouseover="this.style.backgroundColor='#eeb056'"  
+                                onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"> 
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column breakRowBefore="true" colspan="8">
+                                <h:outputText value="#{cc.attrs.giorno}" style="font: bold italic large Palatino, serif"/>
+                            </rich:column>
+                            <rich:column breakRowBefore="true">
+                                <h:outputText value="Ora" style="color: deeppink" />
+                            </rich:column>
+                            <rich:column colspan="2">
+                                <h:outputText value="da:" style="color: #e33b06"/>
+                            </rich:column>
+                            <rich:column colspan="2">
+                                <h:outputText value="a:" style="color: #e33b06" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText value="Att." style="color: deeppink" />
+                            </rich:column>
+
+                        </rich:columnGroup>
+                    </f:facet>
+                    <rich:column id="ora" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                        <h:outputText value="#{records.numOraLezione}" 
+                                      style="#{cc.attrs.edit ? 'font: bold italic small Palatino, serif':'font: bold italic large Palatino, serif'}" 
+                                      rendered="#{records.numOraLezione != null}"/>
+                        <h:outputText value="[I]" 
+                                      style="#{cc.attrs.edit ? 'font: bold italic small Palatino, serif':'font: bold italic large Palatino, serif'}"
+                                      rendered="#{records.numOraLezione == null}"/>
+                    </rich:column>
+                    <rich:column id="da" colspan="2" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                        <h:outputText value="#{records.inizia}" style="font: bold italic large Palatino, serif" 
+                                      rendered="#{!cc.attrs.edit}">
+                            <f:converter converterId="myTimeConverter" for="da"/>
+                        </h:outputText>
+                        <h:inputText value="#{records.inizia}" style="font: bold italic small Palatino, serif" 
+                                     rendered="#{cc.attrs.edit}" size="2" id="iniziaOre" onchange="submit()" 
+                                     valueChangeListener="#{orarioScolasticoBean.processValueChange}">
+                            <f:converter converterId="myTimeConverter" for="iniziaOre"/>
+                            <f:param value="#{records.idScansione}" name="idScansione"/>
+                        </h:inputText>
+                    </rich:column>
+                    <rich:column id="a" colspan="2" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}">
+                        <h:outputText value="#{records.finisce}" style="font: bold italic large Palatino, serif"
+                                      rendered="#{!cc.attrs.edit}">
+                            <f:converter converterId="myTimeConverter" for="a"/>
+                        </h:outputText>
+                        <h:inputText value="#{records.finisce}" style="font: bold italic small Palatino, serif" 
+                                     rendered="#{cc.attrs.edit}" size="2" id="finisceOre" onchange="submit()"
+                                     valueChangeListener="#{orarioScolasticoBean.processValueChange}">
+                            <f:converter converterId="myTimeConverter" for="finisceOre"/>
+                            <f:param value="#{records.idScansione}" name="idScansione"/>
+                        </h:inputText>
+                    </rich:column>
+                    <rich:column id="attivita" style="#{records.intervallo!=0 ? 'background-color: lemonchiffon':'background-color: #{a4jSkin.rowBackgroundColor}'}" >
+                        <h:outputText value="#{records.lezione!=0 ? 'Lez.':''}#{records.intervallo!=0 ?'Int.':''}" 
+                                      style="font: bold italic large Palatino, serif" rendered="#{!cc.attrs.edit}"/>
+                        <h:outputLabel for="selectAttivita" value="#{records.lezione!=0 ? 'Lez.':'Int.'}" style="font: bold italic small Palatino, serif" 
+                                       rendered="#{cc.attrs.edit}"/>
+                        <h:selectBooleanCheckbox id="selectAttivita" value="#{records.lezioneAsBool}" onchange="submit()"
+                                                 valueChangeListener="#{orarioScolasticoBean.processValueChange}" rendered="#{cc.attrs.edit}" >
+                            <f:param name="rigaOrario" value="#{records.idScansione}"/>
+                        </h:selectBooleanCheckbox>
+                    </rich:column>
+                </rich:dataTable>
+            </h:form>
+            <h:form id="selectedOraForm">
+                <h:panelGrid rendered="#{cc.attrs.edit}" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Imposta Orario" style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <rich:column>
+                        <h:commandButton value="Cancella Ora" style="font: bold italic small Palatino, serif;color: deeppink" id="cancellaOra"
+                                         actionListener="#{orarioScolasticoBean.processAction}"
+                                         rendered="#{orarioScolasticoBean.selectedOrario != null}">
+                            <f:param name="giorno" value="#{cc.attrs.giorno}"/>
+                        </h:commandButton>
+                        <h:outputText value="Seleziona =>" style="color: gold" rendered="#{orarioScolasticoBean.selectedOrario == null}"/>
+                    </rich:column>
+                    <rich:column>
+                        <h:selectOneMenu id="selectedOrario" value="#{orarioScolasticoBean.selectedOrario}" 
+                                         onchange="submit()"  rendered="#{cc.attrs.recordsList.size() > 0}"
+                                         valueChangeListener="#{orarioScolasticoBean.processValueChange}" 
+                                         style="font: bold italic small Palatino, serif">
+                            <f:selectItems value="#{cc.attrs.recordsList}" 
+                                           var="thisOrario" itemValue="#{thisOrario}" />
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column>
+                        <h:commandButton value="Aggiungi Ora" style="font: bold italic small Palatino, serif;color: deeppink" id="aggiungiOra"
+                                         actionListener="#{orarioScolasticoBean.processAction}">
+                            <f:param name="giorno" value="#{cc.attrs.giorno}"/>
+                        </h:commandButton>
+                    </rich:column>
+                    <rich:column>
+                        <h:commandButton value="Aggiungi Intervallo" style="font: bold italic small Palatino, serif;color: deeppink" id="aggiungiIntervallo"
+                                         actionListener="#{orarioScolasticoBean.processAction}">
+                            <f:param name="giorno" value="#{cc.attrs.giorno}"/>
+                        </h:commandButton>
+                    </rich:column>
+                    <rich:column>
+                        <h:selectOneMenu id="giorniOrario" value="#{orarioScolasticoBean.selectedOrarioDelGiorno}" 
+                                         onchange="submit()"  
+                                         valueChangeListener="#{orarioScolasticoBean.processValueChange}" 
+                                         style="font: bold italic small Palatino, serif"
+                                         rendered="#{orarioScolasticoBean.giorniOrario.size() > 0}">
+
+                            <f:selectItems value="#{orarioScolasticoBean.giorniOrario}" 
+                                           var="thisGiorno" itemValue="#{thisGiorno}"/>
+                        </h:selectOneMenu>
+                    </rich:column>
+                    <rich:column>
+                        <h:commandButton value="Copia Orario" style="font: bold italic small Palatino, serif;color: blueviolet" id="copiaOrario"
+                                         actionListener="#{orarioScolasticoBean.processAction}" 
+                                         rendered="#{orarioScolasticoBean.giorniOrario.size() > 0}">
+                            <f:param name="giorno" value="#{cc.attrs.giorno}"/>
+                        </h:commandButton>
+                    </rich:column>
+                    <h:commandButton value="Cancella Orario" style="font: bold italic small Palatino, serif;color: blueviolet" id="cancellaOrario"
+                                     actionListener="#{orarioScolasticoBean.processAction}" 
+                                     rendered="#{orarioScolasticoBean.giorniOrario.size() > 0}">
+                        <f:param name="giorno" value="#{cc.attrs.giorno}"/>
+                    </h:commandButton>
+                </h:panelGrid>
+                <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="aggiungiOra" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap"><strong>Aggiunge riga orario:</strong><br/>
+                        alla fine del Giorno:<strong>#{orarioScolasticoBean.selectedGiorno}</strong><br/> 
+                        di:<strong>#{orarioScolasticoBean.durataOra}</strong> minuti<br/>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="cancellaOra" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap">Cancella riga orario selezionata:<br/>
+                        <strong>#{orarioScolasticoBean.selectedOrario}</strong><br/>  
+                        dal Giorno:<strong>#{orarioScolasticoBean.selectedGiorno}</strong>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt6" styleClass="tooltip" layout="block" target="selectedOrario" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap">Clicca per selezionare una specifica Riga orario<br/>
+                        per le funzioni:<strong>Aggiungi Ora e Cancella Ora</strong>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt8" styleClass="tooltip" layout="block" target="copiaOrario" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap">Copia orario:<br/>
+                        dal Giorno:<strong>#{orarioScolasticoBean.selectedOrarioDelGiorno}</strong><br/>
+                        e sostituisce orario del Giorno:<strong>#{orarioScolasticoBean.selectedGiorno}</strong>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt9" styleClass="tooltip" layout="block" target="giorniOrario" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap">Orario da copiare:<br/>
+                        dal GG.:<strong>#{orarioScolasticoBean.selectedOrarioDelGiorno}</strong>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt10" styleClass="tooltip" layout="block" target="aggiungiIntervallo" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap"><strong>Aggiunge intervallo orario:</strong><br/>
+                        alla fine del Giorno:<strong>#{orarioScolasticoBean.selectedGiorno}</strong><br/> 
+                        di:<strong>#{orarioScolasticoBean.durataIntervallo}</strong> minuti<br/>
+                    </span>        
+                </rich:tooltip>
+                <rich:tooltip id="tt11" styleClass="tooltip" layout="block" target="cancellaOrario" rendered="#{cc.attrs.edit}">
+                    <span style="white-space: nowrap"><strong>Cancella completamente l'orario:</strong><br/>
+                        del Giorno:<strong>#{orarioScolasticoBean.selectedGiorno}</strong><br/> 
+                    </span>        
+                </rich:tooltip>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="registriPrompt" default="Registri dei Professori: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="scuoleForm">
+                <h:panelGrid columns="3" bgcolor="white">
+                    <h:outputLabel for="selectedScuola"
+                                   value="#{cc.attrs.scuolePrompt}  [#{permessiRegistriWizardBean.listaScuole.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                    <h:selectOneMenu id="selectedScuola" value="#{permessiRegistriWizardBean.selectedScuola}" 
+                                     onchange="submit()" style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}"
+                                     readonly="#{permessiRegistriWizardBean.crudAction}">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listaScuole}" 
+                                       var="thisScuola" itemValue="#{thisScuola}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="#{permessiRegistriWizardBean.selectedScuola.idScuola}"/>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="selectedScuola">
+                <span style="white-space: nowrap">
+                    Scuola selezionata:<br/>
+                    <strong>id = #{permessiRegistriWizardBean.selectedScuola.idScuola}</strong><br/>
+                    <strong>"#{permessiRegistriWizardBean.selectedScuola.nomeScuola}"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <h:form id="asForm">
+                <h:panelGrid columns="3" bgcolor="white" >
+                    <h:outputLabel for="selectedAS"
+                                   value="#{cc.attrs.anniscolasticiPrompt}  [#{permessiRegistriWizardBean.listaAS.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>
+
+                    <h:selectOneMenu id="selectedAS" value="#{permessiRegistriWizardBean.selectedAS}" 
+                                     onchange="submit()" style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"
+                                     readonly="#{permessiRegistriWizardBean.crudAction}">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listaAS}" 
+                                       var="thisAS" itemValue="#{thisAS}"   />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="#{permessiRegistriWizardBean.selectedAS.idAnnoScolastico}"/>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="selectedAS">
+                <span style="white-space: nowrap">
+                    Anno Scolastico selezionato:<br/>
+                    <strong>id = #{permessiRegistriWizardBean.selectedAS.idAnnoScolastico}</strong><br/>
+                    <strong>"#{permessiRegistriWizardBean.selectedAS.annoScolastico}"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <h:form id="classiForm">
+                <h:panelGrid columns="3" bgcolor="white" >
+                    <h:outputLabel for="selectedClasse"
+                                   value="#{cc.attrs.classiPrompt}  [#{permessiRegistriWizardBean.listaClassi.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>
+                    <h:selectOneMenu id="selectedClasse" value="#{permessiRegistriWizardBean.selectedClasse}" 
+                                     onchange="submit()" style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}"
+                                     readonly="#{permessiRegistriWizardBean.crudAction}">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listaClassi}" 
+                                       var="thisClasse" itemValue="#{thisClasse}"  />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="#{permessiRegistriWizardBean.selectedClasse.idClasse}"/>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="selectedClasse">
+                <span style="white-space: nowrap">
+                    Classe selezionata:<br/> 
+                    <strong>id = #{permessiRegistriWizardBean.selectedClasse.idClasse}</strong><br/>
+                    <strong>"#{permessiRegistriWizardBean.selectedClasse.nomeClasse}"</strong><br/>                                
+                </span>    
+            </rich:tooltip>
+            <h:form id="insegnantiForm">
+                <h:panelGrid columns="3" bgcolor="white" >
+                    <h:outputLabel for="selectedInsegnante"
+                                   value="#{cc.attrs.insegnantiPrompt}  [#{permessiRegistriWizardBean.listaInsegnanti.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>
+
+                    <h:selectOneMenu id="selectedInsegnante" value="#{permessiRegistriWizardBean.selectedInsegnante}" 
+                                     onchange="submit()"  
+                                     readonly="#{permessiRegistriWizardBean.crudAction}"
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listaInsegnanti}"                                       
+                                       var="thisInsegnante" itemValue="#{thisInsegnante}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputText value="#{permessiRegistriWizardBean.selectedInsegnante.idInsegnante}"/>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt4" styleClass="tooltip" layout="block" target="selectedInsegnante">
+                <span style="white-space: nowrap">
+                    Insegnante selezionato:<br/>  
+                    <strong>id = #{permessiRegistriWizardBean.selectedInsegnante.idInsegnante}</strong><br/>
+                    <strong>"#{permessiRegistriWizardBean.selectedInsegnante.cognome} #{permessiRegistriWizardBean.selectedInsegnante.nome}"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <h:form id="materieForm">
+                <h:panelGrid columns="3" bgcolor="white" >
+                    <h:outputLabel for="selectedMateria"
+                                   value="#{cc.attrs.materiePrompt}  [#{permessiRegistriWizardBean.listaMaterie.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>
+
+                    <h:selectOneMenu id="selectedMateria" value="#{permessiRegistriWizardBean.selectedMateria}" 
+                                     onchange="submit()"  
+                                     readonly="#{permessiRegistriWizardBean.crudAction}"
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listaMaterie}"                                       
+                                       var="thisMateria" itemValue="#{thisMateria}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputText value="#{permessiRegistriWizardBean.selectedMateria.idMateria}"/>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt5" styleClass="tooltip" layout="block" target="selectedMateria">
+                <span style="white-space: nowrap">
+                    Materia selezionata:<br/>  
+                    <strong>id = #{permessiRegistriWizardBean.selectedMateria.idMateria}</strong><br/>
+                    <strong>"#{permessiRegistriWizardBean.selectedMateria.materia}"</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+        </composite:implementation>
+    </h:body>
+</html>

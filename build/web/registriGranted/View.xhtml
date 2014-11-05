@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRegistriGrantedTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_ruolo}"/>
+                    <h:outputText value="#{registriGrantedController.selected.ruolo}" title="#{bundle.ViewRegistriGrantedTitle_ruolo}"/>
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_idMateria}"/>
+                    <h:outputText value="#{registriGrantedController.selected.idMateria}" title="#{bundle.ViewRegistriGrantedTitle_idMateria}"/>
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_idGrant}"/>
+                    <h:outputText value="#{registriGrantedController.selected.idGrant}" title="#{bundle.ViewRegistriGrantedTitle_idGrant}"/>
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_readGranted}"/>
+                    <h:outputText value="#{registriGrantedController.selected.readGranted}" title="#{bundle.ViewRegistriGrantedTitle_readGranted}"/>
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_writeGranted}"/>
+                    <h:outputText value="#{registriGrantedController.selected.writeGranted}" title="#{bundle.ViewRegistriGrantedTitle_writeGranted}"/>
+                    <h:outputText value="#{bundle.ViewRegistriGrantedLabel_idUtente}"/>
+                    <h:outputText value="#{registriGrantedController.selected.idUtente}" title="#{bundle.ViewRegistriGrantedTitle_idUtente}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{registriGrantedController.destroyAndView}" value="#{bundle.ViewRegistriGrantedDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRegistriGrantedEditLink}"/>
+                <br />
+                <h:commandLink action="#{registriGrantedController.prepareCreate}" value="#{bundle.ViewRegistriGrantedCreateLink}" />
+                <br />
+                <h:commandLink action="#{registriGrantedController.prepareList}" value="#{bundle.ViewRegistriGrantedShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRegistriGrantedIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

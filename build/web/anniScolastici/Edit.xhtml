@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAnniScolasticiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:inputText id="idAnnoScolastico" value="#{anniScolasticiController.selected.idAnnoScolastico}" title="#{bundle.EditAnniScolasticiTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditAnniScolasticiRequiredMessage_idAnnoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{anniScolasticiController.selected.annoScolastico}" title="#{bundle.EditAnniScolasticiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditAnniScolasticiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{anniScolasticiController.selected.startDate}" title="#{bundle.EditAnniScolasticiTitle_startDate}" required="true" requiredMessage="#{bundle.EditAnniScolasticiRequiredMessage_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{anniScolasticiController.selected.endDate}" title="#{bundle.EditAnniScolasticiTitle_endDate}" required="true" requiredMessage="#{bundle.EditAnniScolasticiRequiredMessage_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_parametriOrarioAs}" for="parametriOrarioAs" />
+                    <h:selectOneMenu id="parametriOrarioAs" value="#{anniScolasticiController.selected.parametriOrarioAs}" title="#{bundle.EditAnniScolasticiTitle_parametriOrarioAs}" >
+                        <f:selectItems value="#{parametriOrarioAsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAnniScolasticiLabel_idScuola}" for="idScuola" />
+                    <h:selectOneMenu id="idScuola" value="#{anniScolasticiController.selected.idScuola}" title="#{bundle.EditAnniScolasticiTitle_idScuola}" required="true" requiredMessage="#{bundle.EditAnniScolasticiRequiredMessage_idScuola}">
+                        <f:selectItems value="#{scuoleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{anniScolasticiController.update}" value="#{bundle.EditAnniScolasticiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAnniScolasticiViewLink}"/>
+                <br />
+                <h:commandLink action="#{anniScolasticiController.prepareList}" value="#{bundle.EditAnniScolasticiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAnniScolasticiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

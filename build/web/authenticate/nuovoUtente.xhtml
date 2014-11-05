@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ezcomp="http://java.sun.com/jsf/composite/ezcomp"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+
+    <h:body>
+        <h2 class="jsfcrud_h2">Registrazione nuovo Utente del</h2> <h1 class="jsfcrud_h1">Registro Scolastico</h1>
+        <h:form>
+            <ezcomp:LogoRegistroScolasticoPanel intestazioneBean="#{intestazioneBean}"
+                                                loginBean="#{myLoginBean}" 
+                                                renderBackButton="true"
+                                                backButtonAction="#{myLoginBean.backToIntestazione()}"
+                                                renderHeader="false"
+                                                renderUser="false"
+                                                renderLogoutButton="false"
+                                                backButtonText="Indietro"/>
+        </h:form>
+        <div id="compositecomponent">
+            <ezcomp:NuovoUtentePanel myNuovoUtenteBean="#{myNuovoUtenteBean}"
+                                     registraUtenteAction="#{myNuovoUtenteBean.register()}">
+
+                <f:validateRegex pattern=".+@.+\.[a-zA-Z]+" for="emailVal"/>
+                <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})"
+                                 for="passwordVal"/>
+                <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,10})"
+                                 for="confirmPasswordVal"/>
+            </ezcomp:NuovoUtentePanel>
+        </div>
+        <rich:notifyMessages nonblocking="true"/>
+    </h:body>
+</html>

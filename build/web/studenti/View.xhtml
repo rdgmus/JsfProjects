@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewStudentiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStudentiLabel_annoScolastico}"/>
+                    <h:outputText value="#{studentiController.selected.annoScolastico}" title="#{bundle.ViewStudentiTitle_annoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_cognome}"/>
+                    <h:outputText value="#{studentiController.selected.cognome}" title="#{bundle.ViewStudentiTitle_cognome}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_nome}"/>
+                    <h:outputText value="#{studentiController.selected.nome}" title="#{bundle.ViewStudentiTitle_nome}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_idStudente}"/>
+                    <h:outputText value="#{studentiController.selected.idStudente}" title="#{bundle.ViewStudentiTitle_idStudente}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_attivo}"/>
+                    <h:outputText value="#{studentiController.selected.attivo}" title="#{bundle.ViewStudentiTitle_attivo}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_ritiratoData}"/>
+                    <h:outputText value="#{studentiController.selected.ritiratoData}" title="#{bundle.ViewStudentiTitle_ritiratoData}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{studentiController.selected.idAnnoScolastico}" title="#{bundle.ViewStudentiTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_dataEntrata}"/>
+                    <h:outputText value="#{studentiController.selected.dataEntrata}" title="#{bundle.ViewStudentiTitle_dataEntrata}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudentiLabel_idClasse}"/>
+                    <h:outputText value="#{studentiController.selected.idClasse}" title="#{bundle.ViewStudentiTitle_idClasse}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{studentiController.destroyAndView}" value="#{bundle.ViewStudentiDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewStudentiEditLink}"/>
+                <br />
+                <h:commandLink action="#{studentiController.prepareCreate}" value="#{bundle.ViewStudentiCreateLink}" />
+                <br />
+                <h:commandLink action="#{studentiController.prepareList}" value="#{bundle.ViewStudentiShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewStudentiIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOreAssenzeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOreAssenzeEmpty}" rendered="#{oreAssenzeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{oreAssenzeController.items.rowCount > 0}">
+                    <h:outputText value="#{oreAssenzeController.pagination.pageFirstItem + 1}..#{oreAssenzeController.pagination.pageLastItem + 1}/#{oreAssenzeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{oreAssenzeController.previous}" value="#{bundle.Previous} #{oreAssenzeController.pagination.pageSize}" rendered="#{oreAssenzeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{oreAssenzeController.next}" value="#{bundle.Next} #{oreAssenzeController.pagination.pageSize}" rendered="#{oreAssenzeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{oreAssenzeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_oreAssenzePK_numOra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oreAssenzePK.numOra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_assenza}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assenza}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_giustificaAssenza}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.giustificaAssenza}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_ritardo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ritardo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_giustificaRitardo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.giustificaRitardo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_motivoGiustifica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motivoGiustifica}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_lezioni}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lezioni}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOreAssenzeTitle_studenti}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.studenti}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{oreAssenzeController.prepareView}" value="#{bundle.ListOreAssenzeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oreAssenzeController.prepareEdit}" value="#{bundle.ListOreAssenzeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{oreAssenzeController.destroy}" value="#{bundle.ListOreAssenzeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{oreAssenzeController.prepareCreate}" value="#{bundle.ListOreAssenzeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOreAssenzeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAnniScolasticiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.idAnnoScolastico}" title="#{bundle.ViewAnniScolasticiTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_annoScolastico}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.annoScolastico}" title="#{bundle.ViewAnniScolasticiTitle_annoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_startDate}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.startDate}" title="#{bundle.ViewAnniScolasticiTitle_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_endDate}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.endDate}" title="#{bundle.ViewAnniScolasticiTitle_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_parametriOrarioAs}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.parametriOrarioAs}" title="#{bundle.ViewAnniScolasticiTitle_parametriOrarioAs}"/>
+                    <h:outputText value="#{bundle.ViewAnniScolasticiLabel_idScuola}"/>
+                    <h:outputText value="#{anniScolasticiController.selected.idScuola}" title="#{bundle.ViewAnniScolasticiTitle_idScuola}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{anniScolasticiController.destroyAndView}" value="#{bundle.ViewAnniScolasticiDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAnniScolasticiEditLink}"/>
+                <br />
+                <h:commandLink action="#{anniScolasticiController.prepareCreate}" value="#{bundle.ViewAnniScolasticiCreateLink}" />
+                <br />
+                <h:commandLink action="#{anniScolasticiController.prepareList}" value="#{bundle.ViewAnniScolasticiShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAnniScolasticiIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

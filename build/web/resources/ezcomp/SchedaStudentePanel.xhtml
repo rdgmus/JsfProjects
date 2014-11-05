@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="header" default="SCHEDA STUDENTE"/>
+            <composite:editableValueHolder name="cognomeVal" targets="form:cognome"/>
+            <composite:editableValueHolder name="nomeVal" targets="form:nome"/>
+            <composite:attribute name="riepilogoAssenzeAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+            <composite:attribute name="riepilogoVotiAction"
+                                 method-signature="java.lang.String action()" required="true"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="studenteForm">
+                <h:panelGrid columns="2" rendered="#{schedaStudenteBean.selectedStudente!=null}">
+                    <f:facet name="header">
+                        <h:graphicImage library="images"  name="prove-invalsi.gif" alt="immagine" />
+                        <h:outputText value="#{cc.attrs.header}" style="font: bold italic large Palatino, serif"/>
+                    </f:facet>
+                    <h:outputText value="id" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.id}" id="id"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Cognome" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.cognome}" id="cognome"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="#{!schedaStudenteBean.editable}"
+                                 onchange="submit()" valueChangeListener="#{schedaStudenteBean.processValueChange}"
+                                 required="true"/>
+                    <h:outputText value="Nome" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.nome}" id="nome"
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="#{!schedaStudenteBean.editable}"
+                                 onchange="submit()" valueChangeListener="#{schedaStudenteBean.processValueChange}"
+                                 required="true"/>
+                    <h:outputText value="Classe" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.selectedStudente.idClasse.nomeClasse}"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Scuola" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.selectedStudente.idClasse.idScuola.nomeScuola}"  
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="A.S." style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:inputText value="#{schedaStudenteBean.selectedStudente.annoScolastico}" 
+                                 style="font: bold italic medium Palatino, serif;color: #0033cc" readonly="true"/>
+                    <h:outputText value="Data Entrata" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <rich:calendar value="#{schedaStudenteBean.dataEntrata}" id="dataEntrata"
+                                   locale="#{schedaStudenteBean.locale}"
+                                   popup="#{schedaStudenteBean.popup}"
+                                   datePattern="#{schedaStudenteBean.pattern}"
+                                   showApplyButton="#{schedaStudenteBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="#{!schedaStudenteBean.editable}"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                    <h:outputText value="Ritirato in Data" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <rich:calendar value="#{schedaStudenteBean.ritiratoData}" id="ritiratoData"
+                                   locale="#{schedaStudenteBean.locale}"
+                                   popup="#{schedaStudenteBean.popup}"
+                                   datePattern="#{schedaStudenteBean.pattern}"
+                                   showApplyButton="#{schedaStudenteBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="#{!schedaStudenteBean.editable}"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{schedaStudenteBean.processValueChange}"/>
+                    <h:outputText value="Attivo" style="font: bold italic medium Palatino, serif;color: gold"/>
+                    <h:selectBooleanCheckbox value="#{schedaStudenteBean.attivo}" id="attivo"
+                                             disabled="true"/>
+                    <h:panelGroup>
+                        <h:commandButton value="Edita" disabled="#{schedaStudenteBean.updatable}"
+                                         action="#{schedaStudenteBean.setUpdatable(true)}"
+                                         rendered="#{!schedaStudenteBean.insertingNew}"/>
+                        <h:commandButton value="Salva" rendered="#{schedaStudenteBean.updatable}"
+                                         action="#{schedaStudenteBean.updateStudent()}" style="color: red"/>
+                        <h:commandButton value="Cancella" rendered="#{schedaStudenteBean.updatable}"
+                                         action="#{schedaStudenteBean.setUpdatable(false)}"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:commandButton value="Nuovo Studente" disabled="#{schedaStudenteBean.insertingNew}"
+                                         action="#{schedaStudenteBean.setInsertingNew(true)}"
+                                         rendered="#{!schedaStudenteBean.editable}"/>
+                        <h:commandButton value="Inserisci" rendered="#{schedaStudenteBean.insertingNew}" id="inserisciStudente"
+                                         action="#{schedaStudenteBean.insertNewStudent()}" style="color: red"/>
+                        <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="inserisciStudente">
+                            <span style="white-space: nowrap">Crea lo studente:<br/>
+                                <strong>#{schedaStudenteBean.selectedStudente.cognome} #{schedaStudenteBean.selectedStudente.nome}</strong><br/>
+                                Classe:<strong>#{schedaStudenteBean.oldSelectedStudente.idClasse.nomeClasse}</strong><br/>                                
+                                Scuola:<strong>#{schedaStudenteBean.oldSelectedStudente.idClasse.idScuola.nomeScuola}</strong><br/>                                
+                                A.S.:<strong>#{schedaStudenteBean.oldSelectedStudente.idClasse.idAnnoScolastico.annoScolastico}</strong><br/>                                
+                            </span>        
+                        </rich:tooltip>
+                        <h:commandButton value="Cancella" rendered="#{schedaStudenteBean.insertingNew}"
+                                         action="#{schedaStudenteBean.setInsertingNew(false)}"/>
+                    </h:panelGroup>
+                    <h:commandButton value="Riepilogo Assenze" id="riepilogoAssenzeButton"
+                                     action="#{cc.attrs.riepilogoAssenzeAction}" style="color: #e33b06"/>
+                    <h:commandButton value="Riepilogo Voti" id="riepilogoVotiButton"
+                                     action="#{cc.attrs.riepilogoVotiAction}" style="color: #e33b06"/>
+                    <h:commandButton value="Chiudi Scheda" 
+                                     action="#{schedaStudenteBean.setSelectedStudente(null)}" style="color: red"/>
+
+                </h:panelGrid>
+                <rich:message for="cognome" style="color: goldenrod"/>
+                <rich:message for="nome" style="color: goldenrod"/>
+            </h:form>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="riepilogoAssenzeButton">
+                <span style="white-space: nowrap">Riepilogo delle assenze<br/>
+                    Studente:<strong>#{schedaStudenteBean.selectedStudente.cognome} #{schedaStudenteBean.selectedStudente.nome}</strong><br/>
+                    Classe:<strong>#{schedaStudenteBean.selectedStudente.idClasse.nomeClasse}</strong><br/>                                
+                    Scuola:<strong>#{schedaStudenteBean.selectedStudente.idClasse.idScuola.nomeScuola}</strong><br/>                                
+                    A.S.:<strong>#{schedaStudenteBean.selectedStudente.idClasse.idAnnoScolastico.annoScolastico}</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="riepilogoVotiButton">
+                <span style="white-space: nowrap">Riepilogo dei voti conseguiti<br/>
+                    Studente:<strong>#{schedaStudenteBean.selectedStudente.cognome} #{schedaStudenteBean.selectedStudente.nome}</strong><br/>
+                    Classe:<strong>#{schedaStudenteBean.selectedStudente.idClasse.nomeClasse}</strong><br/>                                
+                    Scuola:<strong>#{schedaStudenteBean.selectedStudente.idClasse.idScuola.nomeScuola}</strong><br/>                                
+                    A.S.:<strong>#{schedaStudenteBean.selectedStudente.idClasse.idAnnoScolastico.annoScolastico}</strong><br/>                                
+                </span>        
+            </rich:tooltip>
+        </composite:implementation>
+    </h:body>
+</html>

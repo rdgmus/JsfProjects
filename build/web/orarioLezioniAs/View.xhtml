@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOrarioLezioniAsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idOrarioLezioni}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idOrarioLezioni}" title="#{bundle.ViewOrarioLezioniAsTitle_idOrarioLezioni}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_materia}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.materia}" title="#{bundle.ViewOrarioLezioniAsTitle_materia}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_giorno}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.giorno}" title="#{bundle.ViewOrarioLezioniAsTitle_giorno}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_oraInizio}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.oraInizio}" title="#{bundle.ViewOrarioLezioniAsTitle_oraInizio}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_oraFine}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.oraFine}" title="#{bundle.ViewOrarioLezioniAsTitle_oraFine}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_nomeAula}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.nomeAula}" title="#{bundle.ViewOrarioLezioniAsTitle_nomeAula}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_nomeClasse}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.nomeClasse}" title="#{bundle.ViewOrarioLezioniAsTitle_nomeClasse}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idAnnoScolastico}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idAnnoScolastico}" title="#{bundle.ViewOrarioLezioniAsTitle_idAnnoScolastico}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idAula}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idAula}" title="#{bundle.ViewOrarioLezioniAsTitle_idAula}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idClasse}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idClasse}" title="#{bundle.ViewOrarioLezioniAsTitle_idClasse}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idMateria}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idMateria}" title="#{bundle.ViewOrarioLezioniAsTitle_idMateria}"/>
+                    <h:outputText value="#{bundle.ViewOrarioLezioniAsLabel_idScansione}"/>
+                    <h:outputText value="#{orarioLezioniAsController.selected.idScansione}" title="#{bundle.ViewOrarioLezioniAsTitle_idScansione}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{orarioLezioniAsController.destroyAndView}" value="#{bundle.ViewOrarioLezioniAsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOrarioLezioniAsEditLink}"/>
+                <br />
+                <h:commandLink action="#{orarioLezioniAsController.prepareCreate}" value="#{bundle.ViewOrarioLezioniAsCreateLink}" />
+                <br />
+                <h:commandLink action="#{orarioLezioniAsController.prepareList}" value="#{bundle.ViewOrarioLezioniAsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOrarioLezioniAsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

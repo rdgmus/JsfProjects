@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="utentiListPrompt" default="Utenti della Scuola: "/>
+            <composite:attribute name="ruoliListPrompt" default="Ruoli ricopribili: "/>
+            <composite:attribute name="ruoliGrantedListPrompt" default="Ruoli ricoperti: "/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="utentiForm">
+                <h:panelGrid columns="2" bgcolor="white" >
+                    <h:outputLabel for="selectedUtenteScuola"
+                                   value="#{cc.attrs.utentiListPrompt} [#{permessiRegistriWizardBean.listUtenti.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>                            
+                    <h:selectOneMenu id="selectedUtenteScuola" value="#{permessiRegistriWizardBean.selectedUtente}" 
+                                     onchange="submit()" 
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}" 
+                                     style="color: crimson;font: bold italic large Palatino, serif">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listUtenti}" 
+                                       var="utenteRegistro" itemValue="#{utenteRegistro}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="selectedUtenteScuola">
+                <span style="white-space: nowrap">
+                    Utenti della scuola:<br/>  
+                    <strong>Scegli l'utente per il quale vuoi abilitare o disabilitare</strong><br/>
+                    <strong> i permessi di lettura e/o scrittura</strong>
+                </span>        
+            </rich:tooltip>
+            <h:form id="ruoliGrantedToUtentiForm">
+                <h:panelGrid columns="2" bgcolor="white" >
+                    <h:outputLabel for="selectedRuoloGrantedToUtente"
+                                   value="#{cc.attrs.ruoliGrantedListPrompt} [#{permessiRegistriWizardBean.listRuoliGrantedToUtente.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>                            
+                    <h:selectOneMenu id="selectedRuoloGrantedToUtente" value="#{permessiRegistriWizardBean.selectedRuoloGrantedToUtente}" 
+                                     onchange="submit()" 
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}" 
+                                     style="color: crimson;font: bold italic large Palatino, serif">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listRuoliGrantedToUtente}" 
+                                       var="ruoloGrantedToUtente" itemValue="#{ruoloGrantedToUtente}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="selectedRuoloGrantedToUtente">
+                <span style="white-space: nowrap">
+                    <strong>Ruoli garantiti all'utente</strong><br/>
+                </span>        
+            </rich:tooltip>
+            <h:form id="ruoliForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedRuoloUtente"
+                                   value="#{cc.attrs.ruoliListPrompt} [#{permessiRegistriWizardBean.listRuoliUtente.size()}]" 
+                                   style="font: bold italic large Palatino, serif;color: #0033cc"/>                            
+                    <h:selectOneMenu id="selectedRuoloUtente" value="#{permessiRegistriWizardBean.selectedRuoloUtente}" 
+                                     onchange="submit()" 
+                                     valueChangeListener="#{permessiRegistriWizardBean.processValueChange}" 
+                                     style="color: crimson;font: bold italic large Palatino, serif">
+                        <f:selectItems value="#{permessiRegistriWizardBean.listRuoliUtente}" 
+                                       var="ruoloUtente" itemValue="#{ruoloUtente}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt3" styleClass="tooltip" layout="block" target="selectedRuoloUtente">
+                <span style="white-space: nowrap">
+                    Ruoli ricopribili dall'utente:<br/>  
+                    <strong>Scegli il ruolo che vuoi rendere disponibile</strong><br/>
+                    <strong>per l'utente</strong>
+                </span>        
+            </rich:tooltip>
+        </composite:implementation>
+    </h:body>
+</html>

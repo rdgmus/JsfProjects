@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListRegistriGrantedTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListRegistriGrantedEmpty}" rendered="#{registriGrantedController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{registriGrantedController.items.rowCount > 0}">
+                    <h:outputText value="#{registriGrantedController.pagination.pageFirstItem + 1}..#{registriGrantedController.pagination.pageLastItem + 1}/#{registriGrantedController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{registriGrantedController.previous}" value="#{bundle.Previous} #{registriGrantedController.pagination.pageSize}" rendered="#{registriGrantedController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{registriGrantedController.next}" value="#{bundle.Next} #{registriGrantedController.pagination.pageSize}" rendered="#{registriGrantedController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{registriGrantedController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_ruolo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ruolo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_idMateria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMateria}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_idGrant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGrant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_readGranted}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.readGranted}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_writeGranted}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.writeGranted}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRegistriGrantedTitle_idUtente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUtente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{registriGrantedController.prepareView}" value="#{bundle.ListRegistriGrantedViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{registriGrantedController.prepareEdit}" value="#{bundle.ListRegistriGrantedEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{registriGrantedController.destroy}" value="#{bundle.ListRegistriGrantedDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{registriGrantedController.prepareCreate}" value="#{bundle.ListRegistriGrantedCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListRegistriGrantedIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

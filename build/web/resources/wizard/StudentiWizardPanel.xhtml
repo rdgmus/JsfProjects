@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body >
+        <composite:interface>
+            <composite:attribute name="scuolePrompt" default="Scuole: "/>
+            <composite:attribute name="anniscolasticiPrompt" default="Anni Scolastici: "/>
+            <composite:attribute name="classiPrompt" default="Classi: "/>
+            <composite:attribute name="insegnantiPrompt" default="Insegnanti: "/>
+            <composite:attribute name="materiePrompt" default="Materie: "/>
+            <composite:attribute name="studentiPrompt" default="Studenti: "/>  
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="studentiForm">
+                <h:panelGrid columns="2" bgcolor="white">
+                    <h:outputLabel for="selectedStudente"
+                                   value="#{cc.attrs.studentiPrompt} num. [#{gestioneScuolaWizardBean.countStudenti}]" style="font: bold italic large Palatino, serif"/>
+                    <h:selectOneMenu id="selectedStudente" value="#{gestioneScuolaWizardBean.selectedStudente}" 
+                                     onchange="submit()"  readonly="#{gestioneScuolaWizardBean.crudAction}"
+                                     style="font: bold italic large Palatino, serif;
+                                     color: #{gestioneScuolaWizardBean.selectedStudente.ritiratoData != null ? 'red': gestioneScuolaWizardBean.selectedStudente.dataEntrata == null ? '#0033c' : 'brown'}"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaStudenti}"                                       
+                                       var="thisStudente" itemValue="#{thisStudente}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:form>
+            <h:form id="studentiFormFields">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}">
+                    <h:outputLabel value="#{bundle.ListStudentiTitle_idStudente}" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedStudente.idStudente}" readonly="true" style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="Anno Scolastico:" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedStudente.annoScolastico}" readonly="true" style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="Classe:" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedClasse.nomeClasse}" readonly="true" style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="#{bundle.ListStudentiTitle_cognome}:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedStudente.cognome}" 
+                                 readonly="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                 style="font: bold italic large Palatino, serif" id="page6_cognome"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListStudentiTitle_nome}:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedStudente.nome}" 
+                                 readonly="#{!(gestioneScuolaWizardBean.modifyAction || gestioneScuolaWizardBean.createAction)}" 
+                                 style="font: bold italic large Palatino, serif" id="page6_nome"
+                                 onchange="submit()"
+                                 valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="#{bundle.ListStudentiTitle_attivo} ?" style="color: blue;font-weight: bold"/>
+                    <h:inputText value="#{gestioneScuolaWizardBean.selectedStudente.attivo}" readonly="true" style="font: bold italic large Palatino, serif"/>
+                    <h:outputLabel value="Iscritto [data]:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <rich:calendar value="#{gestioneScuolaWizardBean.selectedStudente.dataEntrata}" id="page6_dataEntrata" inputStyle="font: bold italic large Palatino, serif"
+                                   locale="#{gestioneScuolaWizardBean.locale}"
+                                   popup="#{gestioneScuolaWizardBean.popup}"
+                                   datePattern="#{gestioneScuolaWizardBean.pattern}"
+                                   showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="#{!gestioneScuolaWizardBean.modifyAction}"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Assenze precedenti l'iscrizione num.: [#{gestioneScuolaWizardBean.contaAssenzePrecEntrata}]" 
+                                   style="color: blue;font-weight: bold"
+                                   rendered="#{gestioneScuolaWizardBean.selectedStudente.dataEntrata != null}"/>
+                    <h:commandButton value="Esegui" id="page6_impostaAssenzeAllievoLezioniPrecEntrata"
+                                     disabled="#{gestioneScuolaWizardBean.contaAssenzePrecEntrata == 0}"
+                                     action="#{gestioneScuolaWizardBean.impostaAssenzeAllievoLezioniPrecEntrata()}"
+                                     rendered="#{gestioneScuolaWizardBean.selectedStudente.dataEntrata != null}"/> 
+                    <h:outputLabel value="Ritirato [data]:" style="color: #{gestioneScuolaWizardBean.crudAction ? 'red':'blue'};font-weight: bold"/>
+                    <rich:calendar value="#{gestioneScuolaWizardBean.selectedStudente.ritiratoData}" id="page6_ritiratoData" inputStyle="font: bold italic large Palatino, serif"
+                                   locale="#{gestioneScuolaWizardBean.locale}"
+                                   popup="#{gestioneScuolaWizardBean.popup}"
+                                   datePattern="#{gestioneScuolaWizardBean.pattern}"
+                                   showApplyButton="#{gestioneScuolaWizardBean.showApply}"  
+                                   styleClass="rich-calendar-tool-btn" readonly="#{!gestioneScuolaWizardBean.modifyAction}"
+                                   oninputblur="submit()"
+                                   valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}"/>
+                    <h:outputLabel value="Assenze successive al ritiro num.: [#{gestioneScuolaWizardBean.contaAssenzeSuccRitiro}]"
+                                   style="color: blue;font-weight: bold"
+                                   rendered="#{gestioneScuolaWizardBean.selectedStudente.ritiratoData != null}"/>
+                    <h:commandButton value="Esegui" id="page6_impostaAssenzeAllievoLezioniSuccRitiro"
+                                     disabled="#{gestioneScuolaWizardBean.contaAssenzeSuccRitiro == 0}"
+                                     action="#{gestioneScuolaWizardBean.impostaAssenzeAllievoLezioniSuccRitiro()}"
+                                     rendered="#{gestioneScuolaWizardBean.selectedStudente.ritiratoData != null}"/> 
+                </h:panelGrid>
+            </h:form>
+            <h:form id="studentiExistingForm">
+                <h:panelGrid columns="2" bgcolor="#{gestioneScuolaWizardBean.crudAction ? 'pink':'white'}"
+                             rendered="#{gestioneScuolaWizardBean.createAction || gestioneScuolaWizardBean.modifyAction}">
+                    <h:outputLabel value="Scegli tra gli studenti esistenti:" style="color: blue;font-weight: bold"/>
+                    <h:selectOneMenu id="selectedExistingStudente" value="#{gestioneScuolaWizardBean.selectedExistingStudente}" 
+                                     onchange="submit()"  
+                                     style="font: bold italic large Palatino, serif"
+                                     valueChangeListener="#{gestioneScuolaWizardBean.processValueChange}">
+                        <f:selectItems value="#{gestioneScuolaWizardBean.listaAllStudenti}"                                       
+                                       var="thisExistingStudente" itemValue="#{thisExistingStudente}"/>
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+            </h:form>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block" target="page6_impostaAssenzeAllievoLezioniPrecEntrata">
+                <span style="white-space: nowrap"><strong>Imposta assenze nelle lezioni precedenti l'iscrizione dell'allievo</strong><br/>
+                </span>        
+            </rich:tooltip>
+            <rich:tooltip id="tt2" styleClass="tooltip" layout="block" target="page6_impostaAssenzeAllievoLezioniSuccRitiro">
+                <span style="white-space: nowrap"><strong>Imposta assenze nelle lezioni successive al ritiro dell'allievo</strong><br/>
+                </span>        
+            </rich:tooltip>
+        </composite:implementation>
+    </h:body>
+</html>

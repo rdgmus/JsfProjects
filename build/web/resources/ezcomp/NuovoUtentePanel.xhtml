@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="nomePrompt" default="Nome: "/>
+            <composite:attribute name="surnamePrompt" default="Cognome: "/>
+            <composite:attribute name="emailPrompt" default="Email: "/>
+            <composite:attribute name="passwordPrompt" default="Password: "/>
+            <composite:attribute name="confirmPasswordPrompt" default="Conferma Password: "/>
+            <composite:attribute name="registraUtenteButtonText" default="Registra Nuovo Utente"/>
+            <composite:attribute name="registraUtenteAction"
+                                 method-signature="java.lang.String action()"/>
+            <composite:attribute name="myNuovoUtenteBean"/>
+
+            <composite:editableValueHolder name="nomeVal" targets="form:nome"/>
+            <composite:editableValueHolder name="cognomeVal" targets="form:cognome"/>
+            <composite:editableValueHolder name="emailVal" targets="form:email"/>
+            <composite:editableValueHolder name="passwordVal" targets="form:password"/>
+            <composite:editableValueHolder name="confirmPasswordVal" targets="form:confirmPassword"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <h:form id="form">
+                <table columns="3" role="presentation">
+                    <tr>
+                        <td><h:outputLabel for="nome"
+                                           value="#{cc.attrs.nomePrompt}" style="color: gold; font: bold italic large Palatino, serif"/></td>
+                        <td><h:inputText id="nome"
+                                         value="#{cc.attrs.myNuovoUtenteBean.nome}"
+                                         required="true" size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="nome" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="cognome"
+                                           value="#{cc.attrs.surnamePrompt}" style="color: gold; font: bold italic large Palatino, serif"/></td>
+                        <td><h:inputText id="cognome"
+                                         value="#{cc.attrs.myNuovoUtenteBean.cognome}"
+                                         required="true" size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="cognome" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="email"
+                                           value="#{cc.attrs.emailPrompt}" style="color: gold; font: bold italic large Palatino, serif"/></td>
+                        <td><h:inputText id="email"
+                                         value="#{cc.attrs.myNuovoUtenteBean.email}"
+                                         size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="email" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="password"
+                                           value="#{cc.attrs.passwordPrompt}" style="color: gold; font: bold italic large Palatino, serif"/></td>
+                        <td><h:inputSecret id="password"
+                                           value="#{cc.attrs.myNuovoUtenteBean.password}"
+                                           size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="password" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="confirmPassword"
+                                           value="#{cc.attrs.confirmPasswordPrompt}" style="color: gold; font: bold italic large Palatino, serif"/></td>
+                        <td><h:inputSecret id="confirmPassword"
+                                           value="#{cc.attrs.myNuovoUtenteBean.confirmPassword}"
+                                           size="35" style="font: bold italic large Palatino, serif"/></td>
+                        <td>
+                            <h:message for="confirmPassword" style="color: red;background: yellow" />
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <h:commandButton id="registerButton"
+                                     value="#{cc.attrs.registraUtenteButtonText}"
+                                     action="#{cc.attrs.registraUtenteAction}" style="font: bold italic large Palatino, serif;color: deeppink"/>
+                </p>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

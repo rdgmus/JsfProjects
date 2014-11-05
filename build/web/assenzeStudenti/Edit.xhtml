@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAssenzeStudentiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_idStudente}" for="idStudente" />
+                    <h:inputText id="idStudente" value="#{assenzeStudentiController.selected.idStudente}" title="#{bundle.EditAssenzeStudentiTitle_idStudente}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_idStudente}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_cognome}" for="cognome" />
+                    <h:inputText id="cognome" value="#{assenzeStudentiController.selected.cognome}" title="#{bundle.EditAssenzeStudentiTitle_cognome}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_cognome}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{assenzeStudentiController.selected.nome}" title="#{bundle.EditAssenzeStudentiTitle_nome}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_idClasse}" for="idClasse" />
+                    <h:inputText id="idClasse" value="#{assenzeStudentiController.selected.idClasse}" title="#{bundle.EditAssenzeStudentiTitle_idClasse}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_idClasse}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{assenzeStudentiController.selected.annoScolastico}" title="#{bundle.EditAssenzeStudentiTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputText id="nomeClasse" value="#{assenzeStudentiController.selected.nomeClasse}" title="#{bundle.EditAssenzeStudentiTitle_nomeClasse}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_nomeClasse}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{assenzeStudentiController.selected.idMateria}" title="#{bundle.EditAssenzeStudentiTitle_idMateria}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_materia}" for="materia" />
+                    <h:inputText id="materia" value="#{assenzeStudentiController.selected.materia}" title="#{bundle.EditAssenzeStudentiTitle_materia}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_materia}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_idLezione}" for="idLezione" />
+                    <h:inputText id="idLezione" value="#{assenzeStudentiController.selected.idLezione}" title="#{bundle.EditAssenzeStudentiTitle_idLezione}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_idLezione}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_dataLezione}" for="dataLezione" />
+                    <h:inputText id="dataLezione" value="#{assenzeStudentiController.selected.dataLezione}" title="#{bundle.EditAssenzeStudentiTitle_dataLezione}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_oreLezione}" for="oreLezione" />
+                    <h:inputText id="oreLezione" value="#{assenzeStudentiController.selected.oreLezione}" title="#{bundle.EditAssenzeStudentiTitle_oreLezione}" />
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_argomento}" for="argomento" />
+                    <h:inputText id="argomento" value="#{assenzeStudentiController.selected.argomento}" title="#{bundle.EditAssenzeStudentiTitle_argomento}" />
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_numOra}" for="numOra" />
+                    <h:inputText id="numOra" value="#{assenzeStudentiController.selected.numOra}" title="#{bundle.EditAssenzeStudentiTitle_numOra}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_numOra}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_assenza}" for="assenza" />
+                    <h:inputText id="assenza" value="#{assenzeStudentiController.selected.assenza}" title="#{bundle.EditAssenzeStudentiTitle_assenza}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_assenza}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_giustificaAssenza}" for="giustificaAssenza" />
+                    <h:inputText id="giustificaAssenza" value="#{assenzeStudentiController.selected.giustificaAssenza}" title="#{bundle.EditAssenzeStudentiTitle_giustificaAssenza}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_giustificaAssenza}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_ritardo}" for="ritardo" />
+                    <h:inputText id="ritardo" value="#{assenzeStudentiController.selected.ritardo}" title="#{bundle.EditAssenzeStudentiTitle_ritardo}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_ritardo}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_giustificaRitardo}" for="giustificaRitardo" />
+                    <h:inputText id="giustificaRitardo" value="#{assenzeStudentiController.selected.giustificaRitardo}" title="#{bundle.EditAssenzeStudentiTitle_giustificaRitardo}" required="true" requiredMessage="#{bundle.EditAssenzeStudentiRequiredMessage_giustificaRitardo}"/>
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_motivoGiustifica}" for="motivoGiustifica" />
+                    <h:inputTextarea rows="4" cols="30" id="motivoGiustifica" value="#{assenzeStudentiController.selected.motivoGiustifica}" title="#{bundle.EditAssenzeStudentiTitle_motivoGiustifica}" />
+                    <h:outputLabel value="#{bundle.EditAssenzeStudentiLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{assenzeStudentiController.selected.id}" title="#{bundle.EditAssenzeStudentiTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{assenzeStudentiController.update}" value="#{bundle.EditAssenzeStudentiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAssenzeStudentiViewLink}"/>
+                <br />
+                <h:commandLink action="#{assenzeStudentiController.prepareList}" value="#{bundle.EditAssenzeStudentiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAssenzeStudentiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

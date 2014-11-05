@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLezioniMateriaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_dataLezione}" for="dataLezione" />
+                    <h:inputText id="dataLezione" value="#{lezioniMateriaController.selected.dataLezione}" title="#{bundle.EditLezioniMateriaTitle_dataLezione}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_oreLezione}" for="oreLezione" />
+                    <h:inputText id="oreLezione" value="#{lezioniMateriaController.selected.oreLezione}" title="#{bundle.EditLezioniMateriaTitle_oreLezione}" />
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_argomento}" for="argomento" />
+                    <h:inputText id="argomento" value="#{lezioniMateriaController.selected.argomento}" title="#{bundle.EditLezioniMateriaTitle_argomento}" />
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_freezeLezione}" for="freezeLezione" />
+                    <h:inputText id="freezeLezione" value="#{lezioniMateriaController.selected.freezeLezione}" title="#{bundle.EditLezioniMateriaTitle_freezeLezione}" />
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idMateria}" for="idMateria" />
+                    <h:inputText id="idMateria" value="#{lezioniMateriaController.selected.idMateria}" title="#{bundle.EditLezioniMateriaTitle_idMateria}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idMateria}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idLezione}" for="idLezione" />
+                    <h:inputText id="idLezione" value="#{lezioniMateriaController.selected.idLezione}" title="#{bundle.EditLezioniMateriaTitle_idLezione}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idLezione}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idAnnoScolastico}" for="idAnnoScolastico" />
+                    <h:inputText id="idAnnoScolastico" value="#{lezioniMateriaController.selected.idAnnoScolastico}" title="#{bundle.EditLezioniMateriaTitle_idAnnoScolastico}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idAnnoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_materia}" for="materia" />
+                    <h:inputText id="materia" value="#{lezioniMateriaController.selected.materia}" title="#{bundle.EditLezioniMateriaTitle_materia}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_materia}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_annoScolastico}" for="annoScolastico" />
+                    <h:inputText id="annoScolastico" value="#{lezioniMateriaController.selected.annoScolastico}" title="#{bundle.EditLezioniMateriaTitle_annoScolastico}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_annoScolastico}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{lezioniMateriaController.selected.startDate}" title="#{bundle.EditLezioniMateriaTitle_startDate}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{lezioniMateriaController.selected.endDate}" title="#{bundle.EditLezioniMateriaTitle_endDate}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idInsegnante}" for="idInsegnante" />
+                    <h:inputText id="idInsegnante" value="#{lezioniMateriaController.selected.idInsegnante}" title="#{bundle.EditLezioniMateriaTitle_idInsegnante}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idInsegnante}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_giudizio}" for="giudizio" />
+                    <h:inputText id="giudizio" value="#{lezioniMateriaController.selected.giudizio}" title="#{bundle.EditLezioniMateriaTitle_giudizio}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_giudizio}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_scritto}" for="scritto" />
+                    <h:inputText id="scritto" value="#{lezioniMateriaController.selected.scritto}" title="#{bundle.EditLezioniMateriaTitle_scritto}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_scritto}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_orale}" for="orale" />
+                    <h:inputText id="orale" value="#{lezioniMateriaController.selected.orale}" title="#{bundle.EditLezioniMateriaTitle_orale}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_orale}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_pratico}" for="pratico" />
+                    <h:inputText id="pratico" value="#{lezioniMateriaController.selected.pratico}" title="#{bundle.EditLezioniMateriaTitle_pratico}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_pratico}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputText id="nomeClasse" value="#{lezioniMateriaController.selected.nomeClasse}" title="#{bundle.EditLezioniMateriaTitle_nomeClasse}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_nomeClasse}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idClasse}" for="idClasse" />
+                    <h:inputText id="idClasse" value="#{lezioniMateriaController.selected.idClasse}" title="#{bundle.EditLezioniMateriaTitle_idClasse}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idClasse}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_idScuola}" for="idScuola" />
+                    <h:inputText id="idScuola" value="#{lezioniMateriaController.selected.idScuola}" title="#{bundle.EditLezioniMateriaTitle_idScuola}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_idScuola}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_nomeScuola}" for="nomeScuola" />
+                    <h:inputText id="nomeScuola" value="#{lezioniMateriaController.selected.nomeScuola}" title="#{bundle.EditLezioniMateriaTitle_nomeScuola}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_nomeScuola}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_tipoScuolaAcronimo}" for="tipoScuolaAcronimo" />
+                    <h:inputText id="tipoScuolaAcronimo" value="#{lezioniMateriaController.selected.tipoScuolaAcronimo}" title="#{bundle.EditLezioniMateriaTitle_tipoScuolaAcronimo}" required="true" requiredMessage="#{bundle.EditLezioniMateriaRequiredMessage_tipoScuolaAcronimo}"/>
+                    <h:outputLabel value="#{bundle.EditLezioniMateriaLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{lezioniMateriaController.selected.id}" title="#{bundle.EditLezioniMateriaTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{lezioniMateriaController.update}" value="#{bundle.EditLezioniMateriaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditLezioniMateriaViewLink}"/>
+                <br />
+                <h:commandLink action="#{lezioniMateriaController.prepareList}" value="#{bundle.EditLezioniMateriaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLezioniMateriaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUtentiScuolaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUtentiScuolaLabel_idUtente}"/>
+                    <h:outputText value="#{utentiScuolaController.selected.idUtente}" title="#{bundle.ViewUtentiScuolaTitle_idUtente}"/>
+                    <h:outputText value="#{bundle.ViewUtentiScuolaLabel_cognome}"/>
+                    <h:outputText value="#{utentiScuolaController.selected.cognome}" title="#{bundle.ViewUtentiScuolaTitle_cognome}"/>
+                    <h:outputText value="#{bundle.ViewUtentiScuolaLabel_nome}"/>
+                    <h:outputText value="#{utentiScuolaController.selected.nome}" title="#{bundle.ViewUtentiScuolaTitle_nome}"/>
+                    <h:outputText value="#{bundle.ViewUtentiScuolaLabel_email}"/>
+                    <h:outputText value="#{utentiScuolaController.selected.email}" title="#{bundle.ViewUtentiScuolaTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewUtentiScuolaLabel_password}"/>
+                    <h:outputText value="#{utentiScuolaController.selected.password}" title="#{bundle.ViewUtentiScuolaTitle_password}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{utentiScuolaController.destroyAndView}" value="#{bundle.ViewUtentiScuolaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewUtentiScuolaEditLink}"/>
+                <br />
+                <h:commandLink action="#{utentiScuolaController.prepareCreate}" value="#{bundle.ViewUtentiScuolaCreateLink}" />
+                <br />
+                <h:commandLink action="#{utentiScuolaController.prepareList}" value="#{bundle.ViewUtentiScuolaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewUtentiScuolaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

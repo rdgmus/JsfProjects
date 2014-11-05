@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUtentiLoggerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUtentiLoggerEmpty}" rendered="#{utentiLoggerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{utentiLoggerController.items.rowCount > 0}">
+                    <h:outputText value="#{utentiLoggerController.pagination.pageFirstItem + 1}..#{utentiLoggerController.pagination.pageLastItem + 1}/#{utentiLoggerController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{utentiLoggerController.previous}" value="#{bundle.Previous} #{utentiLoggerController.pagination.pageSize}" rendered="#{utentiLoggerController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{utentiLoggerController.next}" value="#{bundle.Next} #{utentiLoggerController.pagination.pageSize}" rendered="#{utentiLoggerController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{utentiLoggerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_idLog}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idLog}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_message}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_msgType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.msgType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_whenRegistered}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.whenRegistered}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_msgToUtente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.msgToUtente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_msgSentTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.msgSentTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUtentiLoggerTitle_idUtente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUtente}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{utentiLoggerController.prepareView}" value="#{bundle.ListUtentiLoggerViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{utentiLoggerController.prepareEdit}" value="#{bundle.ListUtentiLoggerEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{utentiLoggerController.destroy}" value="#{bundle.ListUtentiLoggerDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{utentiLoggerController.prepareCreate}" value="#{bundle.ListUtentiLoggerCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListUtentiLoggerIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

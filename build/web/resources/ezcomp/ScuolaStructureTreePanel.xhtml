@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>This content will not be displayed</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="scuolaStructureBean" required="true"/>
+        </composite:interface>
+        <composite:implementation>
+            <h:form>    
+                <rich:tree style="width:300px" value="#{scuolaStructureBean.scuole}" var="scuola" >
+                    <rich:treeNode type="nomeScuola" iconLeaf="/images/tree/singer.gif" >
+                        <h:outputText value="#{scuola.nomeScuola}" />
+                    </rich:treeNode>
+                    <rich:treeNode type="as" iconLeaf="/images/tree/disc.gif" >
+                        <h:outputText value="#{scuola.anniScolasticiCollection}" />
+                    </rich:treeNode>
+                </rich:tree>
+            </h:form>
+        </composite:implementation>
+    </h:body>
+</html>

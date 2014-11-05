@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      >
+    <h:head>
+        <title>This content will not be displayed</title>
+
+        private String tipoScuola, scuola, annoScolastico;
+        private String classe, cognome, nome, materia;
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="registriInsegnanteBean" required="true"/>
+
+        </composite:interface>
+        <composite:implementation>
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputText value="Statistica Classe"></h:outputText>
+                </f:facet>
+                <h:form>
+                    <rich:dataGrid value="#{registriInsegnanteBean.registriInsegnanteItems}" 
+                                   var="registro" columns="2" elements="4" >
+                        <rich:panel bodyClass="pbody">
+                            <f:facet name="header">
+                                <h:outputText value="#{materia}"></h:outputText>
+                            </f:facet>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="A.S.:" styleClass="label"></h:outputText>
+                                <h:outputText value="#{registro.annoScolastico}" />
+                                <h:outputText value="Materia:" styleClass="label"></h:outputText>
+                                <h:outputText value="#{registro.materia}" />
+                                <h:outputText value="Insegnante:" styleClass="label"></h:outputText>
+                                <h:outputText value="#{registro.idInsegnante}" />
+                                <h:outputText value="Classe:" styleClass="label"></h:outputText>
+                                <h:outputText value="#{registro.idClasse}" />
+                            </h:panelGrid>
+                        </rich:panel>
+                        <f:facet name="footer">
+                            <rich:dataScroller>
+                            </rich:dataScroller>
+                        </f:facet>
+                    </rich:dataGrid>
+                </h:form>
+            </rich:panel>   
+        </composite:implementation>
+    </h:body>
+</html>
